@@ -1,0 +1,28 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width')
+    title= title
+    block css
+      link(rel='stylesheet',href='/css/admin/main.css')
+    block js
+      script(src='http://localhost:35729/livereload.js')
+    //- bower:js
+    script(src='/components/jquery/dist/jquery.js')
+    script(src='/components/es5-shim/es5-shim.js')
+    script(src='/components/angular/angular.js')
+    script(src='/components/json3/lib/json3.js')
+    script(src='/components/bootstrap-sass-official/assets/javascripts/bootstrap.js')
+    script(src='/components/angular-animate/angular-animate.js')
+    script(src='/components/angular-aria/angular-aria.js')
+    script(src='/components/angular-cookies/angular-cookies.js')
+    script(src='/components/angular-messages/angular-messages.js')
+    script(src='/components/angular-resource/angular-resource.js')
+    script(src='/components/angular-route/angular-route.js')
+    script(src='/components/angular-sanitize/angular-sanitize.js')
+    script(src='/components/angular-touch/angular-touch.js')
+    script(src='/components/angular-ui-router/release/angular-ui-router.js')
+    //- endbower
+  body
+    block content

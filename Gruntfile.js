@@ -10,8 +10,15 @@ module.exports = function (grunt) {
 
   var reloadPort = 35729, files;
 
+  var appConfig = {
+    adminTemp:'app/views/admin',
+    adminCss:'public/css/admin'
+  };
+
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+
+    appadmin: appConfig,
     develop: {
       server: {
         file: 'app.js'
@@ -22,6 +29,31 @@ module.exports = function (grunt) {
         files: {
           'public/css/style.css': 'public/css/style.scss'
         }
+      },
+      server:{
+        files:[{
+          expand:true,
+          cwd:'<%= appadmin.adminCss %>',
+          src:['*.{sass,scss}'],
+          dest:'<%= appadmin.adminCss %>',
+          ext:'.css'
+        }]
+      }
+    },
+    // Automatically inject Bower components into the app
+    /**
+     * jade
+     * //- 注释
+     */
+    wiredep: {
+      admin: {
+        src: ['<%= appadmin.adminTemp %>/*.jade',
+        '<%= appadmin.adminTemp %>/*.html'
+        ],
+        ignorePath:  /(\.\.\/){3}public/
+      },
+      sass:{
+        src:['<%= appadmin.adminCss %>/*.{scss,sass}']
       }
     },
     watch: {
@@ -75,8 +107,17 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('default', [
-    'sass',
+    'sass:dist',
     'develop',
     'watch'
   ]);
+
+  grunt.registerTask('serve','开启web服务',function () {
+    grunt.task.run([
+      'wiredep',
+      'sass',
+      'develop',
+      'watch'
+    ]);
+  });
 };

@@ -2,14 +2,13 @@
 
 var express = require('express'),
   router = express.Router();
-  // mongoose = require('mongoose')
 
 module.exports = function (app) {
   app.use('/', router);
 };
 
-router.get('/', function (req, res) {
-    res.render('index', {
+router.get('/admin/login', function (req, res) {
+    res.render('admin/login', {
       title: 'Generator-Express MVC'
     });
 });
