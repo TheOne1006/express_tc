@@ -20,6 +20,8 @@
   "globals": {
     "angular": false,
     "ngApp":true,
-    "alert":true
+    "alert":true,
+    "adminApp":true,
+    "$location":true
   }
 }

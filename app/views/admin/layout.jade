@@ -6,6 +6,7 @@ html(lang='en')
     title= title
     block css
       link(rel='stylesheet',href='/css/admin/main.css')
+      link(rel='stylesheet',href='/css/admin/bootstrap-admin-theme.css')
     block js
       script(src='http://localhost:35729/livereload.js')
     //- bower:js
@@ -26,3 +27,8 @@ html(lang='en')
     //- endbower
   body
     block content
+    footer
+        //- angular 
+        script(src='/angular/scripts/app.js')
+        script(src='/angular/scripts/route/adminRoute.js')
+        block footerjs
