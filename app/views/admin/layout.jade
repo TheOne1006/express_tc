@@ -25,10 +25,50 @@ html(lang='en')
     script(src='/components/angular-touch/angular-touch.js')
     script(src='/components/angular-ui-router/release/angular-ui-router.js')
     //- endbower
-  body
+  body(ng-app='theoneApp')
     block content
-    footer
-        //- angular 
-        script(src='/angular/scripts/app.js')
-        script(src='/angular/scripts/route/adminRoute.js')
-        block footerjs
+        //- nav small
+
+        //- nav main
+        nav.navbar.navbar-default.navbar-fixed-top(role='navigation')
+            .container
+                .row
+                    .col-lg-12
+                        .navbar-header
+                            a.navbar-brand theOne Blog
+                        .collapse.navbar-collapse.main-navbar-collapse
+                            ul.nav.navbar-nav
+                                li.active
+                                    a(href="#") LINK
+                                li
+                                    a(href="") link
+                                li
+                                    a(href="") link
+        //- 中心
+        .container
+            .row
+                block contentleft
+                    .col-md-3.bootstrap-admin-col-left
+                        ul.nav.navbar-collapse.bootstrap-admin-navbar-side
+                            li.active
+                                a(href="")
+                                    i.glyphicon.glyphicon-dashboard
+                                    |  仪表盘
+                            li
+                                a(href="") test
+                            li
+                                a(href="") test
+                block contentright
+                    div(ui-view)
+    //- footer
+    .navbar.navbar-footer
+        .container
+            .row
+                .col-lg-12
+                    footer(role='conteninfo')
+                        p.left theone博客后台
+                        p.right &copy; 2014
+    //- angular 
+    script(src='/angular/scripts/app.js')
+    script(src='/angular/scripts/route/adminRoute.js')
+    block footerjs

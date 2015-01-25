@@ -11,4 +11,9 @@ router.get('/admin/login', function (req, res) {
     res.render('admin/login', {
       title: 'Generator-Express MVC'
     });
-});
+})
+  .get('/admin',function (req, res) {
+    res.render('admin/index', {
+      title: 'blog 后台'
+    });
+  });

@@ -11,4 +11,22 @@
 angular.module('theoneApp')
   .config(function($stateProvider,$urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
+    $stateProvider
+      .state('home',{
+        url:'/',
+        views:{
+          '':{
+            templateUrl: 'angular/views/admin/index.html'
+          }
+        }
+      })
+      .state('cate',{
+        url:'/cate',
+        view:{
+          '':{
+            templateUrl:'angular/views/admin/cate.html'
+          }
+        }
+      })
+      ;
 });
