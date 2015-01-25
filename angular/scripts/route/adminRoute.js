@@ -22,7 +22,7 @@ angular.module('theoneApp')
       })
       .state('cate',{
         url:'/cate',
-        view:{
+        views:{
           '':{
             templateUrl:'angular/views/admin/cate.html'
           }

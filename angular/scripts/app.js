@@ -18,6 +18,7 @@ ngApp = angular
     'ngResource',
     //'ngRoute',
     'ui.router', // 加载 ui.router
+    'ngGrid', //加载 grid 需要加载ngGrid
     'ngSanitize',
     'ngTouch'
   ]);
