@@ -17,5 +17,10 @@ angular.module('theoneApp')
                      {name: 'Jacob', age: 27},
                      {name: 'Nephi', age: 29},
                      {name: 'Enos', age: 34}];
-    $scope.gridOptions = {data:'myData' };
+    $scope.gridOptions = {
+      data:'myData',
+      columnDefs: [{field:'name', displayName:'姓名'}, {field:'age', displayName:'年龄'}],
+      showGroupPanel: true,
+      enableCellSelection: true
+      };
   }]);
