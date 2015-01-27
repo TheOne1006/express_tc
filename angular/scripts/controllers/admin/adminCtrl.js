@@ -9,14 +9,14 @@
  */
 
 angular.module('theoneApp')
-  .controller('CateController',['$scope','$http','$state','$stateParams',function ($scope,$http,$state,$stateParams){
+  .controller('CateController',['$scope','$http',function ($scope,$http){
 
     $scope.tableName = '类别表';
     // 定义 ngGrid
     // 过滤文本
     $scope.filterOptions = {
       filterText:'',  // 过滤文字
-      useExternalFilter:false
+      useExternalFilter:true
     };
     $scope.totalServerItems = 0; // 总个数
     //分页设置
@@ -82,11 +82,22 @@ angular.module('theoneApp')
         displayName:'文章数量',
       },{
         field:'updatetime',
-        displayName:'更新时间'
+        displayName:'更新时间',
+        cellFilter:'date:"yyyy-MM-dd"'
+      },{
+        displayName:'操作',
+        cellTemplate:'<div><a id="{{row.getProperty(col.field)}}">编辑</a></div>'
       }],
       showGroupPanel:false,
-      showFooter:true
+      showFooter:true,
+      enablePaging: true,
+      pagingOptions: $scope.pagingOptions,
+      filterOptions: $scope.filterOptions
       };
 
 
-  }]);
+  }])
+// 文章控制器
+.controller('ArticleController', ['$scope', function ($scope) {
+  $scope.tableName = '文章列表';
+}]);

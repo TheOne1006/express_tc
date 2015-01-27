@@ -28,5 +28,12 @@ angular.module('theoneApp')
           }
         }
       })
-      ;
+      .state('article',{
+        url:'/article',
+        views:{
+          '':{
+            templateUrl:'angular/views/admin/article_list.html'
+          }
+        }
+      });
 });
