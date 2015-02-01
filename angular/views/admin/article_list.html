@@ -18,9 +18,9 @@
                   <fieldset>
                     <legend ng-bind='tableName'></legend>
                     <div class="form-group">
-                      <label class="col-md-2 control-label" for="goany">Goto Any </label>
-                      <div class='col-md-10'>
-                        <input type="text" class='form-control col-md-6' id='goany' autocomplete="off" data-provide="typeahead" data-items="4" data-source='["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Dakota","North Carolina","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"]'>
+                      <label class="col-md-3 control-label" for="goany">Goto AnyThing </label>
+                      <div class='col-md-9'>
+                        <input type="text" class='form-control col-md-6' id='goany' ng-model='goany' typeahead='anyword for anyword in anywords | filter:$viewValue |limitTo:3'>
                       </div>
                     </div>
                   </fieldset>

@@ -100,4 +100,6 @@ angular.module('theoneApp')
 // 文章控制器
 .controller('ArticleController', ['$scope', function ($scope) {
   $scope.tableName = '文章列表';
+  //预输入
+  $scope.anywords = ['PHP','angular','javascript','mysql'];
 }]);
