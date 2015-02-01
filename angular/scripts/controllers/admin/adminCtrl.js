@@ -189,5 +189,16 @@ angular.module('theoneApp')
 }])
   .controller('ArticleAddController', ['$scope', function ($scope) {
     $scope.tableName = '添加文章';
+    //编辑器
+    $scope.tinymceModel = '';
+    $scope.tinymceOptions = { 
+      menubar: true,
+      theme:'modern',
+      //定义载入插件
+      plugins : 'spellchecker,pagebreak,link,table,save,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,noneditable,visualchars,nonbreaking,template',
+      //-语言包
+      language : 'zh_CN'
+      };
+
 }])
 ;
