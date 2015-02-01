@@ -35,5 +35,13 @@ angular.module('theoneApp')
             templateUrl:'angular/views/admin/article_list.html'
           }
         }
+      })
+      .state('article.add',{
+        url:'/add',
+        views:{
+          '@':{
+            templateUrl:'angular/views/admin/article.add.html'
+          }
+        }
       });
 });
