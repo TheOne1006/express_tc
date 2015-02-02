@@ -9,7 +9,7 @@
  */
 
 angular.module('theoneApp')
-  .controller('CateController',['$scope','$http',function ($scope,$http){
+  .controller('CateController',['$scope','$http','$modal',function ($scope, $http, $modal){
 
     $scope.tableName = '类别表';
     // 定义 ngGrid
@@ -96,7 +96,33 @@ angular.module('theoneApp')
       };
 
 
+      //modal
+      //打开
+      $scope.open = function(size){
+        var modalInstance = $modal.open({
+          templateUrl:'/angular/views/modal/addCate.html',
+          size:size,
+          controller:'AddCateController',
+          backdropClass:'heightfull'
+        });
+        //返回函数
+        modalInstance.result.then(function(){});
+      };
+
   }])
+.controller('AddCateController', ['$scope','$modalInstance', function ($scope, $modalInstance) {
+
+     $scope.ok = function () {
+      console.log('ok');
+      $modalInstance.close();
+    };
+
+    $scope.cancel = function () {
+      console.log('close');
+      $modalInstance.dismiss();
+    };
+  
+}])
 // 文章控制器
 .controller('ArticleController', ['$scope','$http', function ($scope, $http) {
   $scope.tableName = '文章列表';

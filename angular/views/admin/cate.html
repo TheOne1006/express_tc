@@ -12,7 +12,15 @@
               <div class='panel-heading'>
                   <div class='text-muted bootstrap-admin-box-title' ng-bind='tableName'></div>
               </div>
-              <div class='gridStyle bootstrap-admin-panel-content' ng-grid='gridOptions'></div>
+              <div class="panel-body">
+                <button type="button" class="btn btn-primary" aria-label="Left Align" ng-click='open()'>
+                  <span class="glyphicon gglyphicon glyphicon-plus" aria-hidden="true">
+                  </span>
+                  添加类别
+                </button>
+                <hr>
+                <div class='gridStyle bootstrap-admin-panel-content' ng-grid='gridOptions'></div>
+              </div>
           </div>
       </div>
   </div>
