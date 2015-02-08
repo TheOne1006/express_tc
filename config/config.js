@@ -12,7 +12,7 @@ var config = {
     /**
      * 监听12345端口  1
      */
-    db: 'mongodb://127.0.0.1:12345'
+    db: 'mongodb://root:root@ds033601.mongolab.com:33601/theblog'
   },
 
   test: {
