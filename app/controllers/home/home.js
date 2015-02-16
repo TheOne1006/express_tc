@@ -10,15 +10,20 @@ module.exports = function (app) {
 };
 
 router.get('/', function (req, res, next) {
-    var newart = new Article({title:'first_one'});
-    newart.save(function (err) {
-      if(err){
-          console.log(err);
-        }
-    });
+    // var newart = new Article({title:'first_one'});
+    // newart.save(function (err) {
+    //   if(err){
+    //       console.log(err);
+    //     }
+    // });
 
-    Article.find({_id:'54d6113ae4b04aad9bbdc7fa'},function(err,docs){  
-             console.log(docs.blog);  
+
+    Article.findById('54d613fdd973168e10674567',function(err,docs){  
+             if(err){
+              console.log(err);
+             }
+             console.log(docs);
+
              console.log('11111');
       });
 
