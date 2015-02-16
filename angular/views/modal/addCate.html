@@ -4,10 +4,22 @@
 <div class="modal-body">
   <form action="#" name='add_cate' role="add_cate_form" class='form-horizontal'>
     <div class="form-group">
+      <label for="name" class="col-md-3 control-label">名称:</label>
+      <div class="col-md-9">
+        <input type="text" class="form-control" id="cateName" placeholder='请输入分类名称:如PHP' ng-model='cateName' />
+      </div>
+    </div>
+    <div class="form-group">
         <label class='col-md-3 control-label' for="newCate">类别名称:</label>
         <div class="col-md-9">
-          <input ype="text" class="form-control" id="newCate" placeholder="请输入新类别" ng-model='newCate' >
+          <input ype="text" class="form-control" id="cateType" placeholder="请输入新类别:如php(仅小写英文)" ng-model='cateType' >
         </div>
+    </div>
+    <div class="form-group">
+      <label for="path" class="col-md-3 control-label">父类</label>
+      <div class="col-md-9">
+        
+      </div>
     </div>
 
   </form>

@@ -8,12 +8,32 @@ var mongoose = require('mongoose'),
 
 // 定义 数据模型骨架
 var CateSchema = new Schema({
-  type:String,
+  type:{type: String, required: true, unique: true},
   name:String,
   pid:Number,
   path:String,
-  'article_num':Number,
+  articleNum:Number,
   updatetime:String
+});
+  
+CateSchema.pre('save',function (next) {
+  if(!this.pid){
+    this.pid = 0;
+  }
+
+  if(!this.pid){
+    this.pid = '0';
+  }
+
+  if(!this.articleNum){
+    this.articleNum = 0;
+  }
+
+  if(!this.updatetime){
+    this.updatetime = (new Date()).toString();
+  }
+
+  next();
 });
 
 

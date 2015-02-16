@@ -113,7 +113,7 @@ angular.module('theoneApp')
 .controller('AddCateController', ['$scope','$modalInstance','$http', function ($scope, $modalInstance, $http) {
 
      $scope.ok = function () {
-      $http.put('/admin/cate/add',{newCate:$scope.newCate})
+      $http.put('/admin/cate/add',{cateName:$scope.cateName,cateType:$scope.cateType})
         .success(function(data, status){
           console.log(data);
           console.log(status);

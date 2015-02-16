@@ -21,7 +21,7 @@ router
   })
   .put('/add',function (req, res ,next){
     // 验证是否重复
-    var newCate = new Cate({type:req.body.newCate,name:req.body.newCate});
+    var newCate = new Cate({type:req.body.cateType,name:req.body.cateName});
     newCate.save(function (err) {
       if(err){
         next(err);
@@ -29,6 +29,4 @@ router
       console.log(req.body.newCate);
       res.end('ok');
     });
-
-  })
-  ;
+  });
