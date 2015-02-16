@@ -50,7 +50,7 @@ angular.module('theoneApp')
                     });            
                 } else {
                   // 获取json 最后一行不应有 ,
-                    $http.get('/angular/data/typeList.json')
+                    $http.get('/admin/cate')
                       .success(function (largeLoad) {
                         $scope.setPagingData(largeLoad,page,pageSize);
                       });
@@ -110,11 +110,20 @@ angular.module('theoneApp')
       };
 
   }])
-.controller('AddCateController', ['$scope','$modalInstance', function ($scope, $modalInstance) {
+.controller('AddCateController', ['$scope','$modalInstance','$http', function ($scope, $modalInstance, $http) {
 
      $scope.ok = function () {
-      console.log('ok');
-      $modalInstance.close();
+      $http.put('/admin/cate/add',{newCate:$scope.newCate})
+        .success(function(data, status){
+          console.log(data);
+          console.log(status);
+          $modalInstance.close();
+        })
+        .error(function(data, status){
+          console.log(data);
+          console.log(status);
+          $modalInstance.close();
+        });
     };
 
     $scope.cancel = function () {
