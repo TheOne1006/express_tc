@@ -4,12 +4,13 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-  Schema = mongoose.Schema;
+  Schema = mongoose.Schema,
+  moment = require('moment');
 
 // 定义 数据模型骨架
 var CateSchema = new Schema({
   type:{type: String, required: true, unique: true},
-  name:String,
+  name:{type: String, required: true, unique: true},
   pid:Number,
   path:String,
   articleNum:Number,
@@ -17,12 +18,16 @@ var CateSchema = new Schema({
 });
   
 CateSchema.pre('save',function (next) {
+  //小写
+  this.type = this.type.toLowerCase();
+
+  //补全
   if(!this.pid){
     this.pid = 0;
   }
 
   if(!this.pid){
-    this.pid = '0';
+    this.pid = '';
   }
 
   if(!this.articleNum){
@@ -30,7 +35,7 @@ CateSchema.pre('save',function (next) {
   }
 
   if(!this.updatetime){
-    this.updatetime = (new Date()).toString();
+    this.updatetime = moment().format('x');
   }
 
   next();

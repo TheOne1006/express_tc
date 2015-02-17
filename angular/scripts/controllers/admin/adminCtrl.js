@@ -8,6 +8,11 @@
  *
  */
 
+/**
+ * 注册 serve
+ */
+
+
 angular.module('theoneApp')
   .controller('CateController',['$scope','$http','$modal',function ($scope, $http, $modal){
 
@@ -69,16 +74,17 @@ angular.module('theoneApp')
     $scope.gridOptions = {
       data:'myData',
       columnDefs: [{
-        field:'id',
         displayName:'ID',
         width: 60,
         pinnable: false,
-        sortable: false
+        sortable: false,
+        // cell 显示 id 顺序
+        cellTemplate:'<div class="ngCellText" ng-class="col.colIndex()"><span>{{row.rowIndex+1}}</span></div>'
       }, {
         field:'name',
         displayName:'名称'
       },{
-        field:'article_num',
+        field:'articleNum',
         displayName:'文章数量',
       },{
         field:'updatetime',
@@ -86,11 +92,12 @@ angular.module('theoneApp')
         cellFilter:'date:"yyyy-MM-dd"'
       },{
         displayName:'操作',
-        cellTemplate:'<div><a id="{{row.getProperty(col.field)}}">编辑</a></div>'
+        cellTemplate:'<div class="ngCellText" ng-class="col.colIndex()"><span ng-cell-text><a ng-href="javascript:;">操作</a></span></div>'
       }],
       showGroupPanel:false,
       showFooter:true,
       enablePaging: true,
+      enableRowSelection: false,
       pagingOptions: $scope.pagingOptions,
       filterOptions: $scope.filterOptions
       };
@@ -111,9 +118,18 @@ angular.module('theoneApp')
 
   }])
 .controller('AddCateController', ['$scope','$modalInstance','$http', function ($scope, $modalInstance, $http) {
+    $scope.catePid = '';
+    $http.get('/admin/cate/all')
+      .success(function (data) {
+        $scope.options = data;
+      });
 
      $scope.ok = function () {
-      $http.put('/admin/cate/add',{cateName:$scope.cateName,cateType:$scope.cateType})
+      $http.put('/admin/cate/add',{
+        cateName:$scope.cateName,
+        cateType:$scope.cateType,
+        catePid:$scope.catePid
+      })
         .success(function(data, status){
           console.log(data);
           console.log(status);
@@ -235,5 +251,4 @@ angular.module('theoneApp')
       language : 'zh_CN'
       };
 
-}])
-;
+}]);
