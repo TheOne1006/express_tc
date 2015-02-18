@@ -5691,7 +5691,7 @@ body {
   border: 1px solid #d4d4d4;
   height: 300px; }
 
-.gridStyle *:focus {
+.gridStyle :focus {
   outline: none; }
 
 /* modal */

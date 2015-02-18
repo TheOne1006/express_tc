@@ -336,15 +336,30 @@ angular.module('theoneApp')
     };
 
 }])
-  .controller('ArticleAddController', ['$scope', function ($scope) {
+// 增加文章
+  .controller('ArticleAddController', ['$scope','adminModalService', function ($scope, adminModalService) {
+
+    // init scope
     $scope.tableName = '添加文章';
+    $scope.newCate = {
+      title:'',
+      type:'',
+      keywords:[],
+      content:''
+    };
+    
+    // 获取所有cate
+    adminModalService.cateList('/admin/cate/all').
+      success(function (data) {
+        $scope.options = data;
+      });
+
     //编辑器
-    $scope.tinymceModel = '';
     $scope.tinymceOptions = { 
       menubar: true,
       theme:'modern',
       //定义载入插件
-      plugins : 'spellchecker,pagebreak,link,table,save,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,noneditable,visualchars,nonbreaking,template',
+      plugins : 'spellchecker,pagebreak,link,table,save,insertdatetime,preview,media,searchreplace,contextmenu,paste,directionality,noneditable,visualchars,nonbreaking,template,code',
       //-语言包
       language : 'zh_CN'
       };

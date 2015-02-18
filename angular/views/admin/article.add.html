@@ -20,17 +20,25 @@
                      <div class="form-group">
                        <label for="title" class="col-md-2 control-label">标题:</label>
                        <div class="col-md-10">
-                        <input type="text" class='form-control' id='title' ng-model='title'/> 
+                        <input type="text" class='form-control' id='title' ng-model='newCate.title'/> 
                        </div>
                      </div>
+                     <div class="form-group">
+                      <label for="cate" class="col-md-2 control-label">类别:</label>
+                      <div class="col-md-10">
+                        <select id="type" class="form-control" ng-model='newCate.type'  ng-options='option.name for option in options track by option.type'>
+                          <option value="">-- 请选择--</option>
+                        </select>
+                      </div>
+                    </div>
                      <div class="form-group">
                        <label for="keywords" class="col-md-2 control-label">关键词:</label>
                        <div class="col-md-10" for="keword">
-                         <tags-input ng-model="keywords" name='keywords' type="text" placeholder= "添加标签,逗号分割" ></tags-input>
+                         <tags-input ng-model="newCate.keywords" name='keywords' type="text" placeholder= "添加标签,逗号分割" class='taginput'></tags-input>
                        </div>
                      </div>
                      <div class="form-group">
-                      <textarea ui-tinymce='tinymceOptions' ng-model="tinymceModel"></textarea>
+                      <textarea ui-tinymce='tinymceOptions' ng-model="newCate.content"></textarea>
                      </div>
                      <button type="submit" class="btn btn-primary">保存</button>
                      <button type="reset" class="btn btn-default">清除</button>
