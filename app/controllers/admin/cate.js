@@ -33,7 +33,7 @@ router
   .put('/add',function (req, res ,next){
     var cateType = req.body.cateType,
       cateName = req.body.cateName,
-      catePid = req.body.catePid;
+      catePType = req.body.catePType;
 
       if(!cateType || !cateName){
         res.end('type is empty');
@@ -41,7 +41,7 @@ router
         var newCate = new Cate({
           type:cateType,
           name:cateName,
-          pid:catePid});
+          pType:catePType});
 
           newCate.save(function (err) {
             if(err){

@@ -187,7 +187,7 @@ angular.module('theoneApp')
 
   }])
 .controller('AddCateController', ['$scope','$modalInstance','$http','adminModalService', function ($scope, $modalInstance, $http, adminModalService) {
-    $scope.catePid = '';
+    $scope.cateParent = '';
     adminModalService.cateList('/admin/cate/all')
       .success(function (data) {
         $scope.options = data;
@@ -197,7 +197,7 @@ angular.module('theoneApp')
       $http.put('/admin/cate/add',{
         cateName:$scope.cateName,
         cateType:$scope.cateType,
-        catePid:$scope.catePid
+        catePType:$scope.cateParent.type
       })
         .success(function(data, status){
           console.log(data);
@@ -228,7 +228,7 @@ angular.module('theoneApp')
       .success(function (data) {
         $scope.cateName = data.name;
         $scope.cateType = data.type;
-        $scope.catePid  = data.pid;
+        $scope.catePType= data.pType;
         $scope.cateOid  = data._id;
       });
 

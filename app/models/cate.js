@@ -11,7 +11,7 @@ var mongoose = require('mongoose'),
 var CateSchema = new Schema({
   type:{type: String, required: true, unique: true},
   name:{type: String, required: true, unique: true},
-  pid:Number,
+  pType:String,
   path:String,
   articleNum:Number,
   updatetime:String
@@ -22,12 +22,8 @@ CateSchema.pre('save',function (next) {
   this.type = this.type.toLowerCase();
 
   //补全
-  if(!this.pid){
-    this.pid = 0;
-  }
-
-  if(!this.pid){
-    this.pid = '';
+  if(!this.pType){
+    this.pType = '';
   }
 
   if(!this.articleNum){
