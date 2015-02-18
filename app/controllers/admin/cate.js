@@ -51,6 +51,17 @@ router
           });
       }
   })
+  // 获取单个 id
+  .get('/id/:id', function (req, res, next) {
+    var _id = req.params.id;
+    Cate.findById(_id,function (err, cate) {
+      if(err){
+        return next(err);
+      }
+      res.json(cate);
+      res.end();
+    });
+  })
   .delete('/remove',function (req, res, next) {
      var id = req.body.id;
      console.log(id);
