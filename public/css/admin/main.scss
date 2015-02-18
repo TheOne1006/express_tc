@@ -93,6 +93,10 @@ body {
     border: 1px solid rgb(212,212,212);
     height: 300px;
 }
+//取消focus
+.gridStyle :focus{
+  outline:none;
+}
 
 /* modal */
 .heightfull {

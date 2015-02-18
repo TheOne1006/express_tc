@@ -152,7 +152,8 @@ angular.module('theoneApp')
       showGroupPanel:false,
       showFooter:true,
       enablePaging: true,
-      enableRowSelection: false,
+      enableRowSelection: true,
+      multiSelect:false,
       pagingOptions: $scope.pagingOptions,
       filterOptions: $scope.filterOptions
       };
