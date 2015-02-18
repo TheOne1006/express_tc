@@ -33,6 +33,10 @@ angular.module('theoneApp')
       });
     };
 
+    var httpDel = function (url) {
+      return $http.delete(url);
+    };
+
 
     return {
       current:function(){
@@ -54,6 +58,9 @@ angular.module('theoneApp')
       },
       getId:function (url) {
         return getCateList(url);
+      },
+      delId:function (url) {
+        return httpDel(url);
       }
     };
   }]);
@@ -219,10 +226,17 @@ angular.module('theoneApp')
     //验证
     adminModalService.getId('/admin/cate/id/'+_id)
       .success(function (data) {
-        console.log(data);
+        $scope.cateName = data.name;
+        $scope.cateType = data.type;
+        $scope.catePid  = data.pid;
+        $scope.cateOid  = data._id;
       });
 
     $scope.ok = function () {
+      adminModalService.delId('/admin/cate/id/'+$scope.cateOid)
+        .success(function (data) {
+          
+        });
       $modalInstance.close();
     };
 

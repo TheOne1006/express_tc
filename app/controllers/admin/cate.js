@@ -3,7 +3,7 @@
 var express = require('express'),
   router = express.Router(),
   mongoose = require('mongoose'),
-  // async = require('async'),
+  async = require('async'),
   Cate = mongoose.model('Cate');
 
 module.exports = function (app) {
@@ -62,8 +62,17 @@ router
       res.end();
     });
   })
-  .delete('/remove',function (req, res, next) {
-     var id = req.body.id;
-     console.log(id);
+  //删除单个id
+  .delete('/id/:id',function (req, res, next) {
+     var _id = req.params.id;
+
+     Cate.findByIdAndRemove(_id, function(err) {
+      if(err){
+        return next(err);
+      }
+      res.end();
+     });
+     console.log('没删除成功');
+
      res.end();
   });
