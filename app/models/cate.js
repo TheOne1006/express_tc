@@ -1,5 +1,6 @@
 /**
  * 博客类别信息
+ * @author theone 
  */
 'use strict';
 
@@ -14,7 +15,7 @@ var CateSchema = new Schema({
   pType:String,
   path:String,
   articleNum:Number,
-  updatetime:String
+  updateTime:String
 });
   
 CateSchema.pre('save',function (next) {
@@ -30,8 +31,8 @@ CateSchema.pre('save',function (next) {
     this.articleNum = 0;
   }
 
-  if(!this.updatetime){
-    this.updatetime = moment().format('x');
+  if(!this.updateTime){
+    this.updateTime = moment().format('x');
   }
 
   next();

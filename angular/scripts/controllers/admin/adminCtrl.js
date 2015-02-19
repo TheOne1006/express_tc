@@ -37,6 +37,10 @@ angular.module('theoneApp')
       return $http.delete(url);
     };
 
+    var httpPut = function (url, newObj) {
+      return $http.put(url, newObj);
+    };
+
 
     return {
       current:function(){
@@ -61,6 +65,9 @@ angular.module('theoneApp')
       },
       delId:function (url) {
         return httpDel(url);
+      },
+      putNew:function (url, newObj) {
+        return httpPut(url, newObj);
       }
     };
   }]);
@@ -140,7 +147,7 @@ angular.module('theoneApp')
         field:'articleNum',
         displayName:'文章数量',
       },{
-        field:'updatetime',
+        field:'updateTime',
         displayName:'更新时间',
         cellFilter:'date:"yyyy-MM-dd"'
       },{
@@ -341,10 +348,10 @@ angular.module('theoneApp')
 
     // init scope
     $scope.tableName = '添加文章';
-    $scope.newCate = {
+    $scope.newArticle = {
       title:'',
       type:'',
-      keywords:[],
+      keyWords:[],
       content:''
     };
     
@@ -353,6 +360,17 @@ angular.module('theoneApp')
       success(function (data) {
         $scope.options = data;
       });
+
+    // 提交表单
+    $scope.ok = function () {
+      if($scope.newArticle.type){
+        $scope.newArticle.type = $scope.newArticle.type._id;
+      }
+      adminModalService.putNew('/admin/article/add',{article:$scope.newArticle})
+        .success(function (data) {
+          console.log(data);
+        });
+    };
 
     //编辑器
     $scope.tinymceOptions = { 
