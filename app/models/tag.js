@@ -1,11 +1,26 @@
 /**
  * 标签信息
+ * 进度
+ * autoSave 可以使用，未做容错，判断，更新和 insert 分离进行，update 未作 处理
+ * 
  */
 'use strict';
 
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema,
   moment = require('moment');
+
+// tool function 工具函数
+var indexOf = function( list, elem ) {
+  var i = 0,
+    len = list.length;
+  for ( ; i < len; i++ ) {
+    if ( list[i] === elem ) {
+      return i;
+    }
+  }
+  return -1;
+};
 
 // 定义标签 数据模型
 /**
@@ -15,17 +30,103 @@ var mongoose = require('mongoose'),
  */
 var TagSchema = new Schema({
   name:{type: String, required: true, unique: true},
-  count:{type:Number, default:0},
+  count:{type:Number, default:1},
   arrArticleObjectId:[Schema.Types.ObjectId],
-  updateTime:{type:String, defaut:moment().format('x')}
+  updateTime:{type:String}
 });
 
+  TagSchema.pre('save',function (next) {
+
+    if(!this.updateTime){
+      this.updateTime = moment().format('x');
+    }
+
+    next();
+
+  });
+
   // 静态方法
-  TagSchema.static('autoSave',function (tagArray, cb) {
-    var newTagArr = [];
-    this.find({name:{$in:tagArray}},function (err, doc) {
-      console.log(doc);
-    });
+  TagSchema.static('autoSave',function (tagArray, articleId, cb) {
+    var newTagArr = [],
+      hasTagArr = [],
+      i,j = 0,
+      that = this;
+
+      this.find({name:{$in:tagArray}},function (err, doc) {
+        if(err){
+          return cb(err);
+        }
+
+        for (i in doc) {
+          hasTagArr.push(doc[i].name);
+        }
+
+        if(hasTagArr.length > 0){
+          //mongoose 批量更新，设置参数,multi:true
+          // 没有则创建 upsert:true
+          that.update({name:{'$in':hasTagArr}},
+            {
+              '$set':{updateTime:moment().format('x')},
+              '$inc':{count:1},
+              '$push':{arrArticleObjectId:articleId}
+            },
+            {
+              multi:true
+            },
+            function (err) {
+              if(err){
+                return cb(err);
+              }
+            });
+        }
+
+
+        for (j; j < tagArray.length; j++) {
+          if(indexOf(hasTagArr, tagArray[j]) < 0){
+            newTagArr.push({name:tagArray[j],count:1,arrArticleObjectId:[articleId],updateTime:moment().format('x')});
+          }
+        }
+
+        that.create(newTagArr,function (err) {
+          if(err){
+            return cb(err);
+          }
+
+          cb();
+        });
+        
+      });      
+
+
+
+
+
+
+
+    // this.find({name:{$in:tagArray}},function (err, doc) {
+      // if(err){
+      //   return cb(err);
+      // }
+
+      // for (i in doc) {
+      //   hasTagArr.push(doc[i].name);
+      // }
+
+      // that.where({name:{'$in':hasTagArr}}).update({'$inc':{count:+1}},function (err, num) {
+      //   console.log('影响行数'+num);
+      // });
+
+      // for (j; j < tagArray.length; j++) {
+      //   if(indexOf(hasTagArr, tagArray[j]) < 0){
+      //     newTagArr.push({name:tagArray[j],count:1,arrArticleObjectId:[articleId]});
+      //   }
+      // }
+
+      // that.create(newTagArr,function (err) {
+      //   return cb(err);
+      // });
+      
+    // });
   });
 
 

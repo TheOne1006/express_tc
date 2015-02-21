@@ -23,8 +23,14 @@ router
         return next(err);
       }
 
-      Tag.autoSave(newArticle.keyWords);
+      Tag.autoSave(newArticle.keyWords,newArticle._id,function (err) {
+        if(err){
+          return next(err);
+        }
+        res.end('ok');
 
-      res.end('ok');
+      });
+
+      // res.end('ok');
     });
   });
