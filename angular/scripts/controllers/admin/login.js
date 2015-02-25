@@ -9,12 +9,16 @@
  */
 
 angular.module('theoneApp')
-  .controller('LoginController',function ($scope,$window) {
+  .controller('LoginController',['$scope', '$window', '$http',function ($scope, $window, $http) {
   $scope.user = {
     name:'',
-    password:''
+    password:'',
+    rember:''
   };
   $scope.loginSubmit = function () {
-    $window.location.href = '/admin';
+    $http.post('/admin/verify/password',{user:$scope.user}).success(function  (data) {
+      console.log(data);
+    });
+
   };
-});
+}]);
