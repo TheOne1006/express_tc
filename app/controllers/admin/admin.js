@@ -11,11 +11,19 @@ var express = require('express'),
 module.exports = function (app) {
   app.use('/admin', router);
 };
+
 router.use(function  (req, res, next) {
+
+  // 默认 userId
+  if(!req.session.userId){
+    req.session.userId = '54ede26288d1cb84097a886e';
+  }
+
   if(req.url !== '/login' && req.url !=='/verify/password'  && !req.session.userId){
     res.redirect('/admin/login');
     return;
   }
+
   User.findById(req.session.userId,function  (err, user) {
     if(err){
       return next(err);

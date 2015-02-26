@@ -19,5 +19,14 @@
              templateUrl: '/angular/views/admin/user/index.html'
            }
          }
-       });
+       })
+       .state('user.photo',{
+          url:'photo',
+          views:{
+            '@':{
+              templateUrl:'/angular/views/admin/user/user.photo.html'
+            }
+          }
+       })
+       ;
    });
