@@ -21,17 +21,21 @@ module.exports = function(app, config) {
     extended: true
   }));
   app.use(cookieParser());
-  // session
-  app.use(session({
-       secret: 'theone12138',
-       cookie:{maxAge:18000},
-       saveUninitialized:true,
-       resave: false,
-  }));
+
   app.use(compress());
   app.use(express.static(config.root + '/public'));
   app.use('/angular',express.static(config.root+ '/angular'));
   app.use(methodOverride());
+  
+    // session
+  app.use(session({
+       secret: 'theone12138',
+       // secure 关闭安全 secure
+       // HTTPS这货对于secure cookies是必须的
+       cookie:{maxAge:1800000,secure: false},
+       saveUninitialized:true,
+       resave: true,
+  }));
 
   // 加载所有 controllers
   var controllers = glob.sync(config.root + '/app/controllers/**/*.js');

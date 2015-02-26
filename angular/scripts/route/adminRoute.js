@@ -16,7 +16,7 @@ angular.module('theoneApp')
         url:'/',
         views:{
           '':{
-            templateUrl: 'angular/views/admin/index.html'
+            templateUrl: '/angular/views/admin/index.html'
           }
         }
       })
@@ -24,7 +24,7 @@ angular.module('theoneApp')
         url:'/cate',
         views:{
           '':{
-            templateUrl:'angular/views/admin/cate.html'
+            templateUrl:'/angular/views/admin/cate.html'
           }
         }
       })
@@ -32,7 +32,7 @@ angular.module('theoneApp')
         url:'/article',
         views:{
           '':{
-            templateUrl:'angular/views/admin/article_list.html'
+            templateUrl:'/angular/views/admin/article_list.html'
           }
         }
       })
@@ -40,7 +40,7 @@ angular.module('theoneApp')
         url:'/add',
         views:{
           '@':{
-            templateUrl:'angular/views/admin/article.add.html'
+            templateUrl:'/angular/views/admin/article.add.html'
           }
         }
       });

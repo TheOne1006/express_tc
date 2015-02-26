@@ -1,0 +1,16 @@
+extends layout
+
+block contentleft
+    .col-md-3.bootstrap-admin-col-left
+        ul.nav.navbar-collapse.bootstrap-admin-navbar-side
+            li.active
+                a(href="#/")
+                    i.glyphicon.glyphicon-dashboard
+                    |  用户中心
+            li
+                a(href="#/safe") 安全
+
+block adminroutejs
+    script(src='/angular/scripts/route/adminUser.js')
+block footerjs
+    script(src='/angular/scripts/controllers/admin/adminUserCtrl.js')

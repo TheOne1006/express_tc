@@ -50,7 +50,7 @@ html(lang='en')
                                 li.active
                                     a(href="#") LINK
                                 li
-                                    a(href="") link
+                                    a(href="/admin/user")=user.name
                                 li
                                     a(href="") link
         //- 中心
@@ -81,6 +81,7 @@ html(lang='en')
                         p.right &copy; 2014
     //- angular 
     script(src='/angular/scripts/app.js')
-    script(src='/angular/scripts/route/adminRoute.js')
+    block adminroutejs
+        script(src='/angular/scripts/route/adminRoute.js')
     block footerjs
         script(src='/angular/scripts/controllers/admin/adminCtrl.js')
