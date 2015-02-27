@@ -49,7 +49,7 @@ angular.module('theoneApp')
       };
     }])
     // 添加管理员头像
-    .controller('UserPhotoAddController', ['$scope','$modalInstance','$window', function ($scope, $modalInstance, $window) {
+    .controller('UserPhotoAddController', ['$scope', '$http', '$modalInstance','$window', function ($scope, $http,  $modalInstance, $window) {
       // 监控 windows.Webcam
       var webcam = $window.Webcam;
       // 照片列表
@@ -91,6 +91,10 @@ angular.module('theoneApp')
         if(!$scope.photoList){
           return;
         }
+        $http.post('/admin/user/addUserPhotos',{photos:$scope.photoList})
+          .success(function (data) {
+            console.log(data);
+          });
         
 
       };
