@@ -2,9 +2,31 @@
     <h3 class="modal-title">新照片</h3>
 </div>
 <div class="modal-body">
-<p>111</p>
+    <div class="row">
+        <div class="col-md-6">
+            <div id='modalMovie'>
+                <img style="height: 180px; width: 100%; display: block;" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTcxIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDE3MSAxODAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxkZWZzLz48cmVjdCB3aWR0aD0iMTcxIiBoZWlnaHQ9IjE4MCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjYxIiB5PSI5MCIgc3R5bGU9ImZpbGw6I0FBQUFBQTtmb250LXdlaWdodDpib2xkO2ZvbnQtZmFtaWx5OkFyaWFsLCBIZWx2ZXRpY2EsIE9wZW4gU2Fucywgc2Fucy1zZXJpZiwgbW9ub3NwYWNlO2ZvbnQtc2l6ZToxMHB0O2RvbWluYW50LWJhc2VsaW5lOmNlbnRyYWwiPjE3MXgxODA8L3RleHQ+PC9nPjwvc3ZnPg==">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="col-md-4" ng-repeat="(key,src) in photoList">
+                <div class="thumbnail">
+                    <img ng-src="{{src}}" />
+                    <div class="caption">
+                        <p>
+                            <button class='btn btn-danger btn-xs btn-block' ng-click="delphoto($index)">删除</button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary" ng-click="ok()">保存</button>
+    <button class="btn-success btn pull-left" ng-click="begin()">
+        开始
+    </button>
+    <button class="btn btn-primary pull-left" ng-click="ok()">拍摄</button>
+    <button class="btn btn-success" ng-click='upload()'>上传</button>
     <button class="btn btn-warning" ng-click="cancel()">关闭</button>
 </div>
