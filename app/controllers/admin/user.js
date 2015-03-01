@@ -71,7 +71,41 @@ var express = require('express'),
 
       });
     });
-  }) ;
+  })
+  /**
+   * 照片同步到Cloudinary
+   */
+  .get('/up2cloud/:id',function (req,res,next) {
+    var _id = req.params.id,
+    adminPhoto,
+    photoPath;
+
+    async.waterfall([
+      function (cb) {
+        Adminph.findById(_id,cb);
+      },
+      function (ph, cb) {
+        // 已经存在
+        if(ph.cloudinary){
+          return cb({err:'is uploaded'}); 
+        }
+        photoPath = ROOT_PATH+'/'+ph.path;
+        adminPhoto = ph;
+        help.upload2Cloudinary(photoPath, cb);
+      },
+      function (cloudJson, cb) {
+        adminPhoto.cloudinary = cloudJson;
+        adminPhoto.save(cb);
+      }],
+      // 结果处理函数
+      function (err) {
+      if(err){
+        return next(err);
+      }
+      res.end(_id);
+    });
+  })
+  ;
 
 
   

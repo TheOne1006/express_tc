@@ -28,6 +28,10 @@ angular.module('theoneApp')
           console.log(data);
         });
       };
+
+      var upload2Cloud = function (url,_id) {
+        return $http.get(url+'/'+_id);
+      };
     
       return {
         // modal 开启
@@ -36,6 +40,9 @@ angular.module('theoneApp')
         },
         getMyPhotos:function () {
           return getMyPhotos();
+        },
+        upload2Cloud:function(url, _id) {
+          return upload2Cloud(url, _id);
         }
 
       };
@@ -50,7 +57,6 @@ angular.module('theoneApp')
 
       userPhotoService.getMyPhotos()
         .success(function (data) {
-          console.log(data);
           $scope.photos = data;
         });
 
@@ -64,6 +70,18 @@ angular.module('theoneApp')
             backdropClass:'heightfull'
         });
       };
+
+
+      /**
+       * 同步到 cloud 端
+       */
+      $scope.up2Cloud = function (_id) {
+        userPhotoService.upload2Cloud('/admin/user/up2cloud', _id)
+          .success(function (data) {
+            console.log(data);
+          });
+      };
+
     }])
     // 添加管理员头像
     .controller('UserPhotoAddController', ['$scope', '$http', '$modalInstance','$window', function ($scope, $http,  $modalInstance, $window) {
@@ -113,8 +131,9 @@ angular.module('theoneApp')
             console.log(data);
           });
         
-
       };
+
+
 
 
       

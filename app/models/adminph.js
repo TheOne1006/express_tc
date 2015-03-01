@@ -13,6 +13,7 @@ var mongoose = require('mongoose'),
   var AdminphSchema = new Schema({
     path:{type:String, require:true, unique:true},
     userObjectId:{type:Schema.Types.ObjectId,require:true},
+    cloudinary:Schema.Types.Mixed,
     addTime:{type:String}
   });
 
