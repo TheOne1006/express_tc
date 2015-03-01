@@ -17,6 +17,10 @@ angular.module('theoneApp')
     // 创建照片Service
     .factory('userPhotoService', ['$http', '$modal',function ($http, $modal) {
       
+      var getMyPhotos = function () {
+        return $http.get('/admin/user/myPhotoList');
+      };
+
       var modalShow = function (optionObj) {
         var modalInstance = $modal.open(optionObj);
         //返回函数
@@ -29,7 +33,11 @@ angular.module('theoneApp')
         // modal 开启
         modalOpen:function (optionObj) {
           return modalShow(optionObj);
+        },
+        getMyPhotos:function () {
+          return getMyPhotos();
         }
+
       };
     }]);
 
@@ -38,6 +46,15 @@ angular.module('theoneApp')
         $scope.name = '';
     }])
     .controller('UserPhotoController', ['$scope', 'userPhotoService', function ($scope, userPhotoService) {
+      $scope.photos = [];
+
+      userPhotoService.getMyPhotos()
+        .success(function (data) {
+          console.log(data);
+          $scope.photos = data;
+        });
+
+
 
       $scope.takePhoto = function (){
         userPhotoService.modalOpen({

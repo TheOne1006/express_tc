@@ -24,24 +24,9 @@
           <hr>
 
           <div class="row bootstrap-admin-light-padding-bottom">
-              <div class="col-md-4">
+              <div class="col-md-4" ng-repeat="photo in photos">
                   <a href="#" class="thumbnail">
-                  </a>
-              </div>
-              <div class="col-md-4">
-                  <a href="#" class="thumbnail">
-                  </a>
-              </div>
-              <div class="col-md-4">
-                  <a href="#" class="thumbnail">
-                  </a>
-              </div>
-              <div class="col-md-4">
-                  <a href="#" class="thumbnail">
-                  </a>
-              </div>
-              <div class="col-md-4">
-                  <a href="#" class="thumbnail">
+                    <img ng-src="{{photo.path}}">
                   </a>
               </div>
           </div>

@@ -6,8 +6,12 @@ var express = require('express'),
   config = require('../../../config/config'),
   help =require(config.root+'/my_node_modules/theone-help'),
   moment = require('moment'),
-  fs = require('fs'),
-  mongoose = require('mongoose');
+  mongoose = require('mongoose'),
+  Adminph = mongoose.model('Adminph');
+
+
+  // 常量
+  var ROOT_PATH = config.root;
 
 
 
@@ -16,9 +20,21 @@ var express = require('express'),
   };
 
   router.get('/', function (req, res) {
-      res.render('admin/user',{
-        title:'管理员信息'
-      });
+    res.render('admin/user',{
+      title:'管理员信息'
+    });
+  })
+  .get('/myPhotoList',function (req, res, next) {
+    var userId = req.session.userId;
+
+    Adminph.find({userObjectId:userId},function (err, phs) {
+      if(err){
+        return next(err);
+      }
+      res.json(phs);
+      res.end();
+    });
+
   })
   /**
    * 批量上传图片
@@ -26,31 +42,33 @@ var express = require('express'),
    * 生成图片文件
    */
   .post('/addUserPhotos',function (req, res, next) {
-    var dataPath = config.root+'/data/'+req.session.userId+'/webcan';
+    var savePath = ROOT_PATH+'/data/'+req.session.userId+'/webcan';
+    var viewPath = '/data/'+req.session.userId+'/webcan/';
     var itemArr = req.body.photos;
     var i =0;
 
-    help.autoPath(dataPath,function  (err) {
+    help.autoPath(savePath,function  (err) {
       if(err){
         return next(err);
       }
 
-      async.each(itemArr,function  (item, callback) {
+      async.mapLimit(itemArr, 3 ,function  (item, callback) {
         i++;
-        var phName = dataPath+'/'+moment().format('x')+i+'.jpeg';
-        var base64 = item.replace(/^data:image\/jpeg;base64,/, '');
-        fs.writeFile(phName,base64,'base64',function  (err) {
-          if(err){
-            return callback(err);
-          }
-          callback();
-        });
-
-      },function  (err) {
+        var phPath = viewPath+moment().format('x')+i+'.jpeg';
+        help.base64Save2image(ROOT_PATH, phPath, item, callback);
+        //处理结果
+      },function  (err, picPathArr) {
         if(err){
           return next(err);
         }
-        res.end('ok');
+        
+        Adminph.arraySave(picPathArr,req.session.userId,function (err) {
+          if(err){
+            return next(err);
+          }
+          res.end('ok');
+        });
+
       });
     });
   }) ;
