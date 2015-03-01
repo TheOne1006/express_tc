@@ -7,7 +7,8 @@ var express = require('express'),
   help =require(config.root+'/my_node_modules/theone-help'),
   moment = require('moment'),
   mongoose = require('mongoose'),
-  Adminph = mongoose.model('Adminph');
+  Adminph = mongoose.model('Adminph'),
+  User = mongoose.model('User');
 
 
   // 常量
@@ -24,6 +25,30 @@ var express = require('express'),
       title:'管理员信息'
     });
   })
+  .get('/myInfo',function (req, res, next) {
+    var userId = req.session.userId;
+    User.findById(userId,function (err, user) {
+      if(err){
+        return next(err);
+      }
+      res.json(user);
+      res.end();
+    });
+  })
+  .get('/createFacePower',function (req, res, next) {
+    var userId = req.session.userId;
+    Adminph.facePlusPower(userId,function (err, result) {
+      if(err){
+        return next(err);
+      }
+      res.json(result);
+      res.end();
+    });
+
+  })
+  /**
+   * 获取自己的相册
+   */
   .get('/myPhotoList',function (req, res, next) {
     var userId = req.session.userId;
 
@@ -104,6 +129,47 @@ var express = require('express'),
       }
       res.end(_id);
     });
+  })
+  /**
+   * 照片同步到 face++
+   */
+  .get('/up2facePP/:id',function (req, res, next) {
+    var _id = req.params.id,
+    AdminPhoto;
+
+    async.waterfall([
+      function (cb) {
+        Adminph.findById(_id,cb);
+      },
+      function (ph, cb) {
+        // 已经存在
+        if(ph.facePlusPlus){
+          return cb({err:'is uploaded'}); 
+        }
+        if(!ph.cloudinary || !ph.cloudinary.url){
+          return cb({err:'undefined cloudinary url'});
+        }
+        AdminPhoto = ph;
+        cb(null,ph.cloudinary.url);
+      },
+      function (phCloudUrl,cb) {
+        help.facePlusPlusDetect(phCloudUrl, cb);
+      },
+      function (detectInfo, cb) {
+        AdminPhoto.facePlusPlus = detectInfo;
+        AdminPhoto.save(function (err) {
+          if(err){
+            return cb(err);
+          }
+          cb();
+        });
+      }
+      ],function (err) {
+        if(err){
+          return next(err);
+        }
+        res.end(_id);
+      });
   })
   ;
 

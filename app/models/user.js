@@ -15,6 +15,7 @@ var mongoose = require('mongoose'),
   var UserSchema = new Schema({
     name:{type:String, required:true, unique:true},
     password:{type:String, required:true},
+    facePersonId:{type:String},
     lastLoginTime:{type:String,default:'0'},
     loginTime:{type:String,default:'0'},
     updateTime:{type:String}

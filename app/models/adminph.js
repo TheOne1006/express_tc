@@ -14,6 +14,7 @@ var mongoose = require('mongoose'),
     path:{type:String, require:true, unique:true},
     userObjectId:{type:Schema.Types.ObjectId,require:true},
     cloudinary:Schema.Types.Mixed,
+    facePlusPlus:Schema.Types.Mixed,
     addTime:{type:String}
   });
 
@@ -44,6 +45,19 @@ var mongoose = require('mongoose'),
         return cb(err);
       }
       cb();
+    });
+  });
+
+  //静态方法 是否具有创建face++ person 的资格
+  AdminphSchema.static('facePlusPower',function (userId, cb) {
+    this.findOne({userObjectId:userId,facePlusPlus:{$exists:true}},function (err,ph) {
+      if(err){
+        return cb(err);
+      }
+      if(ph){
+        return  cb(null, {hasCreatePower:true});
+      }
+      return cb(null,{hasCreatePower:false});
     });
   });
 

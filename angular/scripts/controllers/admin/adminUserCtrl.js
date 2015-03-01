@@ -17,6 +17,9 @@ angular.module('theoneApp')
     // 创建照片Service
     .factory('userPhotoService', ['$http', '$modal',function ($http, $modal) {
       
+      var getUserInfo = function () {
+        return $http.get('/admin/user/myInfo');
+      };
       var getMyPhotos = function () {
         return $http.get('/admin/user/myPhotoList');
       };
@@ -43,6 +46,9 @@ angular.module('theoneApp')
         },
         upload2Cloud:function(url, _id) {
           return upload2Cloud(url, _id);
+        },
+        getUserInfo:function () {
+          return getUserInfo();
         }
 
       };
@@ -52,13 +58,34 @@ angular.module('theoneApp')
     .controller('UserController', ['$scope', function($scope){
         $scope.name = '';
     }])
-    .controller('UserPhotoController', ['$scope', 'userPhotoService', function ($scope, userPhotoService) {
+    .controller('UserPhotoController', ['$scope', '$http', 'userPhotoService', function ($scope, $http, userPhotoService) {
       $scope.photos = [];
+      $scope.user = '';
+      $scope.facePpPower ={
+        create:false,
+        upset:false
+      };
 
       userPhotoService.getMyPhotos()
         .success(function (data) {
           $scope.photos = data;
         });
+
+      userPhotoService.getUserInfo()
+        .success(function (user) {
+          $scope.user = user;
+          if(user.facePersonId){
+            $scope.facePpPower.upset = true;
+          }else{
+            $http.get('/admin/user/createFacePower')
+              .success(function (power) {
+                if(power && power.hasCreatePower){
+                  $scope.facePpPower.create = power.hasCreatePower;
+                }
+              });
+          }
+        });
+
 
 
 
@@ -77,6 +104,16 @@ angular.module('theoneApp')
        */
       $scope.up2Cloud = function (_id) {
         userPhotoService.upload2Cloud('/admin/user/up2cloud', _id)
+          .success(function (data) {
+            console.log(data);
+          });
+      };
+
+      /**
+       * 上传到facePlusPlus
+       */
+      $scope.up2facePP = function (_id) {
+        userPhotoService.upload2Cloud('/admin/user/up2facePP', _id)
           .success(function (data) {
             console.log(data);
           });

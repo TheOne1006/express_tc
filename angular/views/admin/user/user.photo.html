@@ -21,6 +21,10 @@
             </span>
             添加照片
           </button>
+          <button class="btn btn-success" aria-label="Left Align" ng-if="facePpPower.create">
+            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+            创建Fcae++
+          </button>
           <hr>
 
           <div class="row bootstrap-admin-light-padding-bottom">
@@ -38,8 +42,11 @@
                         </button>
                       </p>
                       <p>
-                        <button class="btn btn-info">
+                        <button class="btn btn-info" ng-if='!photo.facePlusPlus' ng-click='up2facePP(photo._id)'>
                           up2Face++
+                        </button>
+                        <button class="btn btn-danger" ng-if='photo.facePlusPlus'>
+                          del2Face++
                         </button>
                       </p>
                     </div>
