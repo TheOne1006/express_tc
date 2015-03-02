@@ -50,7 +50,7 @@ var mongoose = require('mongoose'),
 
   //静态方法 是否具有创建face++ person 的资格
   AdminphSchema.static('facePlusPower',function (userId, cb) {
-    this.findOne({userObjectId:userId,facePlusPlus:{$exists:true}},function (err,ph) {
+    this.findOne({userObjectId:userId,facePlusPlus:{$exists:true,'$ne':null} },function (err,ph) {
       if(err){
         return cb(err);
       }
@@ -59,6 +59,11 @@ var mongoose = require('mongoose'),
       }
       return cb(null,{hasCreatePower:false});
     });
+  });
+
+  // 静态方法 获取所有可上传的数据
+  AdminphSchema.static('facePlusDataReady',function (userId ,cb) {
+    this.where({userObjectId:userId, facePlusPlus:{$exists:true,'$ne':null} }).find(cb);
   });
 
 mongoose.model('Adminph',AdminphSchema);

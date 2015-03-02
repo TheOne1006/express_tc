@@ -16,12 +16,13 @@
 angular.module('theoneApp')
     // 创建照片Service
     .factory('userPhotoService', ['$http', '$modal',function ($http, $modal) {
-      
-      var getUserInfo = function () {
-        return $http.get('/admin/user/myInfo');
+
+      var httpGet =function(url) {
+        return $http.get(url);
       };
-      var getMyPhotos = function () {
-        return $http.get('/admin/user/myPhotoList');
+
+      var httpDel = function (url, data) {
+        return $http.delete(url ,data);
       };
 
       var modalShow = function (optionObj) {
@@ -32,23 +33,31 @@ angular.module('theoneApp')
         });
       };
 
-      var upload2Cloud = function (url,_id) {
-        return $http.get(url+'/'+_id);
-      };
-    
       return {
         // modal 开启
-        modalOpen:function (optionObj) {
+        modalOpen : function (optionObj) {
           return modalShow(optionObj);
         },
-        getMyPhotos:function () {
-          return getMyPhotos();
+        getMyPhotos : function () {
+          return httpGet('/admin/user/myPhotoList');
         },
-        upload2Cloud:function(url, _id) {
-          return upload2Cloud(url, _id);
+        // 同步到cloud
+        upload2Cloud : function(url, _id) {
+          return httpGet(url+'/'+_id);
         },
-        getUserInfo:function () {
-          return getUserInfo();
+        // 获取用户详情
+        getUserInfo : function () {
+          return httpGet('/admin/user/myInfo');
+        },
+        // 创建 face++ Pserson
+        createPerson : function() {
+          return httpGet('/admin/user/createFacePerson');
+        },
+        delete4Cloud : function (url, data) {
+          return httpDel(url ,data);
+        },
+        delete4FacePP : function (url, data) {
+          return httpDel(url, data);
         }
 
       };
@@ -63,7 +72,7 @@ angular.module('theoneApp')
       $scope.user = '';
       $scope.facePpPower ={
         create:false,
-        upset:false
+        update:false
       };
 
       userPhotoService.getMyPhotos()
@@ -75,7 +84,7 @@ angular.module('theoneApp')
         .success(function (user) {
           $scope.user = user;
           if(user.facePersonId){
-            $scope.facePpPower.upset = true;
+            $scope.facePpPower.update = true;
           }else{
             $http.get('/admin/user/createFacePower')
               .success(function (power) {
@@ -85,10 +94,7 @@ angular.module('theoneApp')
               });
           }
         });
-
-
-
-
+        
       $scope.takePhoto = function (){
         userPhotoService.modalOpen({
             templateUrl:'/angular/views/modal/user.photo.add.html',
@@ -98,25 +104,51 @@ angular.module('theoneApp')
         });
       };
 
+      //上传
+      $scope.uploader = {
+        // 上传到 cloud
+        cloud:function (_id) {
+          userPhotoService.upload2Cloud('/admin/user/up2cloud', _id)
+            .success(function (data) {
+              console.log(data);
+            });
+        },
+        // face++
+        facePP:function (_id) {
+          userPhotoService.upload2Cloud('/admin/user/up2facePP', _id)
+            .success(function (data) {
+              console.log(data);
+            });
+        },
+        createPerson:function () {
+          if(!$scope.facePpPower.create){
+            return false;
+          }
+          userPhotoService.createPerson()
+            .success(function(data) {
+              console.log(data);
+            });
+        },
+        updatePerson:function() {
+          if(!$scope.facePpPower.update){
+            return false;
+          }
+          userPhotoService.updatePerson()
+            .success(function (data) {
+              console.log(data);
+            });
+        }
 
-      /**
-       * 同步到 cloud 端
-       */
-      $scope.up2Cloud = function (_id) {
-        userPhotoService.upload2Cloud('/admin/user/up2cloud', _id)
-          .success(function (data) {
-            console.log(data);
-          });
       };
 
-      /**
-       * 上传到facePlusPlus
-       */
-      $scope.up2facePP = function (_id) {
-        userPhotoService.upload2Cloud('/admin/user/up2facePP', _id)
-          .success(function (data) {
-            console.log(data);
-          });
+      // 删除
+      $scope.deleter = {
+        cloud:function  (_id) {
+          userPhotoService.delete4Cloud('/admin/user/cloudSingle/'+_id);
+        },
+        facePP:function  (_id) {
+          userPhotoService.delete4FacePP('/admin/user/faceSingle/'+_id);
+        }
       };
 
     }])

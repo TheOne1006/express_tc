@@ -6,6 +6,7 @@ var express = require('express'),
   config = require('../../../config/config'),
   help =require(config.root+'/my_node_modules/theone-help'),
   moment = require('moment'),
+  _ = require('underscore'),
   mongoose = require('mongoose'),
   Adminph = mongoose.model('Adminph'),
   User = mongoose.model('User');
@@ -35,6 +36,7 @@ var express = require('express'),
       res.end();
     });
   })
+  // 创建face++ pserson 权限
   .get('/createFacePower',function (req, res, next) {
     var userId = req.session.userId;
     Adminph.facePlusPower(userId,function (err, result) {
@@ -44,7 +46,54 @@ var express = require('express'),
       res.json(result);
       res.end();
     });
+  })
+  // 创建 face++ person
+  .get('/createFacePerson',function (req, res, next) {
+    var userId = req.session.userId,
+    phIdsArr = [],
+    adminInfo,
+    phsString;
+    // 获取所有相关的ids
+    async.waterfall([
+      // 是否存在facePersonId
+      function (cb) {
+        User.findById(userId,function  (err,user) {
+          if(err){
+            return cb(err);
+          }
+          if(user.facePersonId){
+            return cb({err:'is exites!'});
+          }
+          adminInfo = user;
+          Adminph.facePlusDataReady(userId, cb);
+        });
+      },
+      function (phs, cb) {
+        if(phs){
+          _.each(phs,function (item) {
+            if(item && item.facePlusPlus && item.facePlusPlus.face[0].face_id){
+              phIdsArr.push(item.facePlusPlus.face[0].face_id);
+            }
+          });
 
+          phsString = phIdsArr.join(',');
+          help.facePersonCreate(adminInfo.name, phsString, cb);
+        }
+      },
+      function  (result, cb) {
+        console.log(result);
+        if(!result || !result.person_id){
+          return cb({err:'undefined person_id'});
+        }
+        adminInfo.facePersonId = result.person_id;
+        adminInfo.save(cb);
+      }
+      ],function (err) {
+        if(err){
+          return next(err);
+        }
+        res.end('created ok');
+      });
   })
   /**
    * 获取自己的相册
@@ -133,8 +182,8 @@ var express = require('express'),
   /**
    * 照片同步到 face++
    */
-  .get('/up2facePP/:id',function (req, res, next) {
-    var _id = req.params.id,
+  .get('/up2facePP/:_id',function (req, res, next) {
+    var _id = req.params._id,
     AdminPhoto;
 
     async.waterfall([
@@ -156,6 +205,9 @@ var express = require('express'),
         help.facePlusPlusDetect(phCloudUrl, cb);
       },
       function (detectInfo, cb) {
+        if(!detectInfo || !detectInfo.face || !detectInfo.face[0].face_id){
+          return cb({err:'no face_id'});
+        }
         AdminPhoto.facePlusPlus = detectInfo;
         AdminPhoto.save(function (err) {
           if(err){
@@ -170,6 +222,46 @@ var express = require('express'),
         }
         res.end(_id);
       });
+  })
+  // 删除同步文件
+  .delete('/cloudSingle/:_id',function  (req, res, next) {
+    var _id =req.params._id,
+    AdminPhoto;
+    async.waterfall([
+      function  (cb) {
+        Adminph.findById(_id,cb);
+      },
+      function  (ph, cb) {
+        if(!ph.cloudinary || !ph.cloudinary.public_id){
+          return cb({err:'not exites'});
+        }
+        AdminPhoto = ph;
+        help.deleteFormCloudinary(ph.cloudinary.public_id, cb);
+      },
+      // 数据库删除
+      function  (result, cb) {
+        if(result){
+          console.log(result);
+        }
+        AdminPhoto.cloudinary = null;
+        AdminPhoto.save(cb);
+      }
+      ],function (err) {
+      if(err){
+        return next(err);
+      }
+      res.end('deletet ok');
+    });
+  })
+  // clear facePlusPluse
+  .delete('/faceSingle/:_id',function  (req, res, next) {
+    var _id = req.params._id;
+    Adminph.findByIdAndUpdate(_id,{facePlusPlus:null},function  (err) {
+      if(err){
+        return next(err);
+      }
+      res.end('delete ok');
+    });
   })
   ;
 

@@ -21,9 +21,14 @@
             </span>
             添加照片
           </button>
-          <button class="btn btn-success" aria-label="Left Align" ng-if="facePpPower.create">
+          <button class="btn btn-success" aria-label="Left Align" ng-if="facePpPower.create" ng-click='uploader.createPerson()'>
             <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
             创建Fcae++
+          </button>
+
+          <button class="btn btn-info" aria-label="Left Align" ng-if="facePpPower.update" ng-click='uploader.updatePerson()'>
+            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+            更新Fcae++
           </button>
           <hr>
 
@@ -33,19 +38,19 @@
                     <img ng-src="{{photo.path}}">
                     <div class="caption">
                       <p>
-                        <button class="btn btn-info" ng-click="up2Cloud(photo._id)" ng-if="!photo.cloudinary">
+                        <button class="btn btn-info" ng-click="uploader.cloud(photo._id)" ng-if="!photo.cloudinary">
                           up2Cloud
                         </button>
 
-                        <button class="btn btn-danger" ng-if='photo.cloudinary'>
+                        <button class="btn btn-danger" ng-if='photo.cloudinary' ng-click="deleter.cloud(photo._id)">
                           del2Cloud
                         </button>
                       </p>
                       <p>
-                        <button class="btn btn-info" ng-if='!photo.facePlusPlus' ng-click='up2facePP(photo._id)'>
+                        <button class="btn btn-info" ng-if='!photo.facePlusPlus' ng-click='uploader.facePP(photo._id)'>
                           up2Face++
                         </button>
-                        <button class="btn btn-danger" ng-if='photo.facePlusPlus'>
+                        <button class="btn btn-danger" ng-if='photo.facePlusPlus' ng-click="deleter.facePP(photo._id)">
                           del2Face++
                         </button>
                       </p>
