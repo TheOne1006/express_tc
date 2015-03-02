@@ -53,6 +53,9 @@ angular.module('theoneApp')
         createPerson : function() {
           return httpGet('/admin/user/createFacePerson');
         },
+        updatePerson : function() {
+          return httpGet('/admin/user/updateFacePerson');
+        },
         delete4Cloud : function (url, data) {
           return httpDel(url ,data);
         },
@@ -108,6 +111,7 @@ angular.module('theoneApp')
       $scope.uploader = {
         // 上传到 cloud
         cloud:function (_id) {
+          console.log('111');
           userPhotoService.upload2Cloud('/admin/user/up2cloud', _id)
             .success(function (data) {
               console.log(data);

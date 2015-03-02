@@ -71,7 +71,7 @@ var express = require('express'),
       function (phs, cb) {
         if(phs){
           _.each(phs,function (item) {
-            if(item && item.facePlusPlus && item.facePlusPlus.face[0].face_id){
+            if(item && item.facePlusPlus && item.facePlusPlus.face[0]){
               phIdsArr.push(item.facePlusPlus.face[0].face_id);
             }
           });
@@ -80,8 +80,7 @@ var express = require('express'),
           help.facePersonCreate(adminInfo.name, phsString, cb);
         }
       },
-      function  (result, cb) {
-        console.log(result);
+      function (result, cb) {
         if(!result || !result.person_id){
           return cb({err:'undefined person_id'});
         }
@@ -94,6 +93,54 @@ var express = require('express'),
         }
         res.end('created ok');
       });
+  })
+  /**
+   * update Person
+   * 更新 Face++ 的Person
+   */
+  .get('/updateFacePerson',function (req, res, next) {
+    var userId =  req.session.userId,
+    phIdsArr = [],
+    phsString,
+    adminInfo;
+
+    async.waterfall([
+      function (cb) {
+        User.findById(userId,function (err, user) {
+          if(err){
+            return cb(err);
+          }
+          if(!user.facePersonId){
+            return cb({err:'not exites'});
+          }
+          adminInfo = user;
+          Adminph.facePlusDataReady(userId, cb);
+        });
+      },
+      function (phs, cb) {
+        if(!phs){
+          return cb({err:'is null'});
+        }
+          _.each(phs,function (item) {
+            if(item && item.facePlusPlus && item.facePlusPlus.face[0] && item.facePlusPlus.face[0].face_id){
+              phIdsArr.push(item.facePlusPlus.face[0].face_id);
+            }
+          });
+
+          phsString = phIdsArr.join(',');
+          help.facePersonUpdate(adminInfo.facePersonId, phsString, cb);
+      },
+      function (result, cb) {
+        if(result && result.success){
+          cb();
+        }
+      }
+      ],function(err){
+      if(err){
+        return next(err);
+      }
+      res.end('update ok');
+    });
   })
   /**
    * 获取自己的相册
@@ -205,7 +252,8 @@ var express = require('express'),
         help.facePlusPlusDetect(phCloudUrl, cb);
       },
       function (detectInfo, cb) {
-        if(!detectInfo || !detectInfo.face || !detectInfo.face[0].face_id){
+        console.log(detectInfo);
+        if(!detectInfo || !detectInfo.face || !detectInfo.face[0] ||!detectInfo.face[0].face_id){
           return cb({err:'no face_id'});
         }
         AdminPhoto.facePlusPlus = detectInfo;
@@ -261,6 +309,22 @@ var express = require('express'),
         return next(err);
       }
       res.end('delete ok');
+    });
+  })
+  /**
+   * TEST GET SESSION
+   */
+  .get('/faceSession/:sessId',function (req, res, next) {
+    var sessId = req.params.sessId;
+    console.log(sessId);
+
+    help.faceGetSession(sessId,function (err, result){
+      console.log(result);
+      if(err){
+        return next(err);
+      }
+      res.json(result);
+      res.end();
     });
   })
   ;
