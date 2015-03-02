@@ -318,6 +318,7 @@ var express = require('express'),
     var sessId = req.params.sessId;
     console.log(sessId);
 
+
     help.faceGetSession(sessId,function (err, result){
       console.log(result);
       if(err){

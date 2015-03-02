@@ -1,4 +1,20 @@
 'use strict';
+/**
+ * login 路由
+ */
+ angular.module('theoneApp')
+   .config(function($stateProvider,$urlRouterProvider) {
+     $urlRouterProvider.otherwise('/');
+     $stateProvider
+       .state('webcam',{
+         url:'/webcam',
+         views:{
+           '@':{
+             templateUrl: '/angular/views/admin/login/webcam.html'
+           }
+         }
+       });
+     });
 
 /**
  * 后台登录ng-controller
@@ -7,7 +23,6 @@
  * # theoneApp
  *
  */
-
 angular.module('theoneApp')
   .controller('LoginController',['$scope', '$window', '$http',function ($scope, $window, $http) {
   $scope.user = {
