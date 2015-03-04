@@ -10,6 +10,8 @@ var bodyParser = require('body-parser');
 var compress = require('compression');
 var methodOverride = require('method-override');
 
+var multer = require('multer');
+
 module.exports = function(app, config) {
   app.set('views', config.root + '/app/views');
   app.set('view engine', 'jade');
@@ -27,6 +29,18 @@ module.exports = function(app, config) {
   app.use('/data',express.static(config.root + '/data'));
   app.use('/angular',express.static(config.root+ '/angular'));
   app.use(methodOverride());
+
+  // 文件上传 中间件
+  app.use(multer({
+    onFileUploadStart: function (file, req) {
+      // 特殊路径才能直接上传
+      if (req.url !=='/admin/login/verify/face'){
+        return false;
+      }
+    },
+    dest: config.root+'/data/tmp/',
+    inMemory: true //放入 buffer 中, 不存入文件
+  }));
   
     // session
   app.use(session({

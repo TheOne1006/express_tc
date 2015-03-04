@@ -28,6 +28,7 @@ angular.module('theoneApp')
     var webcam = $window.Webcam,
     phsListArr = [],
     takePhotoInterval,
+
     webcamParams = {
       width: 360,
       height: 280,
@@ -49,12 +50,16 @@ angular.module('theoneApp')
       });
     };
 
+    var httpPost = function (url, data) {
+      return $http.post(url, {img:data});
+    };
+
     var intervalGetPhoto = function  () {
       takePhotoInterval = $interval(function  () {
         if(webcam.container){
           webcam.snap(function (data) {
             phsListArr.push(data);
-            console.log(data);
+            webcam.upload(data,'/admin/login/verify/face',checkImage());
           });
         }else{
           takePhotoInterval.cancel();
@@ -62,7 +67,10 @@ angular.module('theoneApp')
       },5000);
     };
 
-
+    // 检测图片
+    var checkImage = function  (data) {
+      console.log(data);
+    };
 
     return {
       readyWebcam:function (options, domId) {

@@ -327,8 +327,7 @@ var express = require('express'),
       res.json(result);
       res.end();
     });
-  })
-  ;
+  });
 
 
   
