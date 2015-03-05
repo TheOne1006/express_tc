@@ -132,9 +132,10 @@ var express = require('express'),
       },
       function (result, cb) {
         if(result && result.success){
+          help.faceTrainVerify(adminInfo.facePersonId);
           cb();
         }
-      }
+      },
       ],function(err){
       if(err){
         return next(err);

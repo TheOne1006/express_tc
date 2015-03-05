@@ -21,7 +21,6 @@
  * @name theoneApp-admin.login.controller
  * @description
  * # theoneApp
- *
  */
 angular.module('theoneApp')
   .factory('webcamService', ['$http', '$window', '$interval', function($http, $window, $interval){

@@ -35,9 +35,16 @@ var express = require('express'),
             if(!detectInfo || !detectInfo.face || !detectInfo.face[0] ||!detectInfo.face[0].face_id){
               return cb({err:'no face_id'});
             }
+            console.log(detectInfo.face[0].face_id);
+            help.faceRecongnitionVerify(detectInfo.face[0].face_id, 'ffc4dc1a7f5b117bb529a0f9509c75b7', cb);
+          },
+          function  (result ,cb) {
+            console.log(result);
+            cb();
           }
           ],function (err) {
           if(err){
+            console.log(err);
             return next(err);
           }  
           res.end();
