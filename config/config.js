@@ -12,7 +12,8 @@ var config = {
     /**
      * 监听12345端口  1
      */
-    db: 'mongodb://root:root@ds033601.mongolab.com:33601/theblog'
+    db: 'mongodb://root:root@ds033601.mongolab.com:33601/theblog',
+    debug : true
   },
 
   test: {

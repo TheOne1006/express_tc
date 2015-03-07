@@ -1,31 +1,9 @@
 'use strict';
 
-var express = require('express'),
-  router = express.Router(),
-  mongoose = require('mongoose'),
+var mongoose = require('mongoose'),
   Article = mongoose.model('Article');
 
-module.exports = function (app) {
-  app.use('/', router);
-};
-
-router.get('/', function (req, res, next) {
-    // var newart = new Article({title:'first_one'});
-    // newart.save(function (err) {
-    //   if(err){
-    //       console.log(err);
-    //     }
-    // });
-
-
-    Article.findById('54d613fdd973168e10674567',function(err,docs){  
-             if(err){
-              console.log(err);
-             }
-             console.log(docs);
-
-             console.log('11111');
-      });
+exports.index = function (req, res, next) {
 
     Article.find(function (err, articles) {
     if (err){
@@ -37,4 +15,4 @@ router.get('/', function (req, res, next) {
       articles: articles
     });
   });
-});
+};

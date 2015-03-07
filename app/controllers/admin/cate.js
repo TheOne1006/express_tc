@@ -1,27 +1,21 @@
 'use strict';
 
-var express = require('express'),
-  router = express.Router(),
-  mongoose = require('mongoose'),
+var mongoose = require('mongoose'),
   async = require('async'),
   Cate = mongoose.model('Cate');
 
-module.exports = function (app) {
-  app.use('/admin/cate', router);
-};
+exports.allList = function (req, res, next) {
+    Cate.find(function (err, cates) {
+      if (err){
+        return next(err);
+      }
+      res.json(cates);
+      res.end();
+    });
+  };
 
-router
-  .get('/all',function (req, res, next) {
-    Cate.find(function (err, cates) {
-      if (err){
-        return next(err);
-      }
-      res.json(cates);
-      res.end();
-    });
-  })
   // 分页查询
-  .get('/',function (req, res, next) {
+exports.list = function (req, res, next) {
     Cate.find(function (err, cates) {
       if (err){
         return next(err);
@@ -29,8 +23,9 @@ router
       res.json(cates);
       res.end();
     });
-  })
-  .put('/add',function (req, res ,next){
+  };
+
+exports.add = function (req, res ,next){
     var cateType = req.body.cateType,
       cateName = req.body.cateName,
       catePType = req.body.catePType;
@@ -50,9 +45,10 @@ router
             res.end('ok');
           });
       }
-  })
+  };
+
   // 获取单个 id
-  .get('/id/:id', function (req, res, next) {
+exports.getById = function (req, res, next) {
     var _id = req.params.id;
     Cate.findById(_id,function (err, cate) {
       if(err){
@@ -61,9 +57,10 @@ router
       res.json(cate);
       res.end();
     });
-  })
+  };
+
   //删除单个id
-  .delete('/id/:id',function (req, res, next) {
+exports.delById = function (req, res, next) {
      var _id = req.params.id;
 
      Cate.findByIdAndRemove(_id, function(err) {
@@ -72,7 +69,4 @@ router
       }
       res.end();
      });
-     console.log('没删除成功');
-
-     res.end();
-  });
+  };

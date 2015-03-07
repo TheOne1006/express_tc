@@ -9,6 +9,7 @@ var session = require('express-session');
 var bodyParser = require('body-parser');
 var compress = require('compression');
 var methodOverride = require('method-override');
+var mongoose = require('mongoose');
 
 var multer = require('multer');
 
@@ -53,12 +54,12 @@ module.exports = function(app, config) {
   }));
 
   // 加载所有 controllers
-  var controllers = glob.sync(config.root + '/app/controllers/**/*.js');
+   var routers = glob.sync(config.root + '/app/routers/*.js');
   //var controllers = glob.sync(config.root + '/app/controllers/*.js');
 
-
-  controllers.forEach(function (controller) {
-    require(controller)(app);
+  // 单独提出 router
+  routers.forEach(function (router) {
+    require(router)(app);
   });
 
   app.use(function (req, res, next) {
@@ -68,6 +69,7 @@ module.exports = function(app, config) {
   });
   
   if(app.get('env') === 'development'){
+    mongoose.set('debug', config.debug);
     app.use(function (err, req, res, next) {
       res.status(err.status || 500);
       res.render('error', {

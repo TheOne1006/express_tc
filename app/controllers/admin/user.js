@@ -1,8 +1,6 @@
 'use strict';
 
-var express = require('express'),
-  router = express.Router(),
-  async = require('async'),
+var async = require('async'),
   config = require('../../../config/config'),
   help =require(config.root+'/my_node_modules/theone-help'),
   moment = require('moment'),
@@ -17,16 +15,13 @@ var express = require('express'),
 
 
 
-  module.exports = function (app) {
-    app.use('/admin/user', router);
-  };
-
-  router.get('/', function (req, res) {
+exports.index = function (req, res) {
     res.render('admin/user',{
       title:'管理员信息'
     });
-  })
-  .get('/myInfo',function (req, res, next) {
+  };
+
+exports.myInfo = function (req, res, next) {
     var userId = req.session.userId;
     User.findById(userId,function (err, user) {
       if(err){
@@ -35,9 +30,10 @@ var express = require('express'),
       res.json(user);
       res.end();
     });
-  })
-  // 创建face++ pserson 权限
-  .get('/createFacePower',function (req, res, next) {
+  };
+
+exports.face = {
+  createPower : function (req, res, next) {
     var userId = req.session.userId;
     Adminph.facePlusPower(userId,function (err, result) {
       if(err){
@@ -46,9 +42,9 @@ var express = require('express'),
       res.json(result);
       res.end();
     });
-  })
+  },
   // 创建 face++ person
-  .get('/createFacePerson',function (req, res, next) {
+  createPerson : function (req, res, next) {
     var userId = req.session.userId,
     phIdsArr = [],
     adminInfo,
@@ -93,12 +89,8 @@ var express = require('express'),
         }
         res.end('created ok');
       });
-  })
-  /**
-   * update Person
-   * 更新 Face++ 的Person
-   */
-  .get('/updateFacePerson',function (req, res, next) {
+  },
+  updatePerson : function (req, res, next) {
     var userId =  req.session.userId,
     phIdsArr = [],
     phsString,
@@ -142,95 +134,11 @@ var express = require('express'),
       }
       res.end('update ok');
     });
-  })
-  /**
-   * 获取自己的相册
+  },
+  /*
+   * 上传到face＋＋
    */
-  .get('/myPhotoList',function (req, res, next) {
-    var userId = req.session.userId;
-
-    Adminph.find({userObjectId:userId},function (err, phs) {
-      if(err){
-        return next(err);
-      }
-      res.json(phs);
-      res.end();
-    });
-
-  })
-  /**
-   * 批量上传图片
-   * 限制图片数量 最高9张
-   * 生成图片文件
-   */
-  .post('/addUserPhotos',function (req, res, next) {
-    var savePath = ROOT_PATH+'/data/'+req.session.userId+'/webcan';
-    var viewPath = '/data/'+req.session.userId+'/webcan/';
-    var itemArr = req.body.photos;
-    var i =0;
-
-    help.autoPath(savePath,function  (err) {
-      if(err){
-        return next(err);
-      }
-
-      async.mapLimit(itemArr, 3 ,function  (item, callback) {
-        i++;
-        var phPath = viewPath+moment().format('x')+i+'.jpeg';
-        help.base64Save2image(ROOT_PATH, phPath, item, callback);
-        //处理结果
-      },function  (err, picPathArr) {
-        if(err){
-          return next(err);
-        }
-        
-        Adminph.arraySave(picPathArr,req.session.userId,function (err) {
-          if(err){
-            return next(err);
-          }
-          res.end('ok');
-        });
-
-      });
-    });
-  })
-  /**
-   * 照片同步到Cloudinary
-   */
-  .get('/up2cloud/:id',function (req,res,next) {
-    var _id = req.params.id,
-    adminPhoto,
-    photoPath;
-
-    async.waterfall([
-      function (cb) {
-        Adminph.findById(_id,cb);
-      },
-      function (ph, cb) {
-        // 已经存在
-        if(ph.cloudinary){
-          return cb({err:'is uploaded'}); 
-        }
-        photoPath = ROOT_PATH+'/'+ph.path;
-        adminPhoto = ph;
-        help.upload2Cloudinary(photoPath, cb);
-      },
-      function (cloudJson, cb) {
-        adminPhoto.cloudinary = cloudJson;
-        adminPhoto.save(cb);
-      }],
-      // 结果处理函数
-      function (err) {
-      if(err){
-        return next(err);
-      }
-      res.end(_id);
-    });
-  })
-  /**
-   * 照片同步到 face++
-   */
-  .get('/up2facePP/:_id',function (req, res, next) {
+  upload : function (req, res, next) {
     var _id = req.params._id,
     AdminPhoto;
 
@@ -271,9 +179,108 @@ var express = require('express'),
         }
         res.end(_id);
       });
-  })
+  },
+  removeById : function  (req, res, next) {
+    var _id = req.params._id;
+    Adminph.findByIdAndUpdate(_id,{facePlusPlus:null},function  (err) {
+      if(err){
+        return next(err);
+      }
+      res.end('delete ok');
+    });
+  }
+  
+};
+
+  /**
+   * 获取自己的相册
+   */
+exports.myPhotoList = function (req, res, next) {
+    var userId = req.session.userId;
+
+    Adminph.find({userObjectId:userId},function (err, phs) {
+      if(err){
+        return next(err);
+      }
+      res.json(phs);
+      res.end();
+    });
+  };
+
+
+  /**
+   * 批量上传图片
+   * 限制图片数量 最高9张
+   * 生成图片文件
+   */
+exports.addMyPhotos = function (req, res, next) {
+    var savePath = ROOT_PATH+'/data/'+req.session.userId+'/webcan';
+    var viewPath = '/data/'+req.session.userId+'/webcan/';
+    var itemArr = req.body.photos;
+    var i =0;
+
+    help.autoPath(savePath,function  (err) {
+      if(err){
+        return next(err);
+      }
+
+      async.mapLimit(itemArr, 3 ,function  (item, callback) {
+        i++;
+        var phPath = viewPath+moment().format('x')+i+'.jpeg';
+        help.base64Save2image(ROOT_PATH, phPath, item, callback);
+        //处理结果
+      },function  (err, picPathArr) {
+        if(err){
+          return next(err);
+        }
+        
+        Adminph.arraySave(picPathArr,req.session.userId,function (err) {
+          if(err){
+            return next(err);
+          }
+          res.end('ok');
+        });
+
+      });
+    });
+  };
+
+exports.cloudinary = {
+  /**
+   * 照片同步到Cloudinary
+   */
+  upload : function (req,res,next) {
+    var _id = req.params.id,
+    adminPhoto,
+    photoPath;
+
+    async.waterfall([
+      function (cb) {
+        Adminph.findById(_id,cb);
+      },
+      function (ph, cb) {
+        // 已经存在
+        if(ph.cloudinary){
+          return cb({err:'is uploaded'}); 
+        }
+        photoPath = ROOT_PATH+'/'+ph.path;
+        adminPhoto = ph;
+        help.upload2Cloudinary(photoPath, cb);
+      },
+      function (cloudJson, cb) {
+        adminPhoto.cloudinary = cloudJson;
+        adminPhoto.save(cb);
+      }],
+      // 结果处理函数
+      function (err) {
+      if(err){
+        return next(err);
+      }
+      res.end(_id);
+    });
+  },
   // 删除同步文件
-  .delete('/cloudSingle/:_id',function  (req, res, next) {
+  removeById :  function  (req, res, next) {
     var _id =req.params._id,
     AdminPhoto;
     async.waterfall([
@@ -301,34 +308,26 @@ var express = require('express'),
       }
       res.end('deletet ok');
     });
-  })
-  // clear facePlusPluse
-  .delete('/faceSingle/:_id',function  (req, res, next) {
-    var _id = req.params._id;
-    Adminph.findByIdAndUpdate(_id,{facePlusPlus:null},function  (err) {
-      if(err){
-        return next(err);
-      }
-      res.end('delete ok');
-    });
-  })
+  }
+};
+
   /**
    * TEST GET SESSION
    */
-  .get('/faceSession/:sessId',function (req, res, next) {
-    var sessId = req.params.sessId;
-    console.log(sessId);
+  // .get('/faceSession/:sessId',function (req, res, next) {
+  //   var sessId = req.params.sessId;
+  //   console.log(sessId);
 
 
-    help.faceGetSession(sessId,function (err, result){
-      console.log(result);
-      if(err){
-        return next(err);
-      }
-      res.json(result);
-      res.end();
-    });
-  });
+  //   help.faceGetSession(sessId,function (err, result){
+  //     console.log(result);
+  //     if(err){
+  //       return next(err);
+  //     }
+  //     res.json(result);
+  //     res.end();
+  //   });
+  // });
 
 
   

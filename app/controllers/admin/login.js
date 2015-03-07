@@ -2,9 +2,7 @@
 /**
  * 后台登陆
  */
-var express = require('express'),
-  router = express.Router(),
-  mongoose = require('mongoose'),
+var mongoose = require('mongoose'),
   config = require('../../../config/config'),
   help =require(config.root+'/my_node_modules/theone-help'),
   crypto = require('crypto'),
@@ -12,20 +10,18 @@ var express = require('express'),
   moment = require('moment'),
   User = mongoose.model('User');
 
-  module.exports = function (app) {
-    app.use('/admin/login', router);
-  };
-
-    router.get('/', function (req, res) {
+exports.index = function (req, res) {
         res.render('admin/login', {
           title: 'Generator-Express MVC'
         });
-    })
+    };
+
     // 验证登录 密码
-    .post('/verify/password', function (req, res, next) {
+exports.verify = {
+  password : function (req, res, next) {
         res.end('ok');
-    })
-    .post('/verify/face', function (req, res, next) {
+    },
+  face : function (req, res, next) {
         // var img = req.files.webcam;
         async.waterfall([
           function (cb) {
@@ -49,8 +45,5 @@ var express = require('express'),
           }  
           res.end();
           });
-    })
-
-;
-
-
+      }
+    };

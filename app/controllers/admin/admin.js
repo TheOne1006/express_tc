@@ -1,18 +1,12 @@
 'use strict';
 
-var express = require('express'),
-  router = express.Router(),
-  mongoose = require('mongoose'),
+var mongoose = require('mongoose'),
   crypto = require('crypto'),
   // async = require('async'),
   moment = require('moment'),
   User = mongoose.model('User');
 
-module.exports = function (app) {
-  app.use('/admin', router);
-};
-
-router.use(function  (req, res, next) {
+exports.checkSession = function  (req, res, next) {
 
   // 默认 userId
   if(!req.session.userId){
@@ -31,19 +25,19 @@ router.use(function  (req, res, next) {
     res.locals.user = user;
     next();
   });
-});
+};
 
-router.get('/',function (req, res) {
+exports.index = function (req, res) {
         res.render('admin/index',{
           title:'TheOne后台',
         });
-  })
-  .get('/add/user',function (req, res) {
-    var md5 = crypto.createHash('md5').update('qqaazz123');
-    var newUser = new User({
-      name:'theone12138',
-      password:md5.digest('hex'),
-    });
-    newUser.save();
-    res.end('create new User');
-  });
+  };
+  // .get('/add/user',function (req, res) {
+  //   var md5 = crypto.createHash('md5').update('qqaazz123');
+  //   var newUser = new User({
+  //     name:'theone12138',
+  //     password:md5.digest('hex'),
+  //   });
+  //   newUser.save();
+  //   res.end('create new User');
+  // });
