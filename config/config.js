@@ -22,7 +22,8 @@ var config = {
       name: 'express-tc'
     },
     port: 3000,
-    db: 'mongodb://localhost/express-tc-test'
+    db: 'mongodb://localhost/express-tc-test',
+    debug : false
   },
 
   production: {
@@ -31,7 +32,8 @@ var config = {
       name: 'express-tc'
     },
     port: 3000,
-    db: 'mongodb://localhost/express-tc-production'
+    db: 'mongodb://localhost/express-tc-production',
+    debug : false
   }
 };
 

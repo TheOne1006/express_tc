@@ -1,6 +1,6 @@
 'use strict';
 /**
- * login router
+ * login router 
  */
  angular.module('theoneApp')
    .config(function($stateProvider,$urlRouterProvider) {

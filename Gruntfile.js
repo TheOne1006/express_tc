@@ -12,13 +12,14 @@ module.exports = function (grunt) {
 
   var appConfig = {
     adminTemp:'app/views/admin',
-    adminCss:'public/css/admin'
+    adminCss:'public/css/admin',
+    homeTemp:'app/views/home'
   };
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
-    appadmin: appConfig,
+    appCon: appConfig,
     develop: {
       server: {
         file: 'app.js'
@@ -33,9 +34,9 @@ module.exports = function (grunt) {
       server:{
         files:[{
           expand:true,
-          cwd:'<%= appadmin.adminCss %>',
+          cwd:'<%= appCon.adminCss %>',
           src:['*.{sass,scss}'],
-          dest:'<%= appadmin.adminCss %>',
+          dest:'<%= appCon.adminCss %>',
           ext:'.css'
         }]
       }
@@ -47,13 +48,23 @@ module.exports = function (grunt) {
      */
     wiredep: {
       admin: {
-        src: ['<%= appadmin.adminTemp %>/*.jade',
-        '<%= appadmin.adminTemp %>/*.html'
+        src: ['<%= appCon.adminTemp %>/*.jade',
+        '<%= appCon.adminTemp %>/*.html'
+        ],
+        ignorePath:  /(\.\.\/){3}public/
+      },
+      home :{
+        src:['<%= appCon.homeTemp %>/*.jade'],
+        // 忽略 js 文件
+        exclude:['public/components/json3/lib/json3.js',
+        'public/components/bootstrap-sass-official/assets/javascripts/bootstrap.js',
+        'public/components/ng-tags-input/ng-tags-input.min.css',
+        'public/components/ng-grid/ng-grid.css'
         ],
         ignorePath:  /(\.\.\/){3}public/
       },
       sass:{
-        src:['<%= appadmin.adminCss %>/*.{scss,sass}']
+        src:['<%= appCon.adminCss %>/*.{scss,sass}']
       }
     },
     watch: {
@@ -85,7 +96,36 @@ module.exports = function (grunt) {
           'app/views/**/*.jade'
         ],
         options: { livereload: reloadPort }
+      },
+      angular:{
+        files:[
+          'angular/scripts/**/**/*.js',
+          'angular/scripts/**/*.js',
+          'angular/scripts/*.js',
+        ],
+        options: { livereload: reloadPort }
       }
+    },
+    connect: {
+      options: {
+        port: 9000,
+        // Change this to '0.0.0.0' to access the server from outside.
+        hostname: 'localhost',
+        livereload: 35729
+      },
+      openbrwoer: {
+        options: {
+          open: true,
+          middleware: [
+          function myMiddleware(req, res) {
+              res.writeHead(200);
+              // 定时器 跳转
+              res.write('<script> setTimeout(function(){location="http://localhost:3000"},3000);</script>');
+              res.end();
+          }
+        ],
+        }
+      },
     }
   });
 
@@ -118,6 +158,7 @@ module.exports = function (grunt) {
       'wiredep',
       'sass',
       'develop',
+      'connect:openbrwoer',
       'watch'
     ]);
   });

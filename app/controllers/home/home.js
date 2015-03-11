@@ -10,7 +10,7 @@ exports.index = function (req, res, next) {
       return next(err);
     }
     
-    res.render('index', {
+    res.render('home/index', {
       title: 'Generator-Express MVC',
       articles: articles
     });
