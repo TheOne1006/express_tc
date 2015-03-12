@@ -1,10 +1,12 @@
 doctype html
-html(lang='zh-CN')
+html(lang='zh-CN',ng-app='theOneBlog')
     head
       meta(charset='UTF-8')
       meta(name='viewport', content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no')
       //- bower:css
       //- endbower
+      link(rel='stylesheet',href='/css/home/bootstrap-theone-blog.css')
+      script(src='http://localhost:35729/livereload.js')
       //- bower:js
       script(src='/components/jquery/dist/jquery.js')
       script(src='/components/es5-shim/es5-shim.js')
@@ -14,18 +16,14 @@ html(lang='zh-CN')
       script(src='/components/angular-cookies/angular-cookies.js')
       script(src='/components/angular-messages/angular-messages.js')
       script(src='/components/angular-resource/angular-resource.js')
-      script(src='/components/angular-route/angular-route.js')
       script(src='/components/angular-sanitize/angular-sanitize.js')
       script(src='/components/angular-touch/angular-touch.js')
       script(src='/components/angular-ui-router/release/angular-ui-router.js')
-      script(src='/components/ng-grid/build/ng-grid.js')
       script(src='/components/angular-bootstrap/ui-bootstrap-tpls.js')
-      script(src='/components/tinymce/tinymce.min.js')
-      script(src='/components/angular-ui-tinymce/src/tinymce.js')
-      script(src='/components/ng-tags-input/ng-tags-input.min.js')
       //- endbower
-    body
-      h1 test
+    body(ng-controller='MainCtrl',ui-view='main')
+    block bodyer
+
 
     block footer
       .navbar.navbar-footer
@@ -37,3 +35,7 @@ html(lang='zh-CN')
                           p.right &copy; 2015
     //- footer
     //- angular
+    block angular
+      script(src='/angular/scripts/home.js')
+      script(src='/angular/scripts/route/homeRoute.js')
+      script(src='/angular/scripts/controllers/home/mainCtrl.js')

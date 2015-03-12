@@ -10,6 +10,6 @@ var homeCtrl = require('../controllers/home/home');
 
 
 module.exports = function (app) {
+  app.get('/',homeCtrl.index);
   app.use('/',homeR);
-  homeR.get('/',homeCtrl.index);
 };

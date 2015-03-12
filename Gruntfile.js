@@ -31,6 +31,11 @@ module.exports = function (grunt) {
           'public/css/style.css': 'public/css/style.scss'
         }
       },
+      homedist:{
+        files:{
+          'public/css/home/bootstrap-theone-blog.css': 'public/css/home/bootstrap-theone-blog.scss'
+        }
+      },
       server:{
         files:[{
           expand:true,
@@ -59,6 +64,11 @@ module.exports = function (grunt) {
         exclude:['public/components/json3/lib/json3.js',
         'public/components/bootstrap-sass-official/assets/javascripts/bootstrap.js',
         'public/components/ng-tags-input/ng-tags-input.min.css',
+        'public/components/ng-grid/build/ng-grid.js', 
+        'public/components/tinymce/tinymce.min.js',
+        'public/components/angular-ui-tinymce/src/tinymce.js',
+        'public/components/ng-tags-input/ng-tags-input.min.js',
+        'public/components/angular-route/angular-route.js',
         'public/components/ng-grid/ng-grid.css'
         ],
         ignorePath:  /(\.\.\/){3}public/
