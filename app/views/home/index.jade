@@ -1,6 +1,7 @@
 extends layout
 
 block bodyer
-  header.navbar.navbar-default.navbar-fixed-top(ui-view='header')
-  .header-placeholder
-  .container.main(ui-view='bodyer')
+  body(ng-controller='MainCtrl',ui-view='main')
+    header.navbar.navbar-default.navbar-fixed-top(ui-view='header')
+    .header-placeholder
+    .container.main(ui-view='bodyer')
