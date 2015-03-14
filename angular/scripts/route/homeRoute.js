@@ -18,6 +18,9 @@ angular.module('theOneBlog')
             'header':{
               templateUrl: '/angular/views/home/header.html'
             },
+            'banner':{
+              templateUrl: '/angular/views/home/banner.html'
+            },
             'bodyer':{
               templateUrl: '/angular/views/home/main.html'
             }

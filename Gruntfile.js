@@ -13,7 +13,8 @@ module.exports = function (grunt) {
   var appConfig = {
     adminTemp:'app/views/admin',
     adminCss:'public/css/admin',
-    homeTemp:'app/views/home'
+    homeTemp:'app/views/home',
+    homeCss:'public/css/home'
   };
 
   grunt.initConfig({
@@ -90,13 +91,22 @@ module.exports = function (grunt) {
         ],
         tasks: ['develop', 'delayed-livereload']
       },
-      css: {
+      scss: {
         files: [
           'public/css/*.scss',
           'public/css/admin/*.scss',
           'public/css/home/*.scss'
         ],
-        tasks: ['sass'],
+        tasks: ['watchsass'],
+        options: {
+          livereload: reloadPort
+        }
+      },
+      css:{
+        files: [
+          'public/css/home/*.css'
+        ],
+        tasks: ['autoprefixer'],
         options: {
           livereload: reloadPort
         }
@@ -136,7 +146,22 @@ module.exports = function (grunt) {
           }
         ],
         }
+      }
+    },
+
+    // Add vendor prefixed styles 自动添加css3 前缀
+    autoprefixer: {
+      options: {
+        browsers: ['> 1%', 'last 2 versions', 'Firefox ESR', 'Opera 12.1']
       },
+      dist: {
+        files: [{
+          expand: true,
+          cwd: '<%= appCon.homeCss %>',
+          src: '{,*/}*.css',
+          dest: '<%= appCon.homeCss %>'
+        }]
+      }
     }
   });
 
@@ -158,6 +183,13 @@ module.exports = function (grunt) {
     }, 500);
   });
 
+  grunt.registerTask('watchsass','编译scss添加前缀',function () {
+    grunt.task.run([
+      'sass',
+      'autoprefixer'
+      ]);
+  });
+
   grunt.registerTask('default', [
     'sass:dist',
     'develop',
@@ -169,6 +201,7 @@ module.exports = function (grunt) {
       'wiredep',
       'sass',
       'develop',
+      'autoprefixer',
       'connect:openbrwoer',
       'watch'
     ]);

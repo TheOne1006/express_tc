@@ -11,11 +11,11 @@ angular.module('theOneBlog')
   .controller('MainCtrl',['$scope',function ($scope) {
     // VIEW 展现
     $scope.view = {
-      offCanvas : false
+      scollLeft : false
     };
 
     $scope.trunCollapsed = function () {
-      $scope.view.offCanvas = !$scope.view.offCanvas;
+      $scope.view.scollLeft = !$scope.view.scollLeft;
     };
 
   }])
@@ -37,5 +37,5 @@ angular.module('theOneBlog')
       $scope.addSlide();
     }
   }])
-  
+
   ;

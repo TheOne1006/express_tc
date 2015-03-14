@@ -13,7 +13,7 @@ $icon-font-path: "../../components/bootstrap-sass-official/assets/fonts/bootstra
  * Off Canvas
  * --------------------------------------------------
  */
-@media screen and (max-width: 767px) {
+@media screen and (max-width: $screen-xs-max) {
   .row-offcanvas {
     position: relative;
     // -webkit-transition: all .25s ease-out;
@@ -51,5 +51,50 @@ $icon-font-path: "../../components/bootstrap-sass-official/assets/fonts/bootstra
     position: absolute;
     top: 0;
     width: 50%; /* 6 columns */
+  }
+}
+
+/* CUSTOMIZE THE NAVBAR
+-------------------------------------------------- */
+
+/* Special class on .container surrounding .navbar, used for positioning it into place. */
+.navbar-wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 20;
+}
+
+/* Flip around the padding for proper display in narrow viewports */
+.navbar-wrapper > .container {
+  padding-right: 0;
+  padding-left: 0;
+}
+.navbar-wrapper .navbar {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+.navbar-wrapper .navbar .container {
+  width: auto;
+}
+
+/**
+ * test css3
+ */
+
+#test-scale {
+  transform: scale(.5);
+  transform: translate(-10px , 20px);
+}
+
+
+/** css3 **/
+@media screen and (max-width: $screen-xs-max) {
+  .translate-side {
+    transition: all .25s ease-out;
+  }
+  #middelContext.scorll-left {
+    transform : translate( -200px, 0px);
   }
 }

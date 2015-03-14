@@ -22,17 +22,21 @@ html(lang='zh-CN',ng-app='theOneBlog')
       script(src='/components/angular-bootstrap/ui-bootstrap-tpls.js')
       //- endbower
     
-    block bodyer
+    body(ng-controller='MainCtrl',ui-view='main')
+      div#leftSider.translate-side
+      div#rightSider.translate-side
+      div#middelContext.translate-side(ng-class='{"scorll-left":view.scollLeft}')
+        block bodyer
+          
 
-
-    block footer
-      .navbar.navbar-footer
-          .container
-              .row
-                  .col-lg-12
-                      footer(role='conteninfo')
-                          p.left theone.io
-                          p.right &copy; 2015
+        block footer
+          .navbar.navbar-footer
+              .container
+                  .row
+                      .col-lg-12
+                          footer(role='conteninfo')
+                              p.left theone.io
+                              p.right &copy; 2015
     //- footer
     //- angular
     block angular

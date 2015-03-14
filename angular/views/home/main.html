@@ -1,22 +1,37 @@
 <div class="row row-offcanvas row-offcanvas-right" ng-class='{active:view.offCanvas}'>
   <!-- main-left -->
   <div class="col-sm-9 col-xs-12">
-    <div ng-controller="CarouselCtrl">
-      <div style="height: 305px">
-          <carousel interval="myInterval">
-            <slide ng-repeat="slide in slides" active="slide.active">
-              <img ng-src="{{slide.image}}" style="margin:auto;">
-              <div class="carousel-caption">
-                <h4>Slide {{$index}}</h4>
-                <p>{{slide.text}}</p>
-              </div>
-            </slide>
-          </carousel>
+    <div class="row">
+      <div class="col-xs-12">
+          <h2>Heading</h2>
+          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+          <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
+       </div>
+
+       <div class="col-xs-12">
+           <h2>Heading2</h2>
+           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+           <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
         </div>
+
+
+       <div class="col-xs-12">
+           <h2>Heading3</h2>
+           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+           <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
+        </div>
+
+
+       <div class="col-xs-12">
+           <h2>Heading4</h2>
+           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+           <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
+        </div>
+
     </div>
   </div>
   <!-- main-right -->
-  <div class="col-sm-3 sidebar-offcanvas">
+  <div class="col-sm-3 sidebar-offcanvas hide">
     <ul class="list-group">
       <li class="list-group-item">Cras justo odio</li>
       <li class="list-group-item">Dapibus ac facilisis in</li>
