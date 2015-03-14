@@ -23,6 +23,9 @@ angular.module('theOneBlog')
             },
             'bodyer':{
               templateUrl: '/angular/views/home/main.html'
+            },
+            'affix@main':{
+              templateUrl: '/angular/views/home/affix.html'
             }
           }
         });

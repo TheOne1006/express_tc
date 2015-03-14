@@ -19,5 +19,6 @@ ngApp = angular
     'ui.router', // 加载 ui.router
     'ui.bootstrap',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'mgcrea.ngStrap' // 类似ui.bootstrap
   ]);
