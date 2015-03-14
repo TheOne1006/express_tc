@@ -8,6 +8,9 @@
  */
 
 angular.module('theOneBlog')
+  .run(function () {
+
+  })
   .controller('MainCtrl',['$scope',function ($scope) {
     // VIEW 展现
     $scope.view = {

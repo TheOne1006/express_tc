@@ -89,7 +89,7 @@ $icon-font-path: "../../components/bootstrap-sass-official/assets/fonts/bootstra
 }
 
 
-/** css3 **/
+/** 中间Context滑动 css3 **/
 @media screen and (max-width: $screen-xs-max) {
   .translate-side {
     transition: all .25s ease-out;
@@ -97,4 +97,62 @@ $icon-font-path: "../../components/bootstrap-sass-official/assets/fonts/bootstra
   #middelContext.scorll-left {
     transform : translate( -200px, 0px);
   }
+
+  #middelContext.scorll-left > header.navbar-fixed-top {
+    transform: translate(0px, 0px);
+  }
 }
+
+
+/**
+ * fadeIn css 效果 
+Animate.css - http://daneden.me/animate
+Licensed under the MIT license - http://opensource.org/licenses/MIT
+
+Copyright (c) 2015 Daniel Eden
+*/
+  .animated {
+    animation-duration: 1s;
+    animation-fill-mode: both;
+  }
+
+  .animated.infinite {
+    animation-iteration-count: infinite;
+  }
+
+  .animated.hinge {
+    animation-duration: 2s;
+  }
+
+  @keyframes fadeInDown {
+    0% {
+      opacity: 0;
+      transform: translate3d(0, -100%, 0);
+      -ms-transform: translate3d(0, -100%, 0);
+    }
+
+    100% {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .fadeInDown {
+    animation-name: fadeInDown;
+  }
+
+  @keyframes fadeOutUp {
+    0% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0;
+      transform: translate3d(0, -100%, 0);
+      -ms-transform: translate3d(0, -100%, 0);
+    }
+  }
+
+  .fadeOutUp {
+    animation-name: fadeOutUp;
+  }

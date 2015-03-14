@@ -70,7 +70,10 @@ module.exports = function (grunt) {
         'public/components/angular-ui-tinymce/src/tinymce.js',
         'public/components/ng-tags-input/ng-tags-input.min.js',
         'public/components/angular-route/angular-route.js',
-        'public/components/ng-grid/ng-grid.css'
+        'public/components/ng-grid/ng-grid.css',
+        // 多余的 headroom
+        'public/components/headroom.js/dist/jQuery.headroom.js',
+        'public/components/headroom.js/dist/angular.headroom.js'
         ],
         ignorePath:  /(\.\.\/){3}public/
       },

@@ -5,6 +5,9 @@ html(lang='zh-CN',ng-app='theOneBlog')
       meta(name='viewport', content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no')
       //- bower:css
       //- endbower
+
+      //- css3 特效
+      //- link(rel='stylesheet',href='/components/animate.css/animate.css')
       link(rel='stylesheet',href='/css/home/bootstrap-theone-blog.css')
       script(src='http://localhost:35729/livereload.js')
       //- bower:js
@@ -20,9 +23,11 @@ html(lang='zh-CN',ng-app='theOneBlog')
       script(src='/components/angular-touch/angular-touch.js')
       script(src='/components/angular-ui-router/release/angular-ui-router.js')
       script(src='/components/angular-bootstrap/ui-bootstrap-tpls.js')
+      script(src='/components/headroom.js/dist/headroom.js')
       //- endbower
     
     body(ng-controller='MainCtrl',ui-view='main')
+      header#header.navbar.navbar-default.navbar-fixed-top(ui-view='header',headroom,offset='201',classes="{pinned:'fadeInDown',unpinned:'fadeOutUp',initial:'animated'}")
       div#leftSider.translate-side
       div#rightSider.translate-side
       div#middelContext.translate-side(ng-class='{"scorll-left":view.scollLeft}')
@@ -43,3 +48,4 @@ html(lang='zh-CN',ng-app='theOneBlog')
       script(src='/angular/scripts/home.js')
       script(src='/angular/scripts/route/homeRoute.js')
       script(src='/angular/scripts/controllers/home/mainCtrl.js')
+      script(src='/angular/scripts/directive/myDirective.js')
