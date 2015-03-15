@@ -1,6 +1,10 @@
 extends layout
 
-block bodyer
+
+block middelContext
   .header-placeholder
   div(ui-view='banner')
   .container.main(ui-view='bodyer')
+
+block rightSider
+  div(ui-view='mobileRight')

@@ -5569,6 +5569,31 @@ button.close {
 .header-placeholder {
   height: 60px; }
 
+/**
+ * 全局 fadeInLeft
+ */
+@-webkit-keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(100%, 0, 0);
+    -ms-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0); }
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    -ms-transform: none;
+    transform: none; } }
+@keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(100%, 0, 0);
+    -ms-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0); }
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    -ms-transform: none;
+    transform: none; } }
 /* CUSTOMIZE THE NAVBAR
 -------------------------------------------------- */
 /* Special class on .container surrounding .navbar, used for positioning it into place. */
@@ -5591,29 +5616,18 @@ button.close {
 .navbar-wrapper .navbar .container {
   width: auto; }
 
-/**
- * test css3
- */
-#test-scale {
-  -webkit-transform: scale(0.5);
-      -ms-transform: scale(0.5);
-          transform: scale(0.5);
-  -webkit-transform: translate(-10px, 20px);
-      -ms-transform: translate(-10px, 20px);
-          transform: translate(-10px, 20px); }
-
 /** 中间Context滑动 css3 **/
 @media screen and (max-width: 767px) {
   .translate-side {
     -webkit-transition: all .25s ease-out;
             transition: all .25s ease-out; }
 
-  #middelContext.scorll-left {
+  #middelContext.scroll-left {
     -webkit-transform: translate(-200px, 0px);
         -ms-transform: translate(-200px, 0px);
             transform: translate(-200px, 0px); }
 
-  #middelContext.scorll-left > header.navbar-fixed-top {
+  #middelContext.scroll-left > header.navbar-fixed-top {
     -webkit-transform: translate(0px, 0px);
         -ms-transform: translate(0px, 0px);
             transform: translate(0px, 0px); } }
@@ -5742,7 +5756,7 @@ Copyright (c) 2015 Daniel Eden
   animation-name: bounceInDown; }
 
 /**
- * 滚动样式
+ * scrollspy 滚动样式
  */
 @media screen and (min-width: 767px) {
   .bs-sidebar .nav > .active:focus > a,
@@ -5772,3 +5786,36 @@ Copyright (c) 2015 Daniel Eden
 
   .affix-top {
     margin-top: 20px; } }
+/**
+ * #rightSider mobile 滚动样式
+ * < $screen-xs-max
+ */
+@media screen and (max-width: 767px) {
+  @-webkit-keyframes fadeInRightM {
+    from {
+      -webkit-transform: translate(200px, 0px);
+              transform: translate(200px, 0px); }
+    to {
+      -webkit-transform: none;
+              transform: none; } }
+  @keyframes fadeInRightM {
+    from {
+      -webkit-transform: translate(200px, 0px);
+              transform: translate(200px, 0px); }
+    to {
+      -webkit-transform: none;
+              transform: none; } }
+  .mobile-right {
+    top: 0px;
+    right: 0px; }
+
+  .mobile-right-scroll {
+    -webkit-animation-name: fadeInRightM;
+            animation-name: fadeInRightM;
+    -webkit-animation-duration: .25s;
+            animation-duration: .25s;
+    -webkit-transition-timing-function: ease-out;
+            transition-timing-function: ease-out; }
+
+  #rightSider {
+    width: 200px; } }

@@ -12,6 +12,26 @@ $sider-color:          #b94846 !default;
 }
 
 
+/**
+ * 全局 fadeInLeft
+ */
+
+@keyframes fadeInRight {
+ 0% {
+   opacity: 0;
+   -webkit-transform: translate3d(100%, 0, 0);
+   -ms-transform: translate3d(100%, 0, 0);
+   transform: translate3d(100%, 0, 0);
+ }
+
+ 100% {
+   opacity: 1;
+   -webkit-transform: none;
+   -ms-transform: none;
+   transform: none;
+ }
+}
+
 /* CUSTOMIZE THE NAVBAR
 -------------------------------------------------- */
 
@@ -37,26 +57,16 @@ $sider-color:          #b94846 !default;
   width: auto;
 }
 
-/**
- * test css3
- */
-
-#test-scale {
-  transform: scale(.5);
-  transform: translate(-10px , 20px);
-}
-
-
 /** 中间Context滑动 css3 **/
 @media screen and (max-width: $screen-xs-max) {
   .translate-side {
     transition: all .25s ease-out;
   }
-  #middelContext.scorll-left {
+  #middelContext.scroll-left {
     transform : translate( -200px, 0px);
   }
 
-  #middelContext.scorll-left > header.navbar-fixed-top {
+  #middelContext.scroll-left > header.navbar-fixed-top {
     transform: translate(0px, 0px);
   }
 }
@@ -160,7 +170,7 @@ Copyright (c) 2015 Daniel Eden
   }
 
 /**
- * 滚动样式
+ * scrollspy 滚动样式
  */
 @media screen and (min-width: $screen-xs-max) {
  .bs-sidebar .nav > .active:focus > a,
@@ -192,4 +202,33 @@ Copyright (c) 2015 Daniel Eden
  .affix-top {
    margin-top: 20px;
  }
+}
+
+/**
+ * #rightSider mobile 滚动样式
+ * < $screen-xs-max
+ */
+@media screen and (max-width: $screen-xs-max) {
+
+
+  @keyframes fadeInRightM {
+   from{transform : translate( 200px, 0px);}
+      to{transform: none;}
+  }
+
+  .mobile-right {
+    top: 0px;
+    right: 0px;
+  }
+
+  .mobile-right-scroll {
+    animation-name: fadeInRightM;
+    animation-duration: .25s;
+    transition-timing-function : ease-out;
+  }
+
+  #rightSider {
+    width:200px;
+  }
+
 }

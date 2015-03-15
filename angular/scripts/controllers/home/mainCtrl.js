@@ -14,11 +14,11 @@ angular.module('theOneBlog')
   .controller('MainCtrl',['$scope',function ($scope) {
     // VIEW 展现
     $scope.view = {
-      scollLeft : false
+      scrollLeft : false
     };
 
     $scope.trunCollapsed = function () {
-      $scope.view.scollLeft = !$scope.view.scollLeft;
+      $scope.view.scrollLeft = !$scope.view.scrollLeft;
     };
 
   }])

@@ -31,9 +31,9 @@ html(lang='zh-CN',ng-app='theOneBlog')
     body(ng-controller='MainCtrl',ui-view='main')
       header#header.navbar.navbar-default.navbar-fixed-top(ui-view='header',headroom,offset='201',classes="{pinned:'fadeInDown',unpinned:'fadeOutUp',initial:'animated'}")
       div#leftSider.translate-side
-      div#rightSider.translate-side
-      div#middelContext.translate-side(ng-class='{"scorll-left":view.scollLeft}')
-        block bodyer
+        
+      div#middelContext.translate-side(ng-class='{"scroll-left":view.scrollLeft}')
+        block middelContext
           
 
         block footer
@@ -44,7 +44,10 @@ html(lang='zh-CN',ng-app='theOneBlog')
                           footer(role='conteninfo')
                               p.left theone.io
                               p.right &copy; 2015
-    //- footer
+
+      div#rightSider.translate-side.affix(ng-class='{"mobile-right-scroll mobile-right":view.scrollLeft}')
+        block rightSider
+
     //- angular
     block angular
       script(src='/angular/scripts/home.js')
