@@ -9,7 +9,7 @@
  * Main route of the application in web.
  */
 angular.module('theOneBlog')
-  .config(function($stateProvider,$urlRouterProvider) {
+  .config(['$stateProvider', '$urlRouterProvider',function($stateProvider, $urlRouterProvider) {
       $urlRouterProvider.otherwise('/');
       $stateProvider
         .state('main',{
@@ -29,4 +29,4 @@ angular.module('theOneBlog')
             }
           }
         });
-  });
+  }]);
