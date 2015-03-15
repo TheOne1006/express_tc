@@ -31,5 +31,14 @@ angular.module('theOneBlog')
               templateUrl: '/angular/views/home/mobile/right.html'
             }
           }
-        });
+        })
+        .state('main.article',{
+          url:'article/:id',
+          views:{
+            'bodyer@':{
+              templateUrl: '/angular/views/home/article/article.html'
+            }
+          }
+        })
+        ;
   }]);
