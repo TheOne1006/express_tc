@@ -20,5 +20,6 @@ ngApp = angular
     'ui.bootstrap',
     'ngSanitize',
     'ngTouch',
-    'mgcrea.ngStrap' // 类似ui.bootstrap
+    'mgcrea.ngStrap', // 类似ui.bootstrap
+    'angular-carousel'//拖拽banner
   ]);

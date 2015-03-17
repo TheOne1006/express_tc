@@ -65,12 +65,13 @@ module.exports = function (grunt) {
         exclude:['public/components/json3/lib/json3.js',
         'public/components/bootstrap-sass-official/assets/javascripts/bootstrap.js',
         'public/components/ng-tags-input/ng-tags-input.min.css',
-        'public/components/ng-grid/build/ng-grid.js', 
+        'public/components/ng-grid/build/ng-grid.js',
         'public/components/tinymce/tinymce.min.js',
         'public/components/angular-ui-tinymce/src/tinymce.js',
         'public/components/ng-tags-input/ng-tags-input.min.js',
         'public/components/angular-route/angular-route.js',
         'public/components/ng-grid/ng-grid.css',
+        'public/components/angular-carousel/dist/angular-carousel.css',
         // 多余的 headroom
         'public/components/headroom.js/dist/jQuery.headroom.js',
         'public/components/headroom.js/dist/angular.headroom.js'
