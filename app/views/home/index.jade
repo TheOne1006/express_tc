@@ -8,4 +8,4 @@ block middelContext
   div(ng-class='{overlay:view.scrollLeft}',ng-swipe-right='view.scrollLeft = false')
 
 block rightSider
-  div(ui-view='mobileRight')
+  div.visible-xs(ui-view='mobileRight')

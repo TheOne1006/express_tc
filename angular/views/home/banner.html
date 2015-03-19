@@ -2,13 +2,13 @@
   <div class='carousel-inner' ng-controller="CarouselCtrl">
       <div style="height: 305px">
 
-        <ul rn-carousel class="image" rn-carousel-buffered rn-carousel-controls rn-carousel-auto-slide>
+        <ul rn-carousel class="image" rn-carousel-buffered rn-carousel-controls rn-carousel-auto-slide rn-carousel-locked='view.scrollLeft'>
           <li ng-repeat="image in slides">
             <div ng-style="{'background-image': 'url(' + image.img + ')'}" class="bgimage ng-binding" >
             {{image.text}}
             </div>
           </li>
         </ul>
-
+      </div>
     </div> 
 </div>

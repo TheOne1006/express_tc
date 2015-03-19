@@ -36,7 +36,7 @@ html(lang='zh-CN',ng-app='theOneBlog')
       script(src='/components/angular-carousel/dist/angular-carousel.js')
       //- endbower
     
-    body(ng-controller='MainCtrl',ui-view='main',ng-class='{"no-scroll-y":view.scrollLeft}')
+    body(ng-controller='MainCtrl',ui-view='main',ng-class='{"no-scroll":view.scrollLeft}')
       header#header.navbar.navbar-default.navbar-fixed-top(ui-view='header',headroom,offset='201',classes="{pinned:'fadeInDownH',unpinned:'fadeOutUpH',initial:'animated'}",ng-class='{"header-activate":!view.scrollLeft,"fadeInDownH":view.scrollLeft}')
       div#leftSider.translate-side
         

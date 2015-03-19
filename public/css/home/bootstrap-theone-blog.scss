@@ -10,6 +10,12 @@ $sider-color:          #b94846 !default;
 .header-placeholder {
     height: 60px;
 }
+/**
+ * body禁止滚动
+ */
+.no-scroll {
+  overflow: hidden;
+}
 
 /**
  * 全局 fadeInLeft
@@ -219,6 +225,7 @@ Copyright (c) 2015 Daniel Eden
  * #rightSider mobile 滚动样式
  * < $screen-xs-max
  */
+
 @media screen and (max-width: $screen-xs-max) {
 
   .overlay {
@@ -233,11 +240,11 @@ Copyright (c) 2015 Daniel Eden
 
   .mobile-right {
     top: 0px;
-    right: -200px;
+    right:-200px;
   }
 
   .mobile-right-scroll {
-    right: 0px;
+    transform : translate(-200px, 0px);
     background-color:#333;
   }
 
@@ -318,4 +325,26 @@ Copyright (c) 2015 Daniel Eden
       background-size:cover;
       height: 100%;
       background-position: center center;
+  }
+
+
+  /**
+   * article 飞入效果
+   */
+  @keyframes slideInLeft {
+    0% {
+      -webkit-transform: translateX(-100%);
+      transform: translateX(-100%);
+      visibility: visible;
+    }
+
+    100% {
+      -webkit-transform: translateX(0);
+      transform: translateX(0);
+    }
+  }
+
+  .slideInLeft {
+    -webkit-animation-name: slideInLeft;
+    animation-name: slideInLeft;
   }

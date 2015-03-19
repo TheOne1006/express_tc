@@ -39,5 +39,11 @@ angular.module('theOneBlog')
       $scope.addSlide();
     }
   }])
-
+// 文章列表
+.controller('ArticleCtrl', ['$scope', function($scope){
+  $scope.articles = {
+    title:'标题',
+    content:'内容'
+  };
+}])
   ;
