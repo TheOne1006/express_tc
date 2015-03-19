@@ -36,8 +36,8 @@ html(lang='zh-CN',ng-app='theOneBlog')
       script(src='/components/angular-carousel/dist/angular-carousel.js')
       //- endbower
     
-    body(ng-controller='MainCtrl',ui-view='main')
-      header#header.navbar.navbar-default.navbar-fixed-top(ui-view='header',headroom,offset='201',classes="{pinned:'fadeInDown',unpinned:'fadeOutUp',initial:'animated'}")
+    body(ng-controller='MainCtrl',ui-view='main',ng-class='{"no-scroll-y":view.scrollLeft}')
+      header#header.navbar.navbar-default.navbar-fixed-top(ui-view='header',headroom,offset='201',classes="{pinned:'fadeInDownH',unpinned:'fadeOutUpH',initial:'animated'}",ng-class='{"header-activate":!view.scrollLeft,"fadeInDownH":view.scrollLeft}')
       div#leftSider.translate-side
         
       div#middelContext.translate-side(ng-class='{"scroll-left":view.scrollLeft}')
@@ -53,7 +53,7 @@ html(lang='zh-CN',ng-app='theOneBlog')
                               p.left theone.io
                               p.right &copy; 2015
 
-      div#rightSider.translate-side.affix(ng-class='{"mobile-right-scroll mobile-right":view.scrollLeft}')
+      div#rightSider.translate-side.affix.mobile-right(ng-class='{"mobile-right-scroll":view.scrollLeft}')
         block rightSider
 
     //- angular

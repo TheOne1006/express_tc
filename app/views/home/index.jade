@@ -5,6 +5,7 @@ block middelContext
   .header-placeholder
   div(ui-view='banner')
   .container.main(ui-view='bodyer')
+  div(ng-class='{overlay:view.scrollLeft}',ng-swipe-right='view.scrollLeft = false')
 
 block rightSider
   div(ui-view='mobileRight')
