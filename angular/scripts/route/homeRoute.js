@@ -36,7 +36,20 @@ angular.module('theOneBlog')
           url:'article/:id',
           views:{
             'bodyer@':{
-              templateUrl: '/angular/views/home/article/article.html'
+              templateUrl: '/angular/views/home/article/article.html',
+              controller:'ArticleCtrl'
+            },
+            'banner@':{
+              templateUrl: '/angular/views/home/article/article.banner.html'
+            }
+          }
+        })
+        .state('main.search',{
+          url:'search/:keywords',
+          views:{
+            'bodyer@':{
+              templateUrl: '/angular/views/home/search/search.bodyer.html',
+              controller:'SearchCtrl'
             }
           }
         })
