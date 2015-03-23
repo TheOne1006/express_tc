@@ -50,6 +50,9 @@ angular.module('theOneBlog')
             'bodyer@':{
               templateUrl: '/angular/views/home/search/search.bodyer.html',
               controller:'SearchCtrl'
+            },
+            'banner@':{
+              templateUrl: '/angular/views/home/article/article.banner.html'
             }
           }
         })

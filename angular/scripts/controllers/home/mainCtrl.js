@@ -8,9 +8,6 @@
  */
 
 angular.module('theOneBlog')
-  .run(function () {
-
-  })
   .controller('MainCtrl',['$scope', '$location', function ($scope, $location) {
     // VIEW 展现
     $scope.view = {
@@ -62,7 +59,13 @@ angular.module('theOneBlog')
 
 }])
 // 搜索
-.controller('SearchCtrl', ['$scope', function($scope){
+.controller('SearchCtrl', ['$scope', '$http', function($scope, $http){
   $scope.pageClass = 'search';
+
+  // 搜索结果的种类
+  $http.get('/angular/data/search.left.json').success(function  (data) {
+    $scope.search.menuKinds = data;
+  });
+
 }])
   ;

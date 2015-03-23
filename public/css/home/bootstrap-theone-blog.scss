@@ -560,3 +560,24 @@ Copyright (c) 2015 Daniel Eden
     }
 
    }
+
+/**
+ * search page
+ */
+  @media screen and (min-width: $screen-sm-max) {
+    .animate-repeat.ng-enter {
+      transition:all linear 1s;
+    }
+
+    .animate-repeat.ng-enter-stagger {
+      transition-delay:.3s;
+      transition-duration:0s;
+    }
+    .animate-repeat.ng-enter {
+      opacity:0;
+    }
+
+    .animate-repeat.ng-enter-active {
+      opacity:1;
+    }
+  }
