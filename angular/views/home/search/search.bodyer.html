@@ -17,6 +17,59 @@
         <!-- right search context -->
         <div class="col-md-9">
 
+             <!-- page-header -->
+            <div class="row">
+                <div class="col-md-12 col-lg-12 col-xs-12">
+                    <div class="page-header">
+                        <form action="">
+                            <div class="row">
+                                <div class="col-xs-10">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" ng-model="search.keyWord" placeholder="Search" />
+                                    </div>
+                                </div>
+                                <div class="col-xs-2">
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-default">搜索</button>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <p>
+                                        搜索结果:
+                                    </p>
+                                </div>
+                                <div class="col-xs-2 col-xs-offset-3">
+                                        排序：<select>
+                                          <option>1</option>
+                                          <option>2</option>
+                                        </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- page-header-end -->
+            <div class="row">
+                <div class="col-sm-12">
+
+                    <div class="panel panel-default" ng-repeat='result in search.resultList'>
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                               {{result.title}}
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <p>
+                               {{result.content}}
+                            </p>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
 
         </div>
     </div>

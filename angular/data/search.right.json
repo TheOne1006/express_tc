@@ -1,0 +1,14 @@
+[{"title":"细说PHP(笔记)",
+"content":"echo 'HELLO WORLD!';",
+"author":"theone",
+"addtime":"2015-3-25"
+},
+{"title":"JS权威手册(笔记)",
+"content":"console.log('HELLO wORLD');",
+"author":"theone",
+"addtime":"2015-6-12"
+},
+{"title":"HTML5",
+"content":"<h1>HELLO WORLD</h1>",
+"author":"theone",
+"addtime":"2015-4-15"}]

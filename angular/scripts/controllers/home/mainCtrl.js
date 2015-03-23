@@ -67,5 +67,9 @@ angular.module('theOneBlog')
     $scope.search.menuKinds = data;
   });
 
+  $http.get('/angular/data/search.right.json').success(function  (data) {
+    $scope.search.resultList = data;
+  });
+
 }])
   ;
