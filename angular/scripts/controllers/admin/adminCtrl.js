@@ -17,13 +17,6 @@
 angular.module('theoneApp')
   .factory('adminModalService', ['$http', '$modal', function ($http, $modal) {
     var currentId = '';
-    // 获取列表
-    var getCateList = function (url) {
-      return $http({
-        method:'GET',
-        url:url,
-      });
-    };
 
     var modalShow = function (optionObj) {
       var modalInstance = $modal.open(optionObj);
@@ -41,14 +34,18 @@ angular.module('theoneApp')
       return $http.put(url, newObj);
     };
 
+    var httpGet = function (url) {
+      return $http.get(url);
+    };
 
+    // return obj
     return {
       current:function(){
         return currentId;
       },
       // 获取总列表
       cateList:function (url) {
-        return getCateList(url);
+        return httpGet(url);
       },
       // modal 开启
       modalOpen:function (optionObj, nowId) {
@@ -61,16 +58,35 @@ angular.module('theoneApp')
         return modalShow(optionObj);
       },
       getId:function (url) {
-        return getCateList(url);
+        return httpGet(url);
       },
       delId:function (url) {
         return httpDel(url);
       },
       putNew:function (url, newObj) {
         return httpPut(url, newObj);
+      },
+      getlist:function (url) {
+        return httpGet(url);
       }
     };
-  }]);
+  }])
+// 编辑器配置 server
+    .factory('tinymceService', [function(){
+
+      return {
+        options:{
+          menubar: true,
+          theme:'modern',
+          //定义载入插件
+          plugins : 'spellchecker,pagebreak,link,table,save,insertdatetime,preview,media,searchreplace,contextmenu,paste,directionality,noneditable,visualchars,nonbreaking,template,code',
+          //-语言包
+          language : 'zh_CN'
+        }
+      };
+    }])
+
+;
 
 
 angular.module('theoneApp')
@@ -254,7 +270,8 @@ angular.module('theoneApp')
 
   }])
 // 文章控制器
-.controller('ArticleController', ['$scope','$http', function ($scope, $http) {
+// url: /admin#/article
+.controller('ArticleController', ['$scope', '$http', 'adminModalService', function ($scope, $http, adminModalService) {
   $scope.tableName = '文章列表';
   //预输入
   $scope.anywords = ['PHP','angular','javascript','mysql'];
@@ -288,7 +305,7 @@ angular.module('theoneApp')
               var data;
               if (searchText) {
                   var ft = searchText.toLowerCase();
-                  $http.get('/angular/data/typeList.json')
+                  adminModalService.getlist('/angular/data/articleList.json')
                   .success(function (largeLoad) {    
                       data = largeLoad.filter(function(item) {
                           return JSON.stringify(item).toLowerCase().indexOf(ft) !== -1;
@@ -296,8 +313,7 @@ angular.module('theoneApp')
                       $scope.setPagingData(data,page,pageSize);
                   });            
               } else {
-                // 获取json 最后一行不应有 ,
-                  $http.get('/angular/data/typeList.json')
+                  adminModalService.getlist('/angular/data/articleList.json')
                     .success(function (largeLoad) {
                       $scope.setPagingData(largeLoad,page,pageSize);
                     });
@@ -322,13 +338,13 @@ angular.module('theoneApp')
       pinnable: false,
       sortable: false
     }, {
-      field:'name',
-      displayName:'名称'
+      field:'title',
+      displayName:'标题'
     },{
-      field:'article_num',
-      displayName:'文章数量',
+      field:'keyWords',
+      displayName:'关键词',
     },{
-      field:'updatetime',
+      field:'updateTime',
       displayName:'更新时间',
       cellFilter:'date:"yyyy-MM-dd"'
     },{
@@ -338,13 +354,15 @@ angular.module('theoneApp')
     showGroupPanel:false,
     showFooter:true,
     enablePaging: true,
+    enableRowSelection: true,
+    multiSelect:false,
     pagingOptions: $scope.pagingOptions,
     filterOptions: $scope.filterOptions
     };
 
 }])
 // 增加文章
-  .controller('ArticleAddController', ['$scope','adminModalService', function ($scope, adminModalService) {
+  .controller('ArticleAddController', ['$scope', 'adminModalService', 'tinymceService', function ($scope, adminModalService, tinymceService) {
 
     // init scope
     $scope.tableName = '添加文章';
@@ -358,7 +376,7 @@ angular.module('theoneApp')
     // 获取所有cate
     adminModalService.cateList('/admin/cate/all').
       success(function (data) {
-        $scope.options = data;
+        $scope.cates = data;
       });
 
     // 提交表单
@@ -373,13 +391,25 @@ angular.module('theoneApp')
     };
 
     //编辑器
-    $scope.tinymceOptions = { 
-      menubar: true,
-      theme:'modern',
-      //定义载入插件
-      plugins : 'spellchecker,pagebreak,link,table,save,insertdatetime,preview,media,searchreplace,contextmenu,paste,directionality,noneditable,visualchars,nonbreaking,template,code',
-      //-语言包
-      language : 'zh_CN'
-      };
+    $scope.tinymceOptions = tinymceService.options;
+}])
+// 编辑文章
+  .controller('ArticleEditController', ['$scope', 'adminModalService', 'tinymceService', function($scope, adminModalService, tinymceService){
+    $scope.tableName = '编辑文章';
+    $scope.article = {};
+    
+    // 获取所有cate
+    adminModalService.cateList('/admin/cate/all').
+      success(function (data) {
+        $scope.cates = data;
+      });
 
-}]);
+      adminModalService.getId('/angular/data/articleInfo.json')
+        .success(function (data) {
+          $scope.article = data;
+        });
+
+      //编辑器
+      $scope.tinymceOptions = tinymceService.options;
+  }])
+  ;

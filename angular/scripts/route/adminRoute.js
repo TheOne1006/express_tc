@@ -43,5 +43,15 @@ angular.module('theoneApp')
             templateUrl:'/angular/views/admin/article.add.html'
           }
         }
-      });
+      })
+      .state('article.edit',{
+        url:'/edit/:id',
+        views:{
+          '@':{
+            templateUrl:'/angular/views/admin/article.edit.html',
+            controller:'ArticleEditController'
+          }
+        }
+      })
+      ;
 });
