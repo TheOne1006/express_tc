@@ -305,7 +305,7 @@ angular.module('theoneApp')
               var data;
               if (searchText) {
                   var ft = searchText.toLowerCase();
-                  adminModalService.getlist('/angular/data/articleList.json')
+                  adminModalService.getlist('/admin/article/list')
                   .success(function (largeLoad) {    
                       data = largeLoad.filter(function(item) {
                           return JSON.stringify(item).toLowerCase().indexOf(ft) !== -1;
@@ -313,7 +313,7 @@ angular.module('theoneApp')
                       $scope.setPagingData(data,page,pageSize);
                   });            
               } else {
-                  adminModalService.getlist('/angular/data/articleList.json')
+                  adminModalService.getlist('/admin/article/list')
                     .success(function (largeLoad) {
                       $scope.setPagingData(largeLoad,page,pageSize);
                     });
@@ -332,11 +332,13 @@ angular.module('theoneApp')
   $scope.gridOptions = {
     data:'myData',
     columnDefs: [{
-      field:'id',
+      field:'_id',
       displayName:'ID',
       width: 60,
       pinnable: false,
-      sortable: false
+      sortable: false,
+      // cell 显示 id 顺序
+      cellTemplate:'<div class="ngCellText" ng-class="col.colIndex()"><span>{{row.rowIndex+1}}</span></div>'
     }, {
       field:'title',
       displayName:'标题'
@@ -349,7 +351,7 @@ angular.module('theoneApp')
       cellFilter:'date:"yyyy-MM-dd"'
     },{
       displayName:'操作',
-      cellTemplate:'<div><a id="{{row.getProperty(col.field)}}">编辑</a></div>'
+      cellTemplate:'<div class="ngCellText"><a ng-href="#/article/edit/{{row.entity._id}}">编辑</a> &nbsp; <a href="javascript:;" ng-click="delOpen(row.entity._id)">删除</a></div>'
     }],
     showGroupPanel:false,
     showFooter:true,
@@ -360,7 +362,40 @@ angular.module('theoneApp')
     filterOptions: $scope.filterOptions
     };
 
+  // 删除信息
+  $scope.delOpen = function (_id) {
+    adminModalService.modalOpen({
+      templateUrl:'/angular/views/modal/article.del.html',
+      controller:'DelArticleController',
+      backdropClass:'heightfull'
+    }, _id);
+  };
+
 }])
+// 删除文章
+  .controller('DelArticleController', ['$scope', '$modalInstance', 'adminModalService', function ($scope, $modalInstance, adminModalService) {
+
+    var _id;
+    _id = adminModalService.current();
+
+
+    adminModalService.getId('/admin/article/id/'+_id)
+      .success(function (data) {
+        $scope.article = data;
+      });
+
+    $scope.ok = function () {
+      adminModalService.delId('/admin/article/id/'+_id)
+        .success(function (data) {
+          console.log(data);
+        });
+      $modalInstance.close();
+    };
+
+    $scope.cancel = function () {
+      $modalInstance.dismiss();
+    };
+  }])
 // 增加文章
   .controller('ArticleAddController', ['$scope', 'adminModalService', 'tinymceService', function ($scope, adminModalService, tinymceService) {
 
@@ -394,20 +429,20 @@ angular.module('theoneApp')
     $scope.tinymceOptions = tinymceService.options;
 }])
 // 编辑文章
-  .controller('ArticleEditController', ['$scope', 'adminModalService', 'tinymceService', function($scope, adminModalService, tinymceService){
+  .controller('ArticleEditController', ['$scope', '$stateParams', 'adminModalService', 'tinymceService', function($scope, $stateParams, adminModalService, tinymceService){
     $scope.tableName = '编辑文章';
     $scope.article = {};
     
     // 获取所有cate
-    adminModalService.cateList('/admin/cate/all').
-      success(function (data) {
+    adminModalService.cateList('/admin/cate/all')
+      .success(function (data) {
         $scope.cates = data;
       });
 
-      adminModalService.getId('/angular/data/articleInfo.json')
-        .success(function (data) {
-          $scope.article = data;
-        });
+    adminModalService.getId('/admin/article/id/'+$stateParams.id)
+      .success(function (data) {
+        $scope.article = data;
+      });
 
       //编辑器
       $scope.tinymceOptions = tinymceService.options;
