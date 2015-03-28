@@ -6,27 +6,22 @@
 
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema,
+  ObjectId = Schema.Types.ObjectId,
+  // _ = require('underscore'),
   moment = require('moment');
 
 // 定义 数据模型骨架
 var CateSchema = new Schema({
-  type:{type: String, required: true, unique: true},
   name:{type: String, required: true, unique: true},
-  pType:String,
-  path:String,
+  alias:{type: Array, default:[]},
+  // 为什么 ObjectId 不行
+  // 尝试方法，硬编码 写入 objectId
+  pid:{type: String, ref:'Cate'},
   articleNum:Number,
   updateTime:String
 });
   
 CateSchema.pre('save',function (next) {
-  //小写
-  this.type = this.type.toLowerCase();
-
-  //补全
-  if(!this.pType){
-    this.pType = '';
-  }
-
   if(!this.articleNum){
     this.articleNum = 0;
   }
@@ -37,6 +32,42 @@ CateSchema.pre('save',function (next) {
 
   next();
 });
+
+
+/**
+ * 查找Id,以及pid的相关信息
+ * @param  string   id  cate._id for string
+ * @param  function cb
+ *
+ */
+CateSchema.static('findByIdAndParent',function (id, cb) {
+  var self = this;
+  this
+    .findById(id)
+    .exec(function (err, cate) {
+      if(err){
+        return cb(err);
+      }
+      // 查找pid是否存在
+      if(!cate.pid || cate.pid === ''){
+        return cb(null, cate);
+      }
+
+      // 继续查找pid
+      self
+        .findById(cate.pid)
+        .select('name')
+        .exec(function (err, pcate) {
+          if(err){
+            return cb(err);
+          }
+          cate.pid = pcate.name;
+          cb(null, cate);
+        });
+    });
+});
+
+
 
 
 

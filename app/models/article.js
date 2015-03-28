@@ -5,6 +5,7 @@
 
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema,
+  ObjectId = Schema.Types.ObjectId,
   moment = require('moment');
 
 /* 工具方法 keyword2arr */
@@ -19,7 +20,7 @@ var keyword2arr = function (kWordArr) {
 
 var ArticleSchema = new Schema({
   title: {type: String, required: true, unique: true},
-  type:{type: String, required: true},
+  type:{type: ObjectId, required: true, ref:'Cate'},
   keyWords:{type: Array,default:[]},
   content:{type:String, required:true},
   updateTime:{type:String}

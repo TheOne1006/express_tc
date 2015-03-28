@@ -210,18 +210,38 @@ angular.module('theoneApp')
       };
 
   }])
-.controller('AddCateController', ['$scope','$modalInstance','$http','adminModalService', function ($scope, $modalInstance, $http, adminModalService) {
-    $scope.cateParent = '';
+// addcate
+.controller('AddCateController', ['$scope', '$modalInstance', '$http', 'adminModalService', function ($scope, $modalInstance, $http, adminModalService) {
+    $scope.aliasArr = [];
+    $scope.cate = {
+      name:'',
+      alias:[],
+      pid:''
+    };
+
     adminModalService.cateList('/admin/cate/all')
       .success(function (data) {
-        $scope.options = data;
+        $scope.parentCates = data;
       });
 
      $scope.ok = function () {
+
+      // 初始化 alias
+      $scope.cate.alias = [];
+
+      // 处理 alias 数组
+      if($scope.aliasArr.length > 0){
+        angular.forEach($scope.aliasArr, function (item) {
+          $scope.cate.alias.push(item.text);
+        });
+      }
+
+      if($scope.pid && $scope.pid._id){
+        $scope.pid = $scope.pid._id;
+      }
+
       $http.put('/admin/cate/add',{
-        cateName:$scope.cateName,
-        cateType:$scope.cateType,
-        catePType:$scope.cateParent.type
+        cate:$scope.cate
       })
         .success(function(data, status){
           console.log(data);
@@ -244,16 +264,14 @@ angular.module('theoneApp')
 // 删除Cate控制器
 .controller('DelCateController', ['$scope', '$modalInstance', 'adminModalService',
   function ($scope, $modalInstance, adminModalService) {
-    var _id;
-    _id = adminModalService.current();
+    var _id = adminModalService.current();
+
+    $scope.cate = {};
 
     //验证
     adminModalService.getId('/admin/cate/id/'+_id)
       .success(function (data) {
-        $scope.cateName = data.name;
-        $scope.cateType = data.type;
-        $scope.catePType= data.pType;
-        $scope.cateOid  = data._id;
+        $scope.cate = data;
       });
 
     $scope.ok = function () {

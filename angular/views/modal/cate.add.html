@@ -6,20 +6,20 @@
     <div class="form-group">
       <label for="name" class="col-md-3 control-label">名称:</label>
       <div class="col-md-9">
-        <input type="text" class="form-control" id="cateName" placeholder='请输入分类名称:如PHP' ng-model='cateName' />
+        <input type="text" class="form-control" id="name" placeholder='请输入分类名称:如PHP' ng-model='cate.name' />
       </div>
     </div>
     <div class="form-group">
-        <label class='col-md-3 control-label' for="newCate">类别名称:</label>
+        <label class='col-md-3 control-label' for="alias">别名:</label>
         <div class="col-md-9">
-          <input ype="text" class="form-control" id="cateType" placeholder="请输入新类别:如php(仅小写英文)" ng-model='cateType' >
+            <tags-input ng-model='aliasArr' name='alias' type="text" placeholder= "添加别名,逗号分割" min-length='1' class='taginput'></tags-input>
         </div>
     </div>
     <div class="form-group">
-      <label for="path" class="col-md-3 control-label">父类</label>
+      <label for="pid" class="col-md-3 control-label">父类</label>
       <div class="col-md-9">
-        <select class='form-control' ng-model='cateParent' id='pType' ng-options='option.name for option in options track by option.type'>
-        <option value="">/</option>
+        <select class='form-control' ng-model='cate.pid' id='pid' ng-options='parentCate.name for parentCate in parentCates track by parentCate.name'>
+        <option value=''>/</option>
         </select>
       </div>
     </div>

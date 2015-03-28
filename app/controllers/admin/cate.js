@@ -26,34 +26,43 @@ exports.list = function (req, res, next) {
   };
 
 exports.add = function (req, res ,next){
-    var cateType = req.body.cateType,
-      cateName = req.body.cateName,
-      catePType = req.body.catePType;
+    var cateObj = req.body.cate;
 
-      if(!cateType || !cateName){
-        res.end('type is empty');
-      }else{
-        var newCate = new Cate({
-          type:cateType,
-          name:cateName,
-          pType:catePType});
+    async.waterfall([
+      function (cb) {
+        if(!cateObj || !cateObj.name){
+          return cb('err');
+        }
+        cb();
+      },
+      function (cb) {
+        var newCate = new Cate(cateObj);
 
-          newCate.save(function (err) {
-            if(err){
-              return next(err);
-            }
-            res.end('ok');
-          });
+        newCate.save(function (err) {
+          if(err){
+            return cb(err);
+          }
+          cb();
+        });
       }
+      ],function (err) {
+        if(err){
+          console.log(err);
+          res.end(err);
+        }
+        res.end('add ok');
+      });
+
   };
 
   // 获取单个 id
 exports.getById = function (req, res, next) {
     var _id = req.params.id;
-    Cate.findById(_id,function (err, cate) {
-      if(err){
-        return next(err);
-      }
+    Cate
+      .findByIdAndParent(_id, function (err, cate) {
+        if(err){
+          return next(err);
+        }
       res.json(cate);
       res.end();
     });
