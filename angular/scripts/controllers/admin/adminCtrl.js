@@ -38,6 +38,10 @@ angular.module('theoneApp')
       return $http.get(url);
     };
 
+    var httpPost = function (url ,data) {
+      return  $http.post(url, data);
+    };
+
     // return obj
     return {
       current:function(){
@@ -68,9 +72,46 @@ angular.module('theoneApp')
       },
       getlist:function (url) {
         return httpGet(url);
+      },
+      doEdit: function (url, data) {
+        return httpPost(url, data);
       }
     };
   }])
+/**
+ * uiTool 工具Service
+ */
+ .factory('UiTool', [function () {
+
+   return {
+    // tag-input [{text:value}] => [value]
+    tagInput2arr:function (sourceArr, targetArr) {
+
+      var resultArr = [];
+
+      if(!angular.isArray(sourceArr)){
+        return false;
+      }
+
+      if(sourceArr.length > 0){
+        angular.forEach(sourceArr, function (item) {
+          resultArr.push(item.text);
+        });
+      }
+
+      if(angular.isString(targetArr)){
+        return resultArr.join();
+      }
+
+      if(angular.isArray(targetArr)){
+        return resultArr;
+      }
+
+      return resultArr;
+    }
+   };
+ }])
+
 // 编辑器配置 server
     .factory('tinymceService', [function(){
 
@@ -170,7 +211,7 @@ angular.module('theoneApp')
         field:'_id',
         displayName:'操作',
         // ng－click 传递 对象
-        cellTemplate:'<div class="ngCellText" ng-class="col.colIndex()"><span ng-cell-text><a ng-href="javascript:;">操作</a>&nbsp;<a href="javascript:;" cateid={{row["entity"]["_id"]}} ng-click="delOpen(row)" >删除</a></span></div>'
+        cellTemplate:'<div class="ngCellText" ng-class="col.colIndex()"><span ng-cell-text><a ng-href="javascript:;">操作</a>&nbsp;<a href="javascript:;" cateid={{row["entity"]["_id"]}} ng-click="delOpen(row.entity._id)" >删除</a></span></div>'
       }],
       showGroupPanel:false,
       showFooter:true,
@@ -195,27 +236,21 @@ angular.module('theoneApp')
       };
 
       // 删除信息
-      $scope.delOpen = function (row) {
-        var _id;
-        if(row && row.entity && row.entity._id){
-          _id = row.entity._id;
+      $scope.delOpen = function (_id) {
           adminModalService.modalOpen({
             templateUrl:'/angular/views/modal/cate.del.html',
             controller:'DelCateController',
             backdropClass:'heightfull'
           }, _id);
-        }else{
-          console.log('--- 没有找到 _id');
-        }
       };
 
   }])
 // addcate
-.controller('AddCateController', ['$scope', '$modalInstance', '$http', 'adminModalService', function ($scope, $modalInstance, $http, adminModalService) {
+.controller('AddCateController', ['$scope', '$modalInstance', '$http', 'adminModalService' , 'UiTool', function ($scope, $modalInstance, $http, adminModalService, UiTool) {
     $scope.aliasArr = [];
     $scope.cate = {
       name:'',
-      alias:[],
+      alias:['ccc'],
       pid:''
     };
 
@@ -225,16 +260,8 @@ angular.module('theoneApp')
       });
 
      $scope.ok = function () {
-
       // 初始化 alias
-      $scope.cate.alias = [];
-
-      // 处理 alias 数组
-      if($scope.aliasArr.length > 0){
-        angular.forEach($scope.aliasArr, function (item) {
-          $scope.cate.alias.push(item.text);
-        });
-      }
+      $scope.cate.alias = UiTool.tagInput2arr($scope.aliasArr, []);
 
       if($scope.pid && $scope.pid._id){
         $scope.pid = $scope.pid._id;
@@ -275,11 +302,11 @@ angular.module('theoneApp')
       });
 
     $scope.ok = function () {
-      adminModalService.delId('/admin/cate/id/'+$scope.cateOid)
+      adminModalService.delId('/admin/cate/id/'+_id)
         .success(function (data) {
           
+          $modalInstance.close();
         });
-      $modalInstance.close();
     };
 
     $scope.cancel = function () {
@@ -415,16 +442,24 @@ angular.module('theoneApp')
     };
   }])
 // 增加文章
-  .controller('ArticleAddController', ['$scope', 'adminModalService', 'tinymceService', function ($scope, adminModalService, tinymceService) {
+  .controller('ArticleAddController', ['$scope', 'adminModalService', 'tinymceService', 'UiTool', function ($scope, adminModalService, tinymceService, UiTool) {
 
     // init scope
     $scope.tableName = '添加文章';
-    $scope.newArticle = {
-      title:'',
-      type:'',
-      keyWords:[],
-      content:''
-    };
+    $scope.keyWords = [];
+
+    // init 函数
+    function initArticle () {
+      $scope.newArticle = {
+        title:'',
+        cate:'',
+        keyWords:[],
+        content:''
+      };
+    }
+
+    // 初始化 Ariticle
+    initArticle();
     
     // 获取所有cate
     adminModalService.cateList('/admin/cate/all').
@@ -434,20 +469,32 @@ angular.module('theoneApp')
 
     // 提交表单
     $scope.ok = function () {
-      if($scope.newArticle.type){
-        $scope.newArticle.type = $scope.newArticle.type._id;
+
+      // 处理 cate
+      if($scope.newArticle.cate){
+        $scope.newArticle.cate = $scope.newArticle.cate._id;
       }
+
+      // 处理 keywords
+      $scope.newArticle.keyWords = UiTool.tagInput2arr($scope.keyWords, []);
+
       adminModalService.putNew('/admin/article/add',{article:$scope.newArticle})
         .success(function (data) {
+          
           console.log(data);
+
+          initArticle();
         });
     };
 
     //编辑器
     $scope.tinymceOptions = tinymceService.options;
+
+
 }])
 // 编辑文章
-  .controller('ArticleEditController', ['$scope', '$stateParams', 'adminModalService', 'tinymceService', function($scope, $stateParams, adminModalService, tinymceService){
+  .controller('ArticleEditController', ['$scope', '$stateParams', 'adminModalService', 'tinymceService', 'UiTool', function($scope, $stateParams, adminModalService, tinymceService, UiTool){
+    var resetArticle;
     $scope.tableName = '编辑文章';
     $scope.article = {};
     
@@ -460,9 +507,28 @@ angular.module('theoneApp')
     adminModalService.getId('/admin/article/id/'+$stateParams.id)
       .success(function (data) {
         $scope.article = data;
+        resetArticle = data;
       });
 
       //编辑器
       $scope.tinymceOptions = tinymceService.options;
+
+
+      // 提交表单
+      $scope.ok = function () {
+        // 处理 cate
+        if($scope.article.cate){
+          $scope.article.cate = $scope.article.cate._id;
+        }
+
+        // 处理 keywords
+        $scope.article.keyWords = UiTool.tagInput2arr($scope.article.keyWords, []);
+
+        adminModalService.doEdit('/admin/article/edit',{article:$scope.article})
+          .success(function (data) {
+            console.log(data);
+          });
+
+      };
   }])
   ;

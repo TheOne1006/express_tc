@@ -1,4 +1,4 @@
-<div class='col-md-9' ng-controller="ArticleAddController">
+<div class='col-md-9' ng-controller="ArticleEditController">
   <div class='row'>
       <div class='col-lg-12'>
           <div class='page-header'>
@@ -25,7 +25,7 @@
                      <div class="form-group">
                       <label for="cate" class="col-md-2 control-label">类别:</label>
                       <div class="col-md-10">
-                        <select id="type" class="form-control" ng-model='article.type'  ng-options='cate.name for cate in cates track by cate.type'>
+                        <select id="cate" class="form-control" ng-model='article.cate'  ng-options='cate.name for cate in cates track by cate.name'>
                           <option value="">-- 请选择 --</option>
                         </select>
                       </div>
@@ -39,7 +39,7 @@
                      <div class="form-group">
                       <textarea ui-tinymce='tinymceOptions' ng-model="article.content"></textarea>
                      </div>
-                     <button type="submit" class="btn btn-primary" ng-click='ok()' >保存</button>
+                     <button type="submit" class="btn btn-primary" ng-click='ok()' >更新</button>
                      <button type="reset" class="btn btn-default">清除</button>
                    </fieldset>
                  </form>

@@ -33,6 +33,7 @@ var userCtrl = require('../controllers/admin/user');
     // 后台文章
     app.use('/admin/article', articleR);
     articleR.put('/add', articleCtrl.add);
+    articleR.post('/edit', articleCtrl.edit);
     articleR.get('/list', articleCtrl.list);
     articleR.get('/id/:id', articleCtrl.getById);
     articleR.delete('/id/:id', articleCtrl.delById);

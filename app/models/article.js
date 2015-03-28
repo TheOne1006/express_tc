@@ -20,22 +20,16 @@ var keyword2arr = function (kWordArr) {
 
 var ArticleSchema = new Schema({
   title: {type: String, required: true, unique: true},
-  type:{type: ObjectId, required: true, ref:'Cate'},
-  keyWords:{type: Array,default:[]},
+  cate:{type: ObjectId, required: true, ref:'Cate'},
+  keyWords:{type: Array, default:[]},
   content:{type:String, required:true},
   updateTime:{type:String}
   });
-
-
 
 // ［obj, obj1, obj2] = > ['str',['str1'],['str2']]
 ArticleSchema.static('keyword2arr',keyword2arr);
 
 ArticleSchema.pre('save',function (next) {
-
-  if(this.keyWords){
-    this.keyWords = keyword2arr(this.keyWords);
-  }
 
   if(!this.updateTime){
     this.updateTime = moment().format('x');

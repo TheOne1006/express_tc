@@ -8,6 +8,7 @@
 
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema,
+  ObjectId = Schema.Types.ObjectId,
   moment = require('moment');
 
 // tool function 工具函数
@@ -31,7 +32,7 @@ var indexOf = function( list, elem ) {
 var TagSchema = new Schema({
   name:{type: String, required: true, unique: true},
   count:{type:Number, default:1},
-  arrArticleObjectId:[Schema.Types.ObjectId],
+  arrArticleObjectId:[{type: ObjectId, ref:'Article'}],
   updateTime:{type:String}
 });
 
@@ -95,11 +96,7 @@ var TagSchema = new Schema({
           cb();
         });
         
-      });      
-
-
-
-
+      });
 
 
 
@@ -128,6 +125,24 @@ var TagSchema = new Schema({
       
     // });
   });
+
+  /**
+   * article 取消tag 关联
+   * @param  array   tagArray  tag数组
+   * @param  string   articleId
+   * @param  Function cb
+   */
+  TagSchema.static('articleUnlinkTag',function (tagArray, articleId, cb) {
+    var that = this;
+
+    this.find({name:{$in:tagArray}},function (err, tagArr) {
+      if(err){
+        return cb(err);
+      }
+      
+    });   
+  });
+
 
 
   mongoose.model('Tag',TagSchema);
