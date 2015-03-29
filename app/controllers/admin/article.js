@@ -17,18 +17,17 @@ exports.add = function (req, res ,next) {
       function (cb) {
         newArticle.save(function (err, article) {
           if(err){
-            return cb(err);
+            return next(err);
           }
           cb(null, article._id);
         });    
       },
       function (articleId, cb) {
-        Tag.autoSave(newArticle.keyWords, articleId, cb);
+        Tag.articlePushTag(newArticle.keyWords, articleId, cb);
       }
       ],function (err) {
       if(err){
-        res.end(err);
-        return;
+        return next(err);
       }
       res.end('is_add');
     });
@@ -38,10 +37,9 @@ exports.add = function (req, res ,next) {
 // 更新
 exports.edit = function (req, res, next) {
   var editArticle = req.body.article;
+  var modifArticle;
   var delTagArr = []; // del keywords
-  var AddTagArr = []; // append new keywords
-
-  console.log(editArticle);
+  var addTagArr = []; // append new keywords
 
   async.waterfall([
       // 获取原始对象
@@ -51,7 +49,9 @@ exports.edit = function (req, res, next) {
         // get difference keywords
       },function (oriArticle, cb) {
         delTagArr = _.difference(oriArticle.keyWords, editArticle.keyWords);
-        AddTagArr = _.difference(editArticle.keyWords, oriArticle.keyWords);
+        addTagArr = _.difference(editArticle.keyWords, oriArticle.keyWords);
+
+        modifArticle = oriArticle;
 
         cb();
         // 删除 Tag 记录
@@ -60,18 +60,29 @@ exports.edit = function (req, res, next) {
           return cb();
         }
 
+        Tag.articleUnlinkTag(delTagArr, editArticle._id, cb);
+
         // 添加新增记录
       },function (cb) {
-        if(AddTagArr.length === 0){
+        if(addTagArr.length === 0){
           return cb();
         }
+
+        Tag.articlePushTag(addTagArr, editArticle._id, cb);
+
+        // 清除多余tag doc
+      },function (cb) {
+        Tag.removeCountZero(cb);
         
+        // 更新自己
+      },function (cb) {
+        _.extend(modifArticle, editArticle);
+        modifArticle.save(cb);
       }
 
     ],function (err) {
       if(err){
-        res.end(err);
-        return;
+        return next(err);
       }
       res.end('edit_ok');
     });
