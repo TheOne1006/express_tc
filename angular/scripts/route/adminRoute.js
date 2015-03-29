@@ -53,5 +53,15 @@ angular.module('theoneApp')
           }
         }
       })
+      // Tag 列表
+      .state('tag',{
+        url:'/tag',
+        views:{
+          '@':{
+            templateUrl:'/angular/views/admin/tag.list.html',
+            controller: 'TagListController'
+          }
+        }
+      })
       ;
 });

@@ -7,7 +7,8 @@ var express = require('express'),
   adminR = express.Router(),
   articleR = express.Router(),
   cateR = express.Router(),
-  userR = express.Router();
+  userR = express.Router(),
+  tagR = express.Router();
 
 // 加载 控制器
 var adminLoginCtrl = require('../controllers/admin/login');
@@ -15,6 +16,7 @@ var adminCtrl = require('../controllers/admin/admin');
 var articleCtrl = require('../controllers/admin/article');
 var cateCtrl = require('../controllers/admin/cate');
 var userCtrl = require('../controllers/admin/user');
+var tagCtrl = require('../controllers/admin/tag');
 
 
 
@@ -45,6 +47,11 @@ var userCtrl = require('../controllers/admin/user');
     cateR.put('/add', cateCtrl.add);
     cateR.get('/id/:id', cateCtrl.getById);
     cateR.delete('/id/:id', cateCtrl.delById);
+
+    // 后台Tag
+    app.use('/admin/tag', tagR);
+    tagR.get('/list', tagCtrl.list);
+
 
     // 后台管理员
     app.use('/admin/user', userR);
