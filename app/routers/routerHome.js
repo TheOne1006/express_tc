@@ -2,14 +2,16 @@
 /**
  * 前台router
  */
-var express = require('express'),
-  homeR = express.Router();
-
 // 加载 控制器
 var homeCtrl = require('../controllers/home/home');
+var articleCtrl = require('../controllers/article');
 
 
 module.exports = function (app) {
   app.get('/',homeCtrl.index);
-  app.use('/',homeR);
+
+  // 文章列表
+  app.get('/article/list', articleCtrl.list);
+
+
 };

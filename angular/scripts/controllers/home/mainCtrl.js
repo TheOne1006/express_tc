@@ -8,6 +8,42 @@
  */
 
 angular.module('theOneBlog')
+
+  // 数据存储
+  .factory('dataServer', ['$http', function($http){
+    var mainArticles = {
+      updatetime:'',
+      data:[]
+    };
+
+    function getList (url, sucCall, errCall) {
+      $http({
+        method:'GET',
+        data:'JSON' ,
+        url:url
+      })
+      .success(function  (data) {
+        mainArticles.updatetime = Date.parse(new Date());
+        mainArticles.data = data;
+        sucCall(data);
+      })
+       .error(function  (data) {
+         errCall(data);
+       });
+    }
+
+
+    return {
+      getlistCall:function  (url, sucCall, errCall) {
+        if(mainArticles && mainArticles.data && mainArticles.data.length > 0){
+          return sucCall(mainArticles.data);
+        }else{
+          return getList(url, sucCall, errCall);
+        }
+      }
+
+    };
+  }])
   .controller('MainCtrl',['$scope', '$location', function ($scope, $location) {
     // VIEW 展现
     $scope.view = {
@@ -29,6 +65,16 @@ angular.module('theOneBlog')
     $scope.trunCollapsed = function () {
       $scope.view.scrollLeft = !$scope.view.scrollLeft;
     };
+
+
+  }])
+  // 首页文章Ctrl
+  .controller('MainArticleCtrl', ['$scope', 'dataServer', function($scope, dataServer){
+    // 获取main页面 文章列表
+    dataServer.getlistCall('/article/list', function  (data) {
+      $scope.articles = data;
+      console.log(data);
+    });
 
   }])
   // 滚动图片

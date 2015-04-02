@@ -1,5 +1,5 @@
 /**
- * article 控制器
+ * article 控制器 管理员权限
  */
 'use strict';
 

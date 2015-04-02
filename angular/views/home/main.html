@@ -1,7 +1,15 @@
-<div class="row" ng-class='{active:view.offCanvas}'>
+<div class="row" ng-class='{active:view.offCanvas}' ng-controller="MainArticleCtrl" >
   <!-- main-left -->
   <div class="col-sm-9 col-xs-12">
     <div class="row">
+
+      <div class="col-xs-12" ng-repeat="article in articles">
+        <h2 ng-bind='article.title'></h2>
+        {{article.content}}
+         <p><a class="btn btn-default" ng-href="#/article/{{article._id}}" role="button">访问详情 »</a></p>
+      </div>
+
+
       <div class="col-xs-12">
           <!-- id 作为的bs-scrollsy 的锚点 -->
           <h2 id='modals-examples'>modals-examples</h2>
