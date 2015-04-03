@@ -3,10 +3,10 @@
   <div class="col-sm-9 col-xs-12">
     <div class="row">
 
-      <div class="col-xs-12" ng-repeat="article in articles">
+      <div class="col-xs-12" ng-repeat="article in ::articles">
         <h2 ng-bind='article.title'></h2>
-        {{article.content}}
-         <p><a class="btn btn-default" ng-href="#/article/{{article._id}}" role="button">访问详情 »</a></p>
+        <p>{{::article.contentText}}</p>
+         <p><a class="btn btn-default" ng-href="#/article/{{::article._id}}" role="button">访问详情 »</a></p>
       </div>
 
 

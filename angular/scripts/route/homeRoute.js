@@ -33,15 +33,31 @@ angular.module('theOneBlog')
           }
         })
         .state('main.article',{
-          url:'article/:id',
+          abstract: true,
+          url:'article',
+          views: {
+            'banner@':{
+              templateUrl: '/angular/views/home/article/article.banner.html'
+            }
+          }
+
+        })
+        .state('main.article.single',{
+          url:'/:id',
           views:{
             'bodyer@':{
               templateUrl: '/angular/views/home/article/article.html',
               controller:'ArticleCtrl'
-            },
-            'banner@':{
-              templateUrl: '/angular/views/home/article/article.banner.html'
             }
+          },
+          // resolve: 解决器
+          resolve:{
+            article: ['$stateParams', '$http', function ($stateParams, $http) {
+              return $http.get('/article/id/'+$stateParams.id)
+                .success(function (data) {
+                  return data;
+                });
+            }]
           }
         })
         .state('main.search',{

@@ -28,6 +28,7 @@ exports.getById = function (req, res, next) {
   Article
     .findById(_id)
     .populate('cate')
+    .populate('author')
     .exec(function (err, article) {
     if(err){
       return next(err);

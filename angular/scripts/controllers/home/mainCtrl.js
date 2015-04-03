@@ -94,15 +94,11 @@ angular.module('theOneBlog')
     }
   }])
 // 文章列表
-.controller('ArticleCtrl', ['$scope', function($scope){
+.controller('ArticleCtrl', ['$scope', '$http', '$stateParams', 'article', function($scope, $http, $stateParams, article){
+
+  $scope.article = article.data;
   $scope.pageClass ='page';
-  $scope.articles = {
-    title:'标题',
-    content:'内容'
-  };
-
-
-
+  
 }])
 // 搜索
 .controller('SearchCtrl', ['$scope', '$http', function($scope, $http){

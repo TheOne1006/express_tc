@@ -13,6 +13,10 @@ exports.add = function (req, res ,next) {
     // 验证
     var newArticle = new Article(req.body.article);
 
+    // 获取 作者
+    var authorId = req.session.userId;
+    newArticle.author = authorId;
+
     async.waterfall([
       function (cb) {
         newArticle.save(function (err, article) {

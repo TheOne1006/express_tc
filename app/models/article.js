@@ -8,6 +8,8 @@ var mongoose = require('mongoose'),
   ObjectId = Schema.Types.ObjectId,
   moment = require('moment');
 
+
+
 /* 工具方法 keyword2arr */
 var keyword2arr = function (kWordArr) {
     var arr = [],i = 0;
@@ -17,11 +19,21 @@ var keyword2arr = function (kWordArr) {
     return arr;
 };
 
+function removeHTMLTag(str) {
+            str = str.replace(/<\/?[^>]*>/g,''); //去除HTML tag
+            str = str.replace(/[ | ]*\n/g,''); //去除行尾空白
+            str = str.replace(/\n[\s| | ]*\r/g,''); //去除多余空行
+            str=str.replace(/&nbsp;/ig,'');//去掉&nbsp;
+            return str;
+    }
+
 
 var ArticleSchema = new Schema({
   title: {type: String, required: true, unique: true},
-  cate:{type: ObjectId, required: true, ref:'Cate'},
+  author:{type: ObjectId, required: true, ref: 'User'},
+  cate:{type: ObjectId, required: true, ref: 'Cate'},
   keyWords:{type: Array, default:[]},
+  contentText:{type:String},
   content:{type:String, required:true},
   updateTime:{type:String}
   });
@@ -35,6 +47,7 @@ ArticleSchema.pre('save',function (next) {
     this.updateTime = moment().format('x');
   }
 
+  this.contentText = removeHTMLTag(this.content);
   next();
 });
 
