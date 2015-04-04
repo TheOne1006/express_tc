@@ -11,6 +11,7 @@ html(lang='zh-CN',ng-app='theOneBlog')
       meta(content='email=no',name='format-detection')
       meta(name='Author',content='theone')
       //- bower:css
+      link(rel='stylesheet', href='/components/google-code-prettify/bin/prettify.min.css')
       //- endbower
 
       //- css3 特效
@@ -34,6 +35,7 @@ html(lang='zh-CN',ng-app='theOneBlog')
       script(src='/components/angular-strap/dist/angular-strap.js')
       script(src='/components/angular-strap/dist/angular-strap.tpl.js')
       script(src='/components/angular-carousel/dist/angular-carousel.js')
+      script(src='/components/google-code-prettify/bin/prettify.min.js')
       //- endbower
     
     body(ng-controller='MainCtrl',ui-view='main',ng-class='{"no-scroll":view.scrollLeft}')
