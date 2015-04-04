@@ -10,15 +10,28 @@
  */
 angular.module('theOneBlog')
   // 数据存储 service
-  .factory('dataSave', ['$http', function ($http) {
-    var searchData = [],
-    articlesData = [];
+  .factory('dataSave', ['$http', '$q', function ($http, $q) {
 
+    // angular 延迟对象
+    
     function articleSearch (searchWord) {
+      // 声明延后执行，表示要去监控后面的执行 
+      var deferred = $q.defer(); 
+
       $http.get('/search/'+searchWord)
                 .success(function (data) {
-                  return data;
+
+                  //声明执行成功，即http请求数据成功，可以返回数据了
+                  deferred.resolve(data);
+                })
+                .error(function (data) {
+
+                  //声明执行失败，即服务器返回错误 
+                  deferred.reject(data);   
                 });
+
+      // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      return deferred.promise;
     }
 
 
@@ -100,11 +113,10 @@ angular.module('theOneBlog')
           // resolve 解决器 不能在view 中再次 定义 controller
           resolve:{
             result: ['$stateParams', '$http', 'dataSave', function ($stateParams, $http, dataSave) {
-              return $http.get('/search/'+$stateParams.searchWord)
-                .success(function (data) {
-                  return data;
-                })
-              ;
+              return dataSave.search($stateParams.searchWord);
+            }],
+            searchWord:['$stateParams', function ($stateParams) {
+              return $stateParams.searchWord;
             }]
           }
         })

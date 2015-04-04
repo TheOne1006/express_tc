@@ -56,12 +56,13 @@
                     <div class="panel panel-default" ng-repeat='result in search.resultList'>
                         <div class="panel-heading">
                             <div class="panel-title">
-                               {{result.title}}
+                                <a ng-href="#/article/{{result._id}}">
+                                   {{::result.title}}
+                                </a>
                             </div>
                         </div>
                         <div class="panel-body">
-                            <p>
-                               {{result.content}}
+                            <p ng-bind-html='result.content'>
                             </p>
                         </div>
                     </div>

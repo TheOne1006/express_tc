@@ -101,8 +101,11 @@ angular.module('theOneBlog')
   
 }])
 // 搜索
-.controller('SearchCtrl', ['$scope', '$http', 'result', function($scope, $http, result){
-  console.log(result);
+.controller('SearchCtrl', ['$scope', '$http', 'result', 'searchWord', function($scope, $http, result, searchWord){
+  $scope.search.keyWord = searchWord;
+  
+  $scope.search.resultList = result;
+
   $scope.pageClass = 'search';
 
   // 搜索结果的种类
@@ -110,9 +113,9 @@ angular.module('theOneBlog')
     $scope.search.menuKinds = data;
   });
 
-  $http.get('/angular/data/search.right.json').success(function  (data) {
-    $scope.search.resultList = data;
-  });
+  // $http.get('/angular/data/search.right.json').success(function  (data) {
+  //   $scope.search.resultList = data;
+  // });
 
 }])
   ;
