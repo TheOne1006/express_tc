@@ -101,7 +101,8 @@ angular.module('theOneBlog')
   
 }])
 // 搜索
-.controller('SearchCtrl', ['$scope', '$http', function($scope, $http){
+.controller('SearchCtrl', ['$scope', '$http', 'result', function($scope, $http, result){
+  console.log(result);
   $scope.pageClass = 'search';
 
   // 搜索结果的种类

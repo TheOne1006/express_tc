@@ -9,6 +9,26 @@
  * Main route of the application in web.
  */
 angular.module('theOneBlog')
+  // 数据存储 service
+  .factory('dataSave', ['$http', function ($http) {
+    var searchData = [],
+    articlesData = [];
+
+    function articleSearch (searchWord) {
+      $http.get('/search/'+searchWord)
+                .success(function (data) {
+                  return data;
+                });
+    }
+
+
+    return {
+      search:function (searchWord) {
+        return articleSearch(searchWord);
+      }
+    };
+  }])
+
   .config(['$stateProvider', '$urlRouterProvider',function($stateProvider, $urlRouterProvider) {
       $urlRouterProvider.otherwise('/');
       $stateProvider
@@ -61,15 +81,31 @@ angular.module('theOneBlog')
           }
         })
         .state('main.search',{
-          url:'search/:keywords',
+          abstract: true,
+          url:'search',
+          views:{
+            'banner@':{
+              templateUrl: '/angular/views/home/article/article.banner.html'
+            }
+          }
+        })
+        .state('main.search.goanything',{
+          url:'/:searchWord',
           views:{
             'bodyer@':{
               templateUrl: '/angular/views/home/search/search.bodyer.html',
               controller:'SearchCtrl'
-            },
-            'banner@':{
-              templateUrl: '/angular/views/home/article/article.banner.html'
             }
+          },
+          // resolve 解决器 不能在view 中再次 定义 controller
+          resolve:{
+            result: ['$stateParams', '$http', 'dataSave', function ($stateParams, $http, dataSave) {
+              return $http.get('/search/'+$stateParams.searchWord)
+                .success(function (data) {
+                  return data;
+                })
+              ;
+            }]
           }
         })
         ;

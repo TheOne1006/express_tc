@@ -7,7 +7,11 @@ var mongoose = require('mongoose'),
   async = require('async'),
   Article = mongoose.model('Article'),
   _ = require('underscore'),
-  Tag = mongoose.model('Tag');
+  Tag = mongoose.model('Tag'),
+  publicArticle = require('../article');
+
+
+  _.extend(exports, publicArticle);
 
 exports.add = function (req, res ,next) {
     // 验证
@@ -94,31 +98,31 @@ exports.edit = function (req, res, next) {
 };
 
 // 文章列表
-exports.list = function (req, res, next) {
-  Article.find(function (err, articles) {
-    if(err){
-      return next(err);
-    }
-    res.json(articles);
-    res.end();
-  });
-};
+// exports.list = function (req, res, next) {
+//   Article.find(function (err, articles) {
+//     if(err){
+//       return next(err);
+//     }
+//     res.json(articles);
+//     res.end();
+//   });
+// };
 
 
 // 单个文章
-exports.getById = function (req, res, next) {
-  var _id = req.params.id;
-  Article
-    .findById(_id)
-    .populate('cate')
-    .exec(function (err, article) {
-    if(err){
-      return next(err);
-    }
-    res.json(article);
-    res.end();
-  });
-};
+// exports.getById = function (req, res, next) {
+//   var _id = req.params.id;
+//   Article
+//     .findById(_id)
+//     .populate('cate')
+//     .exec(function (err, article) {
+//     if(err){
+//       return next(err);
+//     }
+//     res.json(article);
+//     res.end();
+//   });
+// };
 
 
 //- 删除单个文章

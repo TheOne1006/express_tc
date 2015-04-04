@@ -10,9 +10,14 @@ var config = {
     },
     port: 3000,
     /**
-     * 监听12345端口  1
+     * 监听12345端口  1 first
      */
     db: 'mongodb://root:root@ds033601.mongolab.com:33601/theblog',
+    /**
+     * 爱尔兰 db
+     * 
+     */
+    // db:'mongodb://root:root@ds039251.mongolab.com:39251/eu-lab-blog',
     debug : true
   },
 
