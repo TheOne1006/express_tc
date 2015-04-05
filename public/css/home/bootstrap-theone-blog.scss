@@ -8,6 +8,7 @@ $icon-font-path: "../../components/bootstrap-sass-official/assets/fonts/bootstra
 // 紫色
 $purple-color:  #563d7c !default;
 $banner-p-color: #cdbfe3 !default;
+$orange-color : #dd4b39 !default;
 
 $search-input-short: 257px !default;
 $search-input-long: 350px !default;
@@ -581,4 +582,10 @@ Copyright (c) 2015 Daniel Eden
     .animate-repeat.ng-enter-active {
       opacity:1;
     }
+  }
+
+  // 结果 突出
+  em {
+      color: $orange-color;
+      font-style: normal;
   }

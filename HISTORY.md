@@ -3,9 +3,6 @@
 3、session 的持久化
 
 
-
-
-
 /**
  * angular
  */
@@ -23,5 +20,9 @@ svg - logo 动画
 mobile-siderBar 
   消失动画 不能很好的处理
   拖拽系统还没有实现 
+
+
+
+## 2015.4.5 修改search 页面
 
 

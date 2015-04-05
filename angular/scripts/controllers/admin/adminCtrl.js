@@ -120,8 +120,9 @@ angular.module('theoneApp')
           menubar: true,
           theme:'modern',
           //定义载入插件
-          plugins : 'spellchecker,pagebreak,link,table,save,insertdatetime,preview,media,searchreplace,contextmenu,paste,directionality,noneditable,visualchars,nonbreaking,template,code,prettify',
-          toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | prettify',
+          plugins : 'pagebreak,link,table,save,insertdatetime,preview,media,searchreplace,contextmenu,paste,directionality,noneditable,visualchars,nonbreaking,template,code,hr,prettify',
+          toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | prettify | hr',
+          'content_css': '/css/admin/tinymceCommon.css',
           //-语言包
           language : 'zh_CN'
         }
@@ -524,6 +525,7 @@ angular.module('theoneApp')
 
         // 处理 keywords
         $scope.article.keyWords = UiTool.tagInput2arr($scope.article.keyWords, []);
+        $scope.article.author = $scope.article.author._id;
 
         adminModalService.doEdit('/admin/article/edit',{article:$scope.article})
           .success(function (data) {

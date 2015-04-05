@@ -94,9 +94,16 @@ angular.module('theOneBlog')
     }
   }])
 // 文章列表
-.controller('ArticleCtrl', ['$scope', '$http', '$stateParams', 'article', function($scope, $http, $stateParams, article){
+.controller('ArticleCtrl', ['$scope', '$http', '$stateParams','$timeout', 'article', function($scope, $http, $stateParams, $timeout, article){
 
   $scope.article = article.data;
+
+  $scope.$watch('article.content', function () {
+    $timeout(function () {
+      prettyPrint();
+    },0);
+  });
+
   $scope.pageClass ='page';
   
 }])
@@ -105,6 +112,13 @@ angular.module('theOneBlog')
   $scope.search.keyWord = searchWord;
   
   $scope.search.resultList = result;
+
+
+  $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
+      console.log(ngRepeatFinishedEvent);
+      console.log('end');
+  });
+
 
   $scope.pageClass = 'search';
 

@@ -47,4 +47,19 @@ angular.module('theOneBlog')
 
       }
       return {};
-    }]);
+    }])
+    //ng-repeat end callback
+    .directive('onFinishRender', function ($timeout) {
+        return {
+            restrict: 'A',
+            link: function (scope) {
+                if (scope.$last === true) {
+                    $timeout(function () {
+                        scope.$emit('ngRepeatFinished');
+                    });
+                }
+            }
+        }
+    })
+
+  ;

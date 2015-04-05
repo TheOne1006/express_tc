@@ -84,6 +84,7 @@ exports.edit = function (req, res, next) {
         
         // 更新自己
       },function (cb) {
+        // save update  外 ref 只要 string 就可以
         _.extend(modifArticle, editArticle);
         modifArticle.save(cb);
       }
