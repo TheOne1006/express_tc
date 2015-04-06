@@ -35,13 +35,95 @@ angular.module('theOneBlog')
     }
 
 
+    //  获取结果的 cates
+    function getCates (resultArr) {
+      var CateArr = [];
+
+      if(!angular.isArray(resultArr)) {
+        return CateArr;
+      }
+      
+      angular.forEach(resultArr, function (item) {
+        if(item.cate && item.cate._id) {
+
+          for (var i = 0;  i < CateArr.length; i++) {
+            if(item.cate._id === CateArr[i]._id) {
+              CateArr[i].resultNum++;
+              return;
+            }
+          }
+
+          item.cate.resultNum = 1;
+          CateArr.push(item.cate);
+          return;
+
+        }
+      });
+      
+      return CateArr;
+    }
+
+    // 获取文章 列表
+    function getIndexList (cate, page) {
+      var listCate = cate?cate:'all';
+      if(!page || isNaN(page)) {
+        page = 1;
+      } 
+      // 声明延后执行，表示要去监控后面的执行 
+      var deferred = $q.defer(); 
+
+       $http.get('/home/list/'+listCate+'/'+page)
+                 .success(function (data) {
+
+                   //声明执行成功，即http请求数据成功，可以返回数据了
+                   deferred.resolve(data);
+                 })
+                 .error(function (data) {
+
+                   //声明执行失败，即服务器返回错误 
+                   deferred.reject(data);   
+                 });
+
+       // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+       return deferred.promise;
+    }
+
+    //获取类别列表
+    function getIndexCates () {
+
+      var deferred = $q.defer(); 
+      $http.get('/home/cate/index')
+                .success(function (data) {
+
+                  //声明执行成功，即http请求数据成功，可以返回数据了
+                  deferred.resolve(data);
+                })
+                .error(function (data) {
+
+                  //声明执行失败，即服务器返回错误 
+                  deferred.reject(data);   
+                });
+
+      // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+      return deferred.promise;
+    }
+
+
     return {
       search:function (searchWord) {
         return articleSearch(searchWord);
+      },
+      getCates: function (resultArr) {
+        return getCates(resultArr);
+      },
+      getIndexList: function (cate, page) {
+        return getIndexList(cate, page);
+      },
+      getIndexCates: function () {
+        return getIndexCates();
       }
     };
   }])
-
   .config(['$stateProvider', '$urlRouterProvider',function($stateProvider, $urlRouterProvider) {
       $urlRouterProvider.otherwise('/');
       $stateProvider
@@ -55,14 +137,32 @@ angular.module('theOneBlog')
               templateUrl: '/angular/views/home/banner.html'
             },
             'bodyer':{
-              templateUrl: '/angular/views/home/main.html'
+              templateUrl: '/angular/views/home/main.html',
+              controller: 'MainArticleCtrl'
             },
             'affix@main':{
-              templateUrl: '/angular/views/home/affix.html'
+              templateUrl: '/angular/views/home/affix.html',
+              controller: 'MainAffixCtrl'
             },
             'mobileRight':{
               templateUrl: '/angular/views/home/mobile/right.html'
             }
+          },
+          // resolve: index
+          resolve:{
+            articleList:['dataSave', function (dataSave) {
+              return dataSave.getIndexList();
+            }],
+            cateList:['dataSave', function (dataSave) {
+              return dataSave.getIndexCates();
+            }]
+          }
+        })
+        // 分类列表
+        .state('main.cate',{
+          url:'cate/:cate',
+          views:{
+
           }
         })
         .state('main.article',{
@@ -113,16 +213,15 @@ angular.module('theOneBlog')
           // 数据
           // resolve 解决器 不能在view 中再次 定义 controller
           resolve:{
-            result: ['$stateParams', '$http', 'dataSave', function ($stateParams, $http, dataSave) {
+            result: ['$stateParams', 'dataSave', function ($stateParams, dataSave) {
               return dataSave.search($stateParams.searchWord);
             }],
             searchWord:['$stateParams', function ($stateParams) {
               return $stateParams.searchWord;
             }],
-            resultCase:['result', function (result) {
-              console.log(result);
-              console.log('--in resultCase--');
-              return {};
+            resultCase:['result', 'dataSave', function (result, dataSave) {
+              var resultCateArr = dataSave.getCates(result);
+              return resultCateArr;
             }]
           }
         })

@@ -16,10 +16,10 @@ angular.module('theOneBlog')
    * Copyright (c) 2014 Nick Williams - http://wicky.nillia.ms/headroom.js
    * License: MIT
    */
-  .directive('headroom',['$window', function($window) {
+  .directive('headroom',['$window', 'browserHelp', function($window, browserHelp) {
       var Headroom = $window.Headroom;
       
-      if($window.innerWidth < 767){
+      if(browserHelp.isMobile){
 
       return {
         restrict: 'EA',

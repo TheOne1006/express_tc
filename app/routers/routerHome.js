@@ -11,6 +11,11 @@ var searchCtrl = require('../controllers/search');
 module.exports = function (app) {
   app.get('/',homeCtrl.index);
 
+  app.get(['/home/list/:cate([a-zA-Z0-9]+)/:page([0-9]+)',
+    '/home/list',
+    ], homeCtrl.list);
+  app.get('/home/cate/index', homeCtrl.cateList);
+
   // 文章列表
   app.get('/article/list', articleCtrl.list);
   app.get('/article/id/:id',articleCtrl.getById);

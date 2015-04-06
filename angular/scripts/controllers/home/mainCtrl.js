@@ -69,13 +69,12 @@ angular.module('theOneBlog')
 
   }])
   // 首页文章Ctrl
-  .controller('MainArticleCtrl', ['$scope', 'dataServer', function($scope, dataServer){
+  .controller('MainArticleCtrl', ['$scope', 'dataServer', 'articleList', function($scope, dataServer, articleList){
     // 获取main页面 文章列表
-    dataServer.getlistCall('/article/list', function  (data) {
-      $scope.articles = data;
-      console.log(data);
-    });
-
+    $scope.articles = articleList;
+  }])
+  .controller('MainAffixCtrl', ['$scope', 'cateList', function ($scope, cateList) {
+    $scope.cates =  cateList;
   }])
   // 滚动图片
   .controller('CarouselCtrl',['$scope',function ($scope) {
@@ -111,21 +110,42 @@ angular.module('theOneBlog')
   
 }])
 // 搜索
-.controller('SearchCtrl', ['$scope', '$http', '$filter', 'result', 'searchWord', function($scope, $http, $filter, result, searchWord){
+.controller('SearchCtrl', ['$scope', '$timeout', '$filter', 'result', 'searchWord', 'resultCase', function($scope, $timeout, $filter, result, searchWord, resultCase){
 
   $filter('keywordPointFilter')(result, searchWord);
 
+  // 搜索关键词
   $scope.search.keyWord = searchWord;
   
+  // 搜索结果列表
   $scope.search.resultList = result;
 
-
+  // page类型
   $scope.pageClass = 'search';
 
+  // 当前 filter
+  $scope.filterCate = '';
+
+  $scope.setFilter = function (cateId) {
+    var newResult = result;
+
+    $scope.filterCate = cateId;
+
+    newResult = $filter('filter')(newResult, cateId);
+
+    $scope.search.resultList = newResult;
+
+  };
+
+
+  $timeout(function () {
+    $scope.search.menuKinds = resultCase;
+  },0);
+
   // 搜索结果的种类
-  $http.get('/angular/data/search.left.json').success(function  (data) {
-    $scope.search.menuKinds = data;
-  });
+  // $http.get('/angular/data/search.left.json').success(function  (data) {
+  //   $scope.search.menuKinds = data;
+  // });
 
   // $http.get('/angular/data/search.right.json').success(function  (data) {
   //   $scope.search.resultList = data;

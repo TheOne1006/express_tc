@@ -67,6 +67,23 @@ CateSchema.static('findByIdAndParent',function (id, cb) {
     });
 });
 
+/**
+ * 搜索ByName
+ */
+ CateSchema.static('findByName',function (name, cb) {
+    var nameReg = new RegExp('^'+name+'$', 'i');
+
+   this
+     .findOne({name:nameReg})
+     .exec(function (err, cate) {
+       if(err){
+         return cb(err);
+       }
+
+      return cb(null, cate);
+     });
+ });
+
 
 
 

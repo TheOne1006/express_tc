@@ -22,4 +22,15 @@ ngApp = angular
     'ngTouch',
     'mgcrea.ngStrap', // 类似ui.bootstrap
     'angular-carousel'//拖拽banner
-  ]);
+  ])
+  .factory('browserHelp', ['$window', function ($window) {
+      var initWidth = $window.innerWidth,
+      mobileScreenMaxWidth = 768; 
+  
+      return {
+        isMobile: initWidth < mobileScreenMaxWidth
+      };
+      
+  }])
+
+  ;

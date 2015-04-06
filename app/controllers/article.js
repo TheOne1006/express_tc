@@ -27,8 +27,16 @@ exports.getById = function (req, res, next) {
   var _id = req.params.id;
   Article
     .findById(_id)
-    .populate('cate')
-    .populate('author')
+    .populate({
+      path:'cate',
+      select:'name',
+      options:{limit:1}
+    })
+    .populate({
+      path:'author',
+      select:'name',
+      options:{limit:1}
+    })
     .exec(function (err, article) {
     if(err){
       return next(err);

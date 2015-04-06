@@ -3,10 +3,9 @@
         <div class="col-sm-3 hidden-sm">
 
             <div class="hidden-print" data-offset-top="-80" bs-affix offsetUnpin='ccc'>
-              
                 <ul class="nav nav-pills nav-stacked search-aside">
-                    <li ng-repeat="menu in search.menuKinds" class='animate-repeat'>
-                        <a href="#">{{menu.title}} <span class="badge pull-right">{{menu.resultNum}}</span></a>
+                    <li ng-repeat="menu in search.menuKinds" class='animate-repeat' ng-class='{active:filterCate == menu._id}'>
+                        <a href="javascript:void(0);" ng-click='setFilter(menu._id)'>{{menu.name}} <span class="badge pull-right">{{menu.resultNum}}</span></a>
                     </li>
                 </ul>
               
@@ -16,6 +15,7 @@
 
         <!-- right search context -->
         <div class="col-md-9">
+
 
              <!-- page-header -->
             <div class="row">
@@ -53,7 +53,7 @@
             <div class="row">
                 <div class="col-sm-12">
 
-                    <div class="panel panel-primary" ng-repeat='result in ::search.resultList' >
+                    <div class="panel panel-primary" ng-repeat='result in search.resultList' >
                         <div class="panel-heading">
                             <div class="panel-title">
                                 <a ng-href="#/article/{{result._id}}">

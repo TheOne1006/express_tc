@@ -3,6 +3,7 @@
     
     <div class="bs-sidebar hidden-print animated" role="complementary" data-offset-top="-80" bs-affix offsetUnpin='ccc'>
       
+<!--       
       <ul class="nav bs-sidenav">
         <li data-target="#modals" bs-scrollspy>
           <a href="#modals">Modal</a>
@@ -11,8 +12,14 @@
             <li data-target="#modals-usage" bs-scrollspy><a href="#/#modals-usage">Usage</a></li>
           </ul>
         </li>
-      </ul>
-      
+      </ul> 
+-->
+    <ul class="nav bs-sidenav">
+      <li ng-repeat='cate in ::cates'>
+        <a href="javascript:;" ng-bind='::cate.name'></a>
+      </li>
+    </ul>
+        
     </div> 
   </div>
 </div>

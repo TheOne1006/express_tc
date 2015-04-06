@@ -27,6 +27,7 @@ exports.goAngthing = function (req, res, next) {
       {contentText:{$regex:params,$options: 'i'}},
       {keyWords:searchWord},
       ])
+    .populate('cate','name')
     .exec(function (err, results) {
       if(err){
         return next(err);

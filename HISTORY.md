@@ -27,5 +27,15 @@ mobile-siderBar
   add 关键词 高亮(ok)
   add content 最高显示字数 默认(260) (ok)
   add filter 在在$digest过程 至少执行两次 可以在controller 中 注入 $filter
+    |- 左侧 分类信息 使用 filter 控制
+    |- Q:缺少动画
+    |- 数据量少可以全部展出，数据量大 ?
+    |- 缺少容错信息, no result?
+
+## 2015.4.6 index 修改
+  ｜－ resolve 增加 
+  ｜－ 右侧 信息
+
+  ready - 新增 图片展示 cloud 云端
 
 
