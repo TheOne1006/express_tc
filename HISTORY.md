@@ -24,5 +24,8 @@ mobile-siderBar
 
 
 ## 2015.4.5 修改search 页面
+  add 关键词 高亮(ok)
+  add content 最高显示字数 默认(260) (ok)
+  add filter 在在$digest过程 至少执行两次 可以在controller 中 注入 $filter
 
 

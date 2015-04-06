@@ -110,6 +110,7 @@ angular.module('theOneBlog')
               controller:'SearchCtrl'
             }
           },
+          // 数据
           // resolve 解决器 不能在view 中再次 定义 controller
           resolve:{
             result: ['$stateParams', '$http', 'dataSave', function ($stateParams, $http, dataSave) {
@@ -117,6 +118,11 @@ angular.module('theOneBlog')
             }],
             searchWord:['$stateParams', function ($stateParams) {
               return $stateParams.searchWord;
+            }],
+            resultCase:['result', function (result) {
+              console.log(result);
+              console.log('--in resultCase--');
+              return {};
             }]
           }
         })

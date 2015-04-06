@@ -94,7 +94,10 @@ angular.module('theOneBlog')
     }
   }])
 // 文章列表
-.controller('ArticleCtrl', ['$scope', '$http', '$stateParams','$timeout', 'article', function($scope, $http, $stateParams, $timeout, article){
+.controller('ArticleCtrl', ['$scope', '$http', '$stateParams','$timeout', '$filter', 'article', function($scope, $http, $stateParams, $timeout, $filter, article){
+
+  // filter
+  article.data.updateTime = $filter('date')(article.data.updateTime,'yyyy-MM-dd');
 
   $scope.article = article.data;
 
@@ -108,16 +111,13 @@ angular.module('theOneBlog')
   
 }])
 // 搜索
-.controller('SearchCtrl', ['$scope', '$http', 'result', 'searchWord', function($scope, $http, result, searchWord){
+.controller('SearchCtrl', ['$scope', '$http', '$filter', 'result', 'searchWord', function($scope, $http, $filter, result, searchWord){
+
+  $filter('keywordPointFilter')(result, searchWord);
+
   $scope.search.keyWord = searchWord;
   
   $scope.search.resultList = result;
-
-
-  $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
-      console.log(ngRepeatFinishedEvent);
-      console.log('end');
-  });
 
 
   $scope.pageClass = 'search';

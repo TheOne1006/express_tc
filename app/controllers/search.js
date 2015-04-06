@@ -31,7 +31,6 @@ exports.goAngthing = function (req, res, next) {
       if(err){
         return next(err);
       }
-      console.log(results);
       res.json(results);
       res.end();
     });
