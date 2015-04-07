@@ -47,8 +47,7 @@ exports.add = function (req, res ,next){
       }
       ],function (err) {
         if(err){
-          console.log(err);
-          res.end(err);
+          return next(err);
         }
         res.end('add ok');
       });
@@ -79,3 +78,26 @@ exports.delById = function (req, res, next) {
       res.end();
      });
   };
+
+// editById
+exports.editById = function (req, res, next) {
+  var cateId = req.params.id;
+  var editCate = req.body.cate;
+
+  console.log(editCate);
+
+  async.waterfall([
+    function (cb) {
+      Cate.findByIdAndUpdate(cateId,
+      {
+        weight:editCate.weight,
+        topArticles:editCate.topArticles
+      },cb);
+    }
+  ],function (err) {
+    if(err) {
+      return next(err);
+    }
+    res.end('ok');
+  });
+};

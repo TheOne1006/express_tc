@@ -136,3 +136,19 @@ exports.delById = function (req, res, next) {
     res.end('ok');
   });
 };
+
+// 获取 cate 文章
+exports.getByCate = function (req, res, next) {
+  var cateId = req.params.cateId;
+
+  Article
+    .find({cate:cateId})
+    .exec(function (err, results) {
+      if(err) {
+        return next(err);
+      }
+
+      res.json(results);
+      res.end();
+    });
+};

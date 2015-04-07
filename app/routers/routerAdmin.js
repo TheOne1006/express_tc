@@ -40,11 +40,14 @@ var tagCtrl = require('../controllers/admin/tag');
     articleR.get('/id/:id', articleCtrl.getById);
     articleR.delete('/id/:id', articleCtrl.delById);
 
+    articleR.get('/cate/:cateId', articleCtrl.getByCate);
+
     // 后台文章类别
     app.use('/admin/cate', cateR);
     cateR.get('/', cateCtrl.list);
     cateR.get('/all', cateCtrl.allList);
     cateR.put('/add', cateCtrl.add);
+    cateR.post('/edit/id/:id', cateCtrl.editById);
     cateR.get('/id/:id', cateCtrl.getById);
     cateR.delete('/id/:id', cateCtrl.delById);
 

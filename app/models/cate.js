@@ -6,7 +6,7 @@
 
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema,
-  // ObjectId = Schema.Types.ObjectId,
+  ObjectId = Schema.Types.ObjectId,
   // _ = require('underscore'),
   moment = require('moment');
 
@@ -17,6 +17,8 @@ var CateSchema = new Schema({
   // 为什么 ObjectId 不行
   // 尝试方法，硬编码 写入 objectId
   pid:{type: String, ref:'Cate'},
+  weight:{type: Number, default:0},
+  topArticles:[{type: ObjectId, ref:'Article'}],
   articleNum:Number,
   updateTime:String
 });
@@ -26,9 +28,7 @@ CateSchema.pre('save',function (next) {
     this.articleNum = 0;
   }
 
-  if(!this.updateTime){
-    this.updateTime = moment().format('x');
-  }
+  this.updateTime = moment().format('x');
 
   next();
 });

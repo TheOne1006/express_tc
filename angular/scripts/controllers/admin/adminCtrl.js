@@ -213,7 +213,7 @@ angular.module('theoneApp')
         field:'_id',
         displayName:'操作',
         // ng－click 传递 对象
-        cellTemplate:'<div class="ngCellText" ng-class="col.colIndex()"><span ng-cell-text><a ng-href="javascript:;">操作</a>&nbsp;<a href="javascript:;" cateid={{row["entity"]["_id"]}} ng-click="delOpen(row.entity._id)" >删除</a></span></div>'
+        cellTemplate:'<div class="ngCellText" ng-class="col.colIndex()"><span ng-cell-text><a href="javascript:;" ng-click="editOpen(row.entity._id)" >操作</a>&nbsp;<a href="javascript:;" cateid={{row["entity"]["_id"]}} ng-click="delOpen(row.entity._id)" >删除</a></span></div>'
       }],
       showGroupPanel:false,
       showFooter:true,
@@ -244,6 +244,16 @@ angular.module('theoneApp')
             controller:'DelCateController',
             backdropClass:'heightfull'
           }, _id);
+      };
+
+      // 操作cate
+      $scope.editOpen = function (_id) {
+        adminModalService.modalOpen({
+          templateUrl:'/angular/views/modal/cate.edit.html',
+          controller:'EditCateController',
+          size:'large',
+          backdropClass:'heightfull'
+        },_id);
       };
 
   }])
@@ -316,6 +326,53 @@ angular.module('theoneApp')
     };
 
   }])
+// 编辑Cate控制器
+.controller('EditCateController', ['$scope', '$http', '$modalInstance', 'adminModalService',
+  function ($scope, $http, $modalInstance, adminModalService) {
+    var _id = adminModalService.current();
+
+    $scope.cate = {};
+
+    //验证
+    adminModalService.getId('/admin/cate/id/'+_id)
+      .success(function (data) {
+        $scope.cate = data;
+      });
+
+    // article list
+    $http.get('/admin/article/cate/'+_id)
+      .success(function (data) {
+        $scope.articles = data;
+      });
+
+    // toggle selection for id
+      $scope.toggleSelection = function toggleSelection(articleId) {
+        var idx = $scope.cate.topArticles.indexOf(articleId);
+
+        // is currently selected
+        if (idx > -1) {
+          $scope.cate.topArticles.splice(idx, 1);
+        }
+
+        // is newly selected
+        else {
+          $scope.cate.topArticles.push(articleId);
+        }
+      };
+    
+    $scope.save = function () {
+      $http.post('/admin/cate/edit/id/'+_id,{cate:$scope.cate})
+        .success(function(data) {
+          $modalInstance.close();
+        });
+    };
+
+    $scope.cancel = function () {
+      $modalInstance.dismiss();
+    };
+
+  }])
+
 // 文章控制器
 // url: /admin#/article
 .controller('ArticleController', ['$scope', '$http', 'adminModalService', function ($scope, $http, adminModalService) {

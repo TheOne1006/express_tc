@@ -40,4 +40,8 @@ mobile-siderBar
   ready - 首页分类信息输出，
     |- ready  cate推荐 字段
 
+## 2015.4.7 cate 模型修改
+  cate 增加 权重 weight
+       推荐 文章 topArticles
+       添加完成 
 
