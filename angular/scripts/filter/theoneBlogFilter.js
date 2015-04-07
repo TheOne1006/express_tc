@@ -14,10 +14,10 @@ angular.module('theOneBlog')
 
   // 在$digest过程中，filter会执行很多次，至少两次。
   // 所以要避免在filter中执行耗时操作
-  .filter('keywordEm',[function () {
+  .filter('keywordEm',['browserHelp', function (browserHelp) {
     var preElement = '<em>',
       afterElement = '</em>',
-      defultlimit = 90,
+      defultlimit = browserHelp.defultContentWidth,
       strRegExg;
 
       function aroundAddEm (str, keyword) {
@@ -117,6 +117,31 @@ angular.module('theOneBlog')
       });
 
       return resultArray;
+    };
+  }])
+  // 首页文章内容列表字数限制
+  .filter('artileContentWordlimit',['browserHelp', function (browserHelp) {
+    var defultlimit = browserHelp.defultContentWidth;
+
+    function wordsLimit (str, limit) {
+      if(str.length > limit){
+        return str.slice(0, limit)+'...';
+      }
+      return str;
+    }
+
+    return function  (dataArr, limit) {
+
+      if(!limit || isNaN(limit)) {
+        limit = defultlimit;
+      }
+
+      angular.forEach(dataArr, function (item, key) {
+        dataArr[key].contentText = wordsLimit(item.contentText, limit);
+      });
+
+      return dataArr;
+      
     };
   }])
   ;

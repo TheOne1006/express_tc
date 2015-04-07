@@ -37,5 +37,7 @@ mobile-siderBar
   ｜－ 右侧 信息
 
   ready - 新增 图片展示 cloud 云端
+  ready - 首页分类信息输出，
+    |- ready  cate推荐 字段
 
 

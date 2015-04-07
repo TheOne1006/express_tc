@@ -23,12 +23,16 @@ ngApp = angular
     'mgcrea.ngStrap', // 类似ui.bootstrap
     'angular-carousel'//拖拽banner
   ])
+  // angular.theOneBlog 全局变量
   .factory('browserHelp', ['$window', function ($window) {
       var initWidth = $window.innerWidth,
-      mobileScreenMaxWidth = 768; 
+      mobileScreenMaxWidth = 768;
+
+      var defultContentWidth = 180;
   
       return {
-        isMobile: initWidth < mobileScreenMaxWidth
+        isMobile: initWidth < mobileScreenMaxWidth,
+        defultContentWidth: defultContentWidth
       };
       
   }])

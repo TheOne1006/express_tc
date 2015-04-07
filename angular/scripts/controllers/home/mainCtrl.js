@@ -69,9 +69,9 @@ angular.module('theOneBlog')
 
   }])
   // 首页文章Ctrl
-  .controller('MainArticleCtrl', ['$scope', 'dataServer', 'articleList', function($scope, dataServer, articleList){
+  .controller('MainArticleCtrl', ['$scope', '$filter', 'dataServer', 'articleList', function($scope, $filter, dataServer, articleList){
     // 获取main页面 文章列表
-    $scope.articles = articleList;
+    $scope.articles = $filter('artileContentWordlimit')(articleList);
   }])
   .controller('MainAffixCtrl', ['$scope', 'cateList', function ($scope, cateList) {
     $scope.cates =  cateList;
