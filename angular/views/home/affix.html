@@ -14,9 +14,14 @@
         </li>
       </ul> 
 -->
-    <ul class="nav bs-sidenav">
-      <li ng-repeat='cate in ::cates'>
-        <a href="javascript:;" ng-bind='::cate.name'></a>
+    <ul class="nav bs-sidenav scrollspy">
+      <li data-target="#{{cate.name}}" bs-scrollspy ng-repeat='cate in ::cates' data-offset='30'>
+        <a href="#/#{{cate.name}}" ng-bind='::cate.name'></a>
+        <ul class="nav">
+          <li data-target="#{{cate.name}}-{{article.title}}" ng-repeat='article in ::cate.topArticles'>
+              <a href="#/#{{cate.name}}-{{article.title}}" ng-bind='article.title'></a>
+            </li>
+        </ul>
       </li>
     </ul>
         

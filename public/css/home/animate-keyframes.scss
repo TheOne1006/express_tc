@@ -1,0 +1,252 @@
+/**
+ * 定义的动画帧
+ */
+ @keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(100%, 0, 0);
+    -ms-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    -ms-transform: none;
+    transform: none;
+  }
+ }
+
+ @keyframes searchInputLong {
+   0% {
+     width:$search-input-short;
+   }
+
+   100% {
+     width:$search-input-long
+   }
+ }
+
+ @keyframes searchInputShort {
+   0% {
+     width:$search-input-long
+   }
+
+   100% {
+     width:$search-input-short;
+   }
+ }
+
+ @keyframes fadeInDown {
+   0% {
+     opacity: 0;
+     transform: translate3d(0, -100%, 0);
+     -ms-transform: translate3d(0, -100%, 0);
+   }
+
+   100% {
+     opacity: 1;
+     transform: none;
+   }
+ }
+
+ @keyframes fadeOutUp {
+   0% {
+     opacity: 1;
+   }
+
+   100% {
+     opacity: 0;
+     transform: translate3d(0, -100%, 0);
+     -ms-transform: translate3d(0, -100%, 0);
+   }
+ }
+
+ @keyframes bounceInDown {
+   0%, 60%, 75%, 90%, 100% {
+     -webkit-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+     transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+   }
+
+   0% {
+     opacity: 0;
+     -webkit-transform: translate3d(0, -3000px, 0);
+     -ms-transform: translate3d(0, -3000px, 0);
+     transform: translate3d(0, -3000px, 0);
+   }
+
+   60% {
+     opacity: 1;
+     -webkit-transform: translate3d(0, 25px, 0);
+     -ms-transform: translate3d(0, 25px, 0);
+     transform: translate3d(0, 25px, 0);
+   }
+
+   75% {
+     -webkit-transform: translate3d(0, -10px, 0);
+     -ms-transform: translate3d(0, -10px, 0);
+     transform: translate3d(0, -10px, 0);
+   }
+
+   90% {
+     -webkit-transform: translate3d(0, 5px, 0);
+     -ms-transform: translate3d(0, 5px, 0);
+     transform: translate3d(0, 5px, 0);
+   }
+
+   100% {
+     -webkit-transform: none;
+     -ms-transform: none;
+     transform: none;
+   }
+ }
+
+ @keyframes slideInRight {
+   0% {
+     -webkit-transform: translateX(100%);
+     transform: translateX(100%);
+     visibility: visible;
+   }
+
+   100% {
+     -webkit-transform: translateX(0);
+     transform: translateX(0);
+   }
+ }
+
+ @keyframes slideOutLeft {
+   0% {
+     -webkit-transform: translateX(0);
+     transform: translateX(0);
+   }
+
+   100% {
+     visibility: hidden;
+     -webkit-transform: translateX(-100%);
+     transform: translateX(-100%);
+   }
+ }
+
+ @keyframes bounceInRight {
+   0%, 60%, 75%, 90%, 100% {
+     -webkit-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+     transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+   }
+
+   0% {
+     opacity: 0;
+     -webkit-transform: translate3d(3000px, 0, 0);
+     transform: translate3d(3000px, 0, 0);
+   }
+
+   60% {
+     opacity: 1;
+     -webkit-transform: translate3d(-25px, 0, 0);
+     transform: translate3d(-25px, 0, 0);
+   }
+
+   75% {
+     -webkit-transform: translate3d(10px, 0, 0);
+     transform: translate3d(10px, 0, 0);
+   }
+
+   90% {
+     -webkit-transform: translate3d(-5px, 0, 0);
+     transform: translate3d(-5px, 0, 0);
+   }
+
+   100% {
+     -webkit-transform: none;
+     transform: none;
+   }
+ }
+
+ @keyframes bounceInLeft {
+   0%, 60%, 75%, 90%, 100% {
+     -webkit-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+     transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+   }
+
+   0% {
+     opacity: 0;
+     -webkit-transform: translate3d(-3000px, 0, 0);
+     transform: translate3d(-3000px, 0, 0);
+   }
+
+   60% {
+     opacity: 1;
+     -webkit-transform: translate3d(25px, 0, 0);
+     transform: translate3d(25px, 0, 0);
+   }
+
+   75% {
+     -webkit-transform: translate3d(-10px, 0, 0);
+     transform: translate3d(-10px, 0, 0);
+   }
+
+   90% {
+     -webkit-transform: translate3d(5px, 0, 0);
+     transform: translate3d(5px, 0, 0);
+   }
+
+   100% {
+     -webkit-transform: none;
+     transform: none;
+   }
+ }
+
+ /**
+  * fadeIn css 效果 
+ Animate.css - http://daneden.me/animate
+ Licensed under the MIT license - http://opensource.org/licenses/MIT
+
+ Copyright (c) 2015 Daniel Eden
+ */
+
+ .animated {
+   animation-duration: 1s;
+   animation-fill-mode: both;
+ }
+
+ .animated.infinite {
+   animation-iteration-count: infinite;
+ }
+
+ .animated.hinge {
+   animation-duration: 2s;
+ }
+
+ .fadeInDown {
+   animation-name: fadeInDown;
+ }
+
+ .fadeOutUp {
+   animation-name: fadeOutUp;
+ }
+
+ .bounceInDown {
+   -webkit-animation-name: bounceInDown;
+   animation-name: bounceInDown;
+ }
+
+ .slideInRight {
+   -webkit-animation-name: slideInRight;
+   animation-name: slideInRight;
+ }
+
+ .slideOutLeft {
+   -webkit-animation-name: slideOutLeft;
+   animation-name: slideOutLeft;
+ }
+
+ .bounceInRight {
+   -webkit-animation-name: bounceInRight;
+   animation-name: bounceInRight;
+ }
+
+ .bounceInLeft {
+   -webkit-animation-name: bounceInLeft;
+   animation-name: bounceInLeft;
+ }
+
+

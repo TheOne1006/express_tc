@@ -120,7 +120,7 @@ angular.module('theOneBlog')
     };
   }])
   // 首页文章内容列表字数限制
-  .filter('artileContentWordlimit',['browserHelp', function (browserHelp) {
+  .filter('IndexArticlesWordlimit',['browserHelp', function (browserHelp) {
     var defultlimit = browserHelp.defultContentWidth;
 
     function wordsLimit (str, limit) {
@@ -131,13 +131,22 @@ angular.module('theOneBlog')
     }
 
     return function  (dataArr, limit) {
+      var arrLeng = dataArr.length;
 
       if(!limit || isNaN(limit)) {
         limit = defultlimit;
       }
 
+      if(arrLeng === 0) {
+        return dataArr;
+      }
+
       angular.forEach(dataArr, function (item, key) {
-        dataArr[key].contentText = wordsLimit(item.contentText, limit);
+        if(angular.isArray(item.topArticles) && item.topArticles.length > 0) {
+          for (var i = item.topArticles.length - 1; i >= 0; i--) {
+          dataArr[key].topArticles[i].contentText = wordsLimit(item.topArticles[i].contentText, limit);
+          }
+        }
       });
 
       return dataArr;

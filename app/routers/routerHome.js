@@ -14,6 +14,7 @@ module.exports = function (app) {
   app.get(['/home/list/:cate([a-zA-Z0-9]+)/:page([0-9]+)',
     '/home/list',
     ], homeCtrl.list);
+  app.get('/home/index/list', homeCtrl.indexList);
   app.get('/home/cate/index', homeCtrl.cateList);
 
   // 文章列表

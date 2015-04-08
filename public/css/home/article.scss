@@ -1,0 +1,70 @@
+/**
+ * article 切入
+ */
+ .middel-relative {
+  position: relative;
+ }
+
+ .main.page.ng-leave {
+   position: absolute;
+   top:0;
+   width: 100%;
+  animation-name: slideOutLeft;
+  animation-duration: 1s;
+  // animation-fill-mode: both;
+ }
+ .main.page.ng-enter {
+  animation-name: slideInRight;
+  animation-duration: 1s;
+  // animation-fill-mode: both;
+ }
+
+ #article-banner {
+  background-color:$purple-color;
+  padding: 30px 15px;
+ }
+
+ .docs-header {
+  text-align: center;
+  color: $banner-p-color;
+  margin-bottom: 40px;
+  font-size: 20px;
+ }
+
+
+ .docs-header h2 {
+   margin-top: 0;
+   color: #fff;
+ }
+
+ .docs-header p {
+  margin-bottom: 0;
+  font-weight: 300;
+  line-height: 1.4;
+ }
+
+ .docs-header p.bounceInLeftD1 {
+      animation-name: bounceInLeft;
+      animation-delay: 0.5s;
+ }
+
+
+// 小屏 距离缩小
+ @media screen and (min-width: $screen-sm-max) {
+  .docs-header {
+    padding-top: 60px;
+    padding-bottom: 60px;
+    font-size: 24px;
+    text-align: left;
+  }
+
+  .docs-header h2, .docs-header p {
+    margin-right: 380px;
+  }
+
+  .docs-header h2 {
+    font-size: 60px;
+    line-height: 1;
+  }
+
+ }

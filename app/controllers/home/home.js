@@ -81,3 +81,20 @@ exports.cateList = function (req, res, next) {
       res.end();
     });
 };
+
+// 首页列表
+exports.indexList = function  (req, res, next) {
+  var maxLimit = 20;
+  Cate
+    .find()
+    .populate('topArticles')
+    .sort({weight:-1})
+    .limit(maxLimit)
+    .exec(function (err, results) {
+      if(err) {
+        return next(err);
+      }
+      res.json(results);
+      res.end();
+    });
+};

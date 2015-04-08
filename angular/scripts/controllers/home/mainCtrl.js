@@ -69,12 +69,13 @@ angular.module('theOneBlog')
 
   }])
   // 首页文章Ctrl
-  .controller('MainArticleCtrl', ['$scope', '$filter', 'dataServer', 'articleList', function($scope, $filter, dataServer, articleList){
+  .controller('MainArticleCtrl', ['$scope', '$filter', 'dataServer', 'indexList', function($scope, $filter, dataServer, indexList){
     // 获取main页面 文章列表
-    $scope.articles = $filter('artileContentWordlimit')(articleList);
+    $scope.indexList = $filter('IndexArticlesWordlimit')(indexList);
+    // $scope.indexList = indexList;
   }])
-  .controller('MainAffixCtrl', ['$scope', 'cateList', function ($scope, cateList) {
-    $scope.cates =  cateList;
+  .controller('MainAffixCtrl', ['$scope', 'indexList', function ($scope, indexList) {
+    $scope.cates =  indexList;
   }])
   // 滚动图片
   .controller('CarouselCtrl',['$scope',function ($scope) {

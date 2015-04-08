@@ -64,7 +64,7 @@ angular.module('theOneBlog')
     }
 
     // 获取文章 列表
-    function getIndexList (cate, page) {
+    function getCateList (cate, page) {
       var listCate = cate?cate:'all';
       if(!page || isNaN(page)) {
         page = 1;
@@ -73,6 +73,26 @@ angular.module('theOneBlog')
       var deferred = $q.defer(); 
 
        $http.get('/home/list/'+listCate+'/'+page)
+                 .success(function (data) {
+
+                   //声明执行成功，即http请求数据成功，可以返回数据了
+                   deferred.resolve(data);
+                 })
+                 .error(function (data) {
+
+                   //声明执行失败，即服务器返回错误 
+                   deferred.reject(data);   
+                 });
+
+       // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+       return deferred.promise;
+    }
+
+    function getHomeList () {
+      // 声明延后执行，表示要去监控后面的执行 
+      var deferred = $q.defer(); 
+
+       $http.get('/home/index/list')
                  .success(function (data) {
 
                    //声明执行成功，即http请求数据成功，可以返回数据了
@@ -116,8 +136,8 @@ angular.module('theOneBlog')
       getCates: function (resultArr) {
         return getCates(resultArr);
       },
-      getIndexList: function (cate, page) {
-        return getIndexList(cate, page);
+      getHomeList: function () {
+         return getHomeList();
       },
       getIndexCates: function () {
         return getIndexCates();
@@ -150,8 +170,8 @@ angular.module('theOneBlog')
           },
           // resolve: index
           resolve:{
-            articleList:['dataSave', function (dataSave) {
-              return dataSave.getIndexList();
+            indexList:['dataSave', function (dataSave) {
+              return dataSave.getHomeList();
             }],
             cateList:['dataSave', function (dataSave) {
               return dataSave.getIndexCates();

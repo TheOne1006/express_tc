@@ -1,0 +1,28 @@
+/**
+ * search page
+ */
+
+ // left 动画效果
+   @media screen and (min-width: $screen-sm-max) {
+     .animate-repeat.ng-enter {
+       transition:all linear 1s;
+     }
+
+     .animate-repeat.ng-enter-stagger {
+       transition-delay:.3s;
+       transition-duration:0s;
+     }
+     .animate-repeat.ng-enter {
+       opacity:0;
+     }
+
+     .animate-repeat.ng-enter-active {
+       opacity:1;
+     }
+   }
+
+   // 结果 突出
+   em {
+       color: $orange-color;
+       font-style: normal;
+   }

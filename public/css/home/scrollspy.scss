@@ -1,0 +1,35 @@
+/**
+ * scrollspy 滚动样式 > $xs-max
+ */
+ @media screen and (min-width: $screen-xs-max) {
+  .bs-sidebar .nav > .active:focus > a,
+  .bs-sidebar .nav > .active:hover > a,
+  .bs-sidebar .nav > .active > a {
+    background-color: transparent;
+    border-left: 2px solid $purple-color;
+    color: $purple-color;
+    font-weight: 700;
+    padding-left: 13px; }
+
+  .bs-sidebar .nav > li > a {
+      color: #999;
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 4px 15px;
+      text-align: left;
+  }
+  .bs-sidebar .nav > li > a:focus,
+  .bs-sidebar .nav > li > a:hover {
+      background-color: transparent;
+      border-left: 1px solid $purple-color;
+      color: $purple-color;
+      padding-left: 14px;
+      text-decoration: none;
+  }
+
+  .affix-top {
+    margin-top: 20px;
+  }
+ }
+

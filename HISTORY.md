@@ -45,3 +45,7 @@ mobile-siderBar
        推荐 文章 topArticles
        添加完成 
 
+## 2015.4.8  index 信息处理
+  main.scss 分离
+  首页展示 锚点偏移量修改
+

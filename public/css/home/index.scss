@@ -1,0 +1,16 @@
+// 首页affix
+.nav.bs-sidenav.scrollspy .nav>li>a {
+   padding-top: 1px;
+   padding-bottom: 1px;
+   padding-left: 30px;
+   font-size: 12px;
+}
+.nav.bs-sidenav.scrollspy .nav>li>a:hover {
+  padding-left: 29px;
+}
+.nav.bs-sidenav.scrollspy .nav {
+  display: none;
+}
+.nav.bs-sidenav.scrollspy >.active> ul.nav {
+  display:block;
+}

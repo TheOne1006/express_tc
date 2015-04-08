@@ -13,11 +13,19 @@ $orange-color : #dd4b39 !default;
 $search-input-short: 257px !default;
 $search-input-long: 350px !default;
 
- 
+
+
+
+
+
+/* PUBLIC
+-------------------------------------------------- */
+
 // header 占位符
 .header-placeholder {
     height: 60px;
 }
+
 /**
  * body禁止滚动
  */
@@ -26,45 +34,10 @@ $search-input-long: 350px !default;
   height: 100%;
 }
 
-/**
- * 全局 fadeInRigth
- */
+/* KEYFRAMES
+-------------------------------------------------- */
+@import "./animate-keyframes.scss";
 
-@keyframes fadeInRight {
- 0% {
-   opacity: 0;
-   -webkit-transform: translate3d(100%, 0, 0);
-   -ms-transform: translate3d(100%, 0, 0);
-   transform: translate3d(100%, 0, 0);
- }
-
- 100% {
-   opacity: 1;
-   -webkit-transform: none;
-   -ms-transform: none;
-   transform: none;
- }
-}
-
-@keyframes searchInputLong {
-  0% {
-    width:$search-input-short;
-  }
-
-  100% {
-    width:$search-input-long
-  }
-}
-
-@keyframes searchInputShort {
-  0% {
-    width:$search-input-long
-  }
-
-  100% {
-    width:$search-input-short;
-  }
-}
 
 /* CUSTOMIZE THE NAVBAR
 -------------------------------------------------- */
@@ -92,6 +65,7 @@ $search-input-long: 350px !default;
   width: auto;
 }
 
+
 /** header 样式 **/
 #header ul.nav input.search-input {
   width:$search-input-short;
@@ -117,475 +91,28 @@ $search-input-long: 350px !default;
 }
 
 
-/**
- * fadeIn css 效果 
-Animate.css - http://daneden.me/animate
-Licensed under the MIT license - http://opensource.org/licenses/MIT
+/* INDEX
+-------------------------------------------------- */
+@import "./index.scss";
 
-Copyright (c) 2015 Daniel Eden
-*/
-  .animated {
-    animation-duration: 1s;
-    animation-fill-mode: both;
-  }
+/* Mobile
+-------------------------------------------------- */
+@import "./mobile.scss";
 
-  .animated.infinite {
-    animation-iteration-count: infinite;
-  }
+/* Scrollspy
+-------------------------------------------------- */
+@import "./scrollspy.scss";
 
-  .animated.hinge {
-    animation-duration: 2s;
-  }
 
-  @keyframes fadeInDown {
-    0% {
-      opacity: 0;
-      transform: translate3d(0, -100%, 0);
-      -ms-transform: translate3d(0, -100%, 0);
-    }
+/* ANGULAR-CAROUSEL CSS
+-------------------------------------------------- */
+@import "./carousel.scss";
 
-    100% {
-      opacity: 1;
-      transform: none;
-    }
-  }
 
-  .fadeInDown {
-    animation-name: fadeInDown;
-  }
+/* ARTICLE  INFO
+-------------------------------------------------- */
+@import "./article.scss";
 
-  @keyframes fadeOutUp {
-    0% {
-      opacity: 1;
-    }
-
-    100% {
-      opacity: 0;
-      transform: translate3d(0, -100%, 0);
-      -ms-transform: translate3d(0, -100%, 0);
-    }
-  }
-
-  .fadeOutUp {
-    animation-name: fadeOutUp;
-  }
-
-  @keyframes bounceInDown {
-    0%, 60%, 75%, 90%, 100% {
-      -webkit-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
-      transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
-    }
-
-    0% {
-      opacity: 0;
-      -webkit-transform: translate3d(0, -3000px, 0);
-      -ms-transform: translate3d(0, -3000px, 0);
-      transform: translate3d(0, -3000px, 0);
-    }
-
-    60% {
-      opacity: 1;
-      -webkit-transform: translate3d(0, 25px, 0);
-      -ms-transform: translate3d(0, 25px, 0);
-      transform: translate3d(0, 25px, 0);
-    }
-
-    75% {
-      -webkit-transform: translate3d(0, -10px, 0);
-      -ms-transform: translate3d(0, -10px, 0);
-      transform: translate3d(0, -10px, 0);
-    }
-
-    90% {
-      -webkit-transform: translate3d(0, 5px, 0);
-      -ms-transform: translate3d(0, 5px, 0);
-      transform: translate3d(0, 5px, 0);
-    }
-
-    100% {
-      -webkit-transform: none;
-      -ms-transform: none;
-      transform: none;
-    }
-  }
-
-  .bounceInDown {
-    -webkit-animation-name: bounceInDown;
-    animation-name: bounceInDown;
-  }
-
-  @keyframes slideInRight {
-    0% {
-      -webkit-transform: translateX(100%);
-      transform: translateX(100%);
-      visibility: visible;
-    }
-
-    100% {
-      -webkit-transform: translateX(0);
-      transform: translateX(0);
-    }
-  }
-
-  .slideInRight {
-    -webkit-animation-name: slideInRight;
-    animation-name: slideInRight;
-  }
-
-  @keyframes slideOutLeft {
-    0% {
-      -webkit-transform: translateX(0);
-      transform: translateX(0);
-    }
-
-    100% {
-      visibility: hidden;
-      -webkit-transform: translateX(-100%);
-      transform: translateX(-100%);
-    }
-  }
-
-  .slideOutLeft {
-    -webkit-animation-name: slideOutLeft;
-    animation-name: slideOutLeft;
-  }
-
-  @keyframes bounceInRight {
-    0%, 60%, 75%, 90%, 100% {
-      -webkit-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
-      transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
-    }
-
-    0% {
-      opacity: 0;
-      -webkit-transform: translate3d(3000px, 0, 0);
-      transform: translate3d(3000px, 0, 0);
-    }
-
-    60% {
-      opacity: 1;
-      -webkit-transform: translate3d(-25px, 0, 0);
-      transform: translate3d(-25px, 0, 0);
-    }
-
-    75% {
-      -webkit-transform: translate3d(10px, 0, 0);
-      transform: translate3d(10px, 0, 0);
-    }
-
-    90% {
-      -webkit-transform: translate3d(-5px, 0, 0);
-      transform: translate3d(-5px, 0, 0);
-    }
-
-    100% {
-      -webkit-transform: none;
-      transform: none;
-    }
-  }
-
-  .bounceInRight {
-    -webkit-animation-name: bounceInRight;
-    animation-name: bounceInRight;
-  }
-
-
-  @keyframes bounceInLeft {
-    0%, 60%, 75%, 90%, 100% {
-      -webkit-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
-      transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
-    }
-
-    0% {
-      opacity: 0;
-      -webkit-transform: translate3d(-3000px, 0, 0);
-      transform: translate3d(-3000px, 0, 0);
-    }
-
-    60% {
-      opacity: 1;
-      -webkit-transform: translate3d(25px, 0, 0);
-      transform: translate3d(25px, 0, 0);
-    }
-
-    75% {
-      -webkit-transform: translate3d(-10px, 0, 0);
-      transform: translate3d(-10px, 0, 0);
-    }
-
-    90% {
-      -webkit-transform: translate3d(5px, 0, 0);
-      transform: translate3d(5px, 0, 0);
-    }
-
-    100% {
-      -webkit-transform: none;
-      transform: none;
-    }
-  }
-
-  .bounceInLeft {
-    -webkit-animation-name: bounceInLeft;
-    animation-name: bounceInLeft;
-  }
-
-/**
- *  hader 伸缩效果
- */
- .header-activate.fadeOutUpH {
-   animation-name: fadeOutUp;
- }
- .header-activate.fadeInDownH {
-    animation-name: fadeInDown;
-  }
-
-
-  
-/**
- * scrollspy 滚动样式
- */
-@media screen and (min-width: $screen-xs-max) {
- .bs-sidebar .nav > .active:focus > a,
- .bs-sidebar .nav > .active:hover > a,
- .bs-sidebar .nav > .active > a {
-   background-color: transparent;
-   border-left: 2px solid $purple-color;
-   color: $purple-color;
-   font-weight: 700;
-   padding-left: 13px; }
-
- .bs-sidebar .nav > li > a {
-     color: #999;
-     display: block;
-     font-size: 13px;
-     font-weight: 500;
-     padding: 4px 15px;
-     text-align: left;
- }
- .bs-sidebar .nav > li > a:focus,
- .bs-sidebar .nav > li > a:hover {
-     background-color: transparent;
-     border-left: 1px solid $purple-color;
-     color: $purple-color;
-     padding-left: 14px;
-     text-decoration: none;
- }
-
- .affix-top {
-   margin-top: 20px;
- }
-}
-
-/**
- * #rightSider mobile 滚动样式
- * < $screen-xs-max
- */
-
-@media screen and (max-width: $screen-xs-max) {
-
-  .overlay {
-    position:fixed;
-    width:100%;
-    height: 120%;
-    top:-10px;
-    left:0;
-    bottom:-10px;
-    background-color:rgba(0,0,0,0.8);
-    z-index:9999;
-  }
-
-  @keyframes fadeInRightM {
-   from{transform : translate( 200px, 0px);}
-      to{transform: none;}
-  }
-
-  .mobile-right {
-    top: 0px;
-    right:-200px;
-  }
-
-  .mobile-right-scroll {
-    right:0px;
-    animation-name: fadeInRightM;
-    animation-duration: .20s;
-    transition-timing-function : ease-out;
-    background-color: $gray-light;
-  }
-
-  #rightSider {
-    width:200px;
-    background-color: $gray-light;
-  }
-
-}
-
-
-/**
- * angular-carousel 样式
- */
- /* ANGULAR-CAROUSEL CSS
- -------------------------------------------------- */
- #myCarousel ul[rn-carousel] {
-   overflow: hidden;
-   padding: 0;
-   white-space: nowrap;
-   position: relative;
-   -webkit-perspective: 1000px;
-   -ms-perspective: 1000px;
-   perspective: 1000px;
-   -ms-touch-action: pan-y;
-   touch-action: pan-y;
-   width:100%;
-   height:100%;
-   margin: 0 auto;
- }
- #myCarousel  ul[rn-carousel] > li {
-     color: black;
-     -webkit-backface-visibility: hidden;
-     -ms-backface-visibility: hidden;
-     backface-visibility: hidden;
-     overflow: visible;
-     vertical-align: top;
-     position: absolute;
-     left: 0;
-     right: 0;
-     white-space: normal;
-     padding: 0;
-     margin: 0;
-     list-style-type: none;
-     width: 100%;
-     height: 100%;
-     display: inline-block; }
-
- /* prevent flickering when moving buffer */
- #myCarousel ul[rn-carousel-buffered] > li {
-   display: none; }
-
- #myCarousel ul[rn-carousel-transition="hexagon"] {
-   overflow: visible; }
- /* prev/next controls */
- .rn-carousel-control {
-    -webkit-transition: opacity 0.2s ease-out;
-    transition: opacity 0.2s ease-out;
-    font-size: 2rem;
-    position: absolute;
-    top: 40%;
-    opacity: 0.75;
-    cursor: pointer; }
-  .rn-carousel-control:hover {
-    opacity: 1; }
-  .rn-carousel-control.rn-carousel-control-prev {
-    left: 0.5em; }
-  .rn-carousel-control.rn-carousel-control-prev:before {
-    content: "<"; }
-  .rn-carousel-control.rn-carousel-control-next {
-    right: 0.5em; }
-  .rn-carousel-control.rn-carousel-control-next:before {
-    content: ">"; }
-
-  .bgimage {
-      text-align:right;
-      color:white;
-      background-size:cover;
-      height: 100%;
-      background-position: center center;
-  }
-
-
-  /**
-   * article 切入
-   */
-   /* ANGULAR-ANIMATIONS CSS
-   -------------------------------------------------- */
-   .middel-relative {
-    position: relative;
-   }
-   .main.page.ng-leave {
-     position: absolute;
-     top:0;
-     width: 100%;
-    animation-name: slideOutLeft;
-    animation-duration: 1s;
-    // animation-fill-mode: both;
-   }
-   .main.page.ng-enter {
-    animation-name: slideInRight;
-    animation-duration: 1s;
-    // animation-fill-mode: both;
-   }
-
-   #article-banner {
-    background-color:$purple-color;
-    padding: 30px 15px;
-   }
-
-   .docs-header {
-    text-align: center;
-    color: $banner-p-color;
-    margin-bottom: 40px;
-    font-size: 20px;
-   }
-
-
-   .docs-header h2 {
-     margin-top: 0;
-     color: #fff;
-   }
-
-   .docs-header p {
-    margin-bottom: 0;
-    font-weight: 300;
-    line-height: 1.4;
-   }
-
-   .docs-header p.bounceInLeftD1 {
-        animation-name: bounceInLeft;
-        animation-delay: 0.5s;
-   }
-
-   @media screen and (min-width: $screen-sm-max) {
-    .docs-header {
-      padding-top: 60px;
-      padding-bottom: 60px;
-      font-size: 24px;
-      text-align: left;
-    }
-
-    .docs-header h2, .docs-header p {
-      margin-right: 380px;
-    }
-
-    .docs-header h2 {
-      font-size: 60px;
-      line-height: 1;
-    }
-
-   }
-
-/**
- * search page
- */
-// left 动画效果
-  @media screen and (min-width: $screen-sm-max) {
-    .animate-repeat.ng-enter {
-      transition:all linear 1s;
-    }
-
-    .animate-repeat.ng-enter-stagger {
-      transition-delay:.3s;
-      transition-duration:0s;
-    }
-    .animate-repeat.ng-enter {
-      opacity:0;
-    }
-
-    .animate-repeat.ng-enter-active {
-      opacity:1;
-    }
-  }
-
-  // 结果 突出
-  em {
-      color: $orange-color;
-      font-style: normal;
-  }
+/* SEARCH PAGE
+-------------------------------------------------- */
+@import "./search.scss";
