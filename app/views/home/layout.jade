@@ -10,14 +10,23 @@ html(lang='zh-CN',ng-app='theOneBlog')
       meta(content='telephone=no',name='format-detection')
       meta(content='email=no',name='format-detection')
       meta(name='Author',content='theone')
+
+      //-<!-- build:css(public) #{env}/public/css/home/theoneBlog.css -->
+      link(rel='stylesheet',href='/css/home/bootstrap-theone-blog.css')
+
       //- bower:css
       link(rel='stylesheet', href='/components/google-code-prettify/bin/prettify.min.css')
       //- endbower
+      //--<!--endbuild-->
 
+
+      //-<!-- build:js -->
       //- css3 特效
       //- link(rel='stylesheet',href='/components/animate.css/animate.css')
-      link(rel='stylesheet',href='/css/home/bootstrap-theone-blog.css')
       script(src='http://localhost:35729/livereload.js')
+      //-<!--endbuild-->
+
+      //-<!-- build:js(public) #{env}/public/scripts/home/base.js -->
       //- bower:js
       script(src='/components/jquery/dist/jquery.js')
       script(src='/components/es5-shim/es5-shim.js')
@@ -37,6 +46,7 @@ html(lang='zh-CN',ng-app='theOneBlog')
       script(src='/components/angular-carousel/dist/angular-carousel.js')
       script(src='/components/google-code-prettify/bin/prettify.min.js')
       //- endbower
+      //-<!--endbuild-->
     
     body(ng-controller='MainCtrl',ui-view='main',ng-class='{"no-scroll":view.scrollLeft}')
       header#header.navbar.navbar-default.navbar-fixed-top(ui-view='header',headroom,offset='201',classes="{pinned:'fadeInDownH',unpinned:'fadeOutUpH',initial:'animated'}",ng-class='{"header-activate":!view.scrollLeft,"fadeInDownH":view.scrollLeft}')
@@ -60,8 +70,10 @@ html(lang='zh-CN',ng-app='theOneBlog')
 
     //- angular
     block angular
+      //-<!-- build:js(.) #{env}/angular/scripts/home/ngTheone.js -->
       script(src='/angular/scripts/home.js')
       script(src='/angular/scripts/directive/myDirective.js')
       script(src='/angular/scripts/filter/theoneBlogFilter.js')
       script(src='/angular/scripts/route/homeRoute.js')
       script(src='/angular/scripts/controllers/home/mainCtrl.js')
+      //-<!--endbuild-->

@@ -4,17 +4,22 @@ html(lang='en')
     meta(charset='UTF-8')
     meta(name='viewport', content='width=device-width')
     title= title
+
+    //-<!-- build:css(public) #{env}/public/css/admin/theoneAdmin.css -->
     //- bower:css
     link(rel='stylesheet', href='/components/ng-grid/ng-grid.css')
     link(rel='stylesheet', href='/components/ng-tags-input/ng-tags-input.min.css')
     link(rel='stylesheet', href='/components/angular-carousel/dist/angular-carousel.css')
     link(rel='stylesheet', href='/components/google-code-prettify/bin/prettify.min.css')
     //- endbower
-    block css
-      link(rel='stylesheet',href='/css/admin/main.css')
-      link(rel='stylesheet',href='/css/admin/bootstrap-admin-theme.css')
+    //--<!--endbuild-->
+
     block js
+      //-<!-- build:js -->
       script(src='http://localhost:35729/livereload.js')
+      //-<!--endbuild-->
+
+    //-<!-- build:js(public) #{env}/public/scripts/admin/base.js -->
     //- bower:js
     script(src='/components/jquery/dist/jquery.js')
     script(src='/components/es5-shim/es5-shim.js')
@@ -43,6 +48,8 @@ html(lang='en')
     script(src='/components/angular-carousel/dist/angular-carousel.js')
     script(src='/components/google-code-prettify/bin/prettify.min.js')
     //- endbower
+    //-<!--endbuild-->
+
   body(ng-app='theoneApp')
     block content
         //- nav small
@@ -91,8 +98,10 @@ html(lang='en')
                         p.left theone博客后台
                         p.right &copy; 2015
     //- angular 
+    //-<!-- build:js(.) #{env}/angular/scripts/admin/adminIndex.js -->
     script(src='/angular/scripts/app.js')
+    script(src='/angular/scripts/route/adminRoute.js')
+    script(src='/angular/scripts/controllers/admin/adminCtrl.js')
+    //-<!--endbuild-->
     block adminroutejs
-        script(src='/angular/scripts/route/adminRoute.js')
     block footerjs
-        script(src='/angular/scripts/controllers/admin/adminCtrl.js')

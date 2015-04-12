@@ -14,7 +14,13 @@ module.exports = function (grunt) {
     adminTemp:'app/views/admin',
     adminCss:'public/css/admin',
     homeTemp:'app/views/home',
-    homeCss:'public/css/home'
+    homeCss:'public/css/home',
+    pubImg:'public/img',
+    pubSvg:'public/svg',
+    expressApp:'app',
+    expressConfig:'config',
+    angularApp:'angular',
+    dist:'dist'
   };
 
   grunt.initConfig({
@@ -166,7 +172,196 @@ module.exports = function (grunt) {
           dest: '<%= appCon.homeCss %>'
         }]
       }
+    },
+    // 清除clean
+    clean:{
+      dist: {
+        files:[{
+          dot: true,
+          src: [
+            '<%= appCon.dist %>/{,*/}*',
+            '!<%= appCon.dist %>/.git{,*/}*'
+          ]
+        }]
+      },
+      server: '.tmp'
+    },
+
+    // The following *-min tasks produce minified files in the dist folder
+    imagemin: {
+      dist: {
+        files: [{
+          expand: true,
+          cwd: 'public/img',
+          src: '{,*/}*.{gif,jpeg,jpg,png}',
+          dest: '<%= appCon.dist %>/public/img'
+        }]
+      }
+    },
+
+    svgmin: {
+      dist: {
+        files: [{
+          expand: true,
+          cwd: 'public/svg',
+          src: '{,*/}*.svg',
+          dest: '<%= appCon.dist %>/public/svg'
+        }]
+      }
+    },
+    // Copies remaining files to places other tasks can use 复制项目
+    copy: {
+      //express app
+      expressdist: {
+        files: [
+        {
+          expand: true,
+          dot: true,
+          cwd: '<%= appCon.expressApp %>',
+          dest: '<%= appCon.dist %>/<%= appCon.expressApp %>',
+          src: [
+            '{,*/**/}*.{js,jade}'
+          ]
+        }, {
+          expand: true,
+          cwd: '.',
+          src: ['package.json', 'app.js'],
+          dest: '<%= appCon.dist %>'
+        },{
+          expand: true,
+          cwd:'<%= appCon.expressConfig %>',
+          dest:'<%= appCon.dist %>/<%= appCon.expressConfig %>',
+          src: [
+            '*.js'
+          ]
+        }]
+      },
+      angulardist: {
+        files: [{
+          expand: true,
+          cwd:'<%= appCon.angularApp %>',
+          dest: '<%= appCon.dist %>/<%= appCon.angularApp %>',
+          src:[
+            // 'scripts/{,*/**/}*.js',
+            'views/{,*/**/}*.html'
+          ]
+        }]
+      },
+      styles: {
+        files:[
+        // {
+        //   expand: true,
+        //   cwd: '<%= appCon.homeCss %>',
+        //   dest: '<%= appCon.dist %>/<%= appCon.homeCss %>',
+        //   src: '*.css'
+        // }, 
+        // {
+        //   expand: true,
+        //   cwd: '<%= appCon.adminCss %>',
+        //   dest: '<%= appCon.dist %>/<%= appCon.adminCss %>',
+        //   src: '*.css'
+        // }, 
+        {
+          expand: true,
+          cwd: '.',
+          src: 'public/components/bootstrap-sass-official/assets/fonts/bootstrap/*',
+          dest: '<%= appCon.dist %>'
+        }]
+      },
+      mynodeModules: {
+        files:[
+        {
+          expand: true,
+          cwd: '.',
+          src:'my_node_modules/**/*.*',
+          dest:'<%= appCon.dist %>'
+        }
+        ]
+      }
+    },
+    
+    // concat:{
+    //   options:{
+    //     separator:';'
+    //   },
+    //   dist:{
+    //     src:['public/js/admin/extend/faceapp-sdk.js','public/js/admin/extend/webcam.js'],
+    //     dest:'dist/public/tt.js'
+    //   }
+    // },
+    // js 地图
+    uglify:{
+      options: {
+        sourceMap:false,
+      }
+    },
+    // Performs rewrites based on filerev and the useminPrepare configuration
+    jadeUsemin: {
+      options: {
+        dirTasks: 'filerev',
+        replacePath: {       //替换
+            '#{env}': ''
+        },
+        targetPrefix: '<%= appCon.dist %>',
+        tasks: {
+            js: ['concat', 'uglify', 'filerev'],
+            css: ['concat', 'cssmin', 'autoprefixer', 'filerev']
+        }
+      },
+      home: {
+          files: [{
+              dest: '<%= appCon.dist%>/<%= appCon.homeTemp %>/layout.jade',
+              src: '<%= appCon.homeTemp %>/layout.jade',
+          }]
+      },
+      admin: {
+        files: [{
+            dest: '<%= appCon.dist%>/<%= appCon.adminTemp %>/layout.jade',
+            src: '<%= appCon.adminTemp %>/layout.jade',
+        }]
+      }
+    },
+
+    // 并行任务
+    concurrent: {
+      dist: [
+        'sass',
+        'imagemin',
+        'svgmin'
+      ]
+    },
+    // md5 文件
+    filerev: {
+      dist: {
+        files: {
+          src: [
+            '<%= appCon.dist %>/public/css/{,*/}*.css',
+            '<%= appCon.dist %>/script/home/*.js'
+          ]
+        }
+      }
+    },
+
+    htmlmin: {
+      dist: {
+        options: {
+          collapseWhitespace: true,
+          conservativeCollapse: true,
+          removeAttributeQuotes:true,
+          removeEmptyAttributes:true, // 删除空
+          collapseBooleanAttributes: true,
+          removeCommentsFromCDATA: true
+        },
+        files: [{
+          expand: true,
+          cwd: '<%= appCon.dist %>',
+          src: ['*.html', 'angular/views/{,*/**/}*.html'],
+          dest: '<%= appCon.dist %>'
+        }]
+      }
     }
+
+
   });
 
   grunt.config.requires('watch.js.files');
@@ -210,4 +405,16 @@ module.exports = function (grunt) {
       'watch'
     ]);
   });
+
+// grunt-usemin (userminPrepare, usemin)
+  grunt.registerTask('build', '项目生成',[
+    'clean:dist',
+    'wiredep',
+    'concurrent:dist',
+    'autoprefixer',
+    'copy',
+    'jadeUsemin',
+    'htmlmin'
+  ]);
+
 };
