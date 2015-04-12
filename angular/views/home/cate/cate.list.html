@@ -1,0 +1,16 @@
+<div class="container">
+    <div class="row">
+
+
+        <div class="col-lg-4 col-md-6" ng-repeat='article in ::articleList'>
+          <h2>{{article.title}}</h2>
+          <p>{{article.contentText}}</p>
+          <p><a class="btn btn-primary" href="#/article/id/{{article._id}}" role="button">访问详情 »</a></p>
+        </div>
+
+    </div>
+</div>
+
+<nav class='center'>
+    <pagination total-items="pageNav.bigTotalItems" ng-model="pageNav.bigCurrentPage" max-size="pageNav.maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="第一页" last-text="末页"></pagination>
+</nav>

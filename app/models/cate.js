@@ -7,13 +7,13 @@
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema,
   ObjectId = Schema.Types.ObjectId,
-  // _ = require('underscore'),
+  _ = require('underscore'),
   moment = require('moment');
 
 // 定义 数据模型骨架
 var CateSchema = new Schema({
   name:{type: String, required: true, unique: true},
-  alias:{type: Array, default:[]},
+  alias:{type: String, required:true},
   // 为什么 ObjectId 不行
   // 尝试方法，硬编码 写入 objectId
   pid:{type: String, ref:'Cate'},
@@ -26,6 +26,10 @@ var CateSchema = new Schema({
 CateSchema.pre('save',function (next) {
   if(!this.articleNum){
     this.articleNum = 0;
+  }
+
+  if(this.alias && _.isString(this.alias)) {
+    this.alias = this.alias.toLowerCase();
   }
 
   this.updateTime = moment().format('x');
@@ -83,6 +87,23 @@ CateSchema.static('findByIdAndParent',function (id, cb) {
       return cb(null, cate);
      });
  });
+
+
+ /**
+  * 搜索ByAlias
+  */
+  CateSchema.static('findByAlias',function (alias, cb) {
+
+    this
+      .findOne({alias:alias})
+      .exec(function (err, cate) {
+        if(err){
+          return cb(err);
+        }
+
+       return cb(null, cate);
+      });
+  });
 
 
 

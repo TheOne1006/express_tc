@@ -258,11 +258,10 @@ angular.module('theoneApp')
 
   }])
 // addcate
-.controller('AddCateController', ['$scope', '$modalInstance', '$http', 'adminModalService' , 'UiTool', function ($scope, $modalInstance, $http, adminModalService, UiTool) {
-    $scope.aliasArr = [];
+.controller('AddCateController', ['$scope', '$modalInstance', '$http', 'adminModalService', function ($scope, $modalInstance, $http, adminModalService) {
     $scope.cate = {
       name:'',
-      alias:['ccc'],
+      alias:'',
       pid:''
     };
 
@@ -273,7 +272,6 @@ angular.module('theoneApp')
 
      $scope.ok = function () {
       // 初始化 alias
-      $scope.cate.alias = UiTool.tagInput2arr($scope.aliasArr, []);
 
       if($scope.pid && $scope.pid._id){
         $scope.pid = $scope.pid._id;
@@ -361,6 +359,7 @@ angular.module('theoneApp')
       };
     
     $scope.save = function () {
+      console.log($scope.cate);
       $http.post('/admin/cate/edit/id/'+_id,{cate:$scope.cate})
         .success(function(data) {
           $modalInstance.close();

@@ -2,7 +2,8 @@
 
 var mongoose = require('mongoose'),
   async = require('async'),
-  Cate = mongoose.model('Cate');
+  Cate = mongoose.model('Cate'),
+  Article = mongoose.model('Article');
 
 exports.allList = function (req, res, next) {
     Cate.find(function (err, cates) {
@@ -84,13 +85,19 @@ exports.editById = function (req, res, next) {
   var cateId = req.params.id;
   var editCate = req.body.cate;
 
-  console.log(editCate);
-
   async.waterfall([
+    // 统计多少文章
     function (cb) {
+      Article
+        .count({cate:cateId},cb);
+    },
+    function (countResult, cb) {
+      
       Cate.findByIdAndUpdate(cateId,
       {
+        alias:editCate.alias,
         weight:editCate.weight,
+        articleNum:countResult,
         topArticles:editCate.topArticles
       },cb);
     }

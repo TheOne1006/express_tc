@@ -153,4 +153,35 @@ angular.module('theOneBlog')
       
     };
   }])
+  // 分类列表页 文章限制
+  .filter('ArticlesByCateWordLimit',['browserHelp', function (browserHelp) {
+    var defultlimit = browserHelp.defultContentWidth;
+
+    function wordsLimit (str, limit) {
+      if(str.length > limit){
+        return str.slice(0, limit)+'...';
+      }
+      return str;
+    }
+
+    return function  (dataArr, limit) {
+      var arrLeng = dataArr.length;
+
+      if(!limit || isNaN(limit)) {
+        limit = defultlimit;
+      }
+
+      if(arrLeng === 0) {
+        return dataArr;
+      }
+      angular.forEach(dataArr, function(item, key) {
+        dataArr[key].contentText = wordsLimit(item.contentText, limit);
+      });
+
+      return dataArr;
+
+    };
+
+
+  }])
   ;

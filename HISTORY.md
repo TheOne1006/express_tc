@@ -46,6 +46,11 @@ mobile-siderBar
        添加完成 
 
 ## 2015.4.8  index 信息处理
-  main.scss 分离
-  首页展示 锚点偏移量修改
+  main.scss 分离(ok)
+  首页展示 锚点偏移量修改 (未解决)
+ 
+
+## 2015-4-11 分类 alias - single string 
+
+## 3015-4-11 分类文章列表页面, 编辑cate 统计文章数量
 

@@ -63,16 +63,16 @@ angular.module('theOneBlog')
       return CateArr;
     }
 
-    // 获取文章 列表
-    function getCateList (cate, page) {
-      var listCate = cate?cate:'all';
+    // 获取 分类 文章 列表
+    function getArticleByCateList (cate, page) {
+
       if(!page || isNaN(page)) {
         page = 1;
-      } 
+      }
       // 声明延后执行，表示要去监控后面的执行 
       var deferred = $q.defer(); 
 
-       $http.get('/home/list/'+listCate+'/'+page)
+       $http.get('/article/cate/'+cate+'/'+page)
                  .success(function (data) {
 
                    //声明执行成功，即http请求数据成功，可以返回数据了
@@ -141,6 +141,9 @@ angular.module('theOneBlog')
       },
       getIndexCates: function () {
         return getIndexCates();
+      },
+      getArticleByCateList: function (cate, page) {
+        return getArticleByCateList(cate, page);
       }
     };
   }])
@@ -180,9 +183,23 @@ angular.module('theOneBlog')
         })
         // 分类列表
         .state('main.cate',{
-          url:'cate/:cate',
+          url:'cate/:cate/:page',
           views:{
-
+            'banner@':{
+              templateUrl: '/angular/views/home/article/article.banner.html'
+            },
+            'bodyer@':{
+              templateUrl:'/angular/views/home/cate/cate.list.html',
+              controller:'CateListCtrl'
+            }
+          },
+          resolve:{
+            articlesByCate:['$stateParams', 'dataSave', function ($stateParams, dataSave) {
+              return dataSave.getArticleByCateList($stateParams.cate, $stateParams.page);
+            }],
+            curpage:['$stateParams', function ($stateParams) {
+              return isNaN($stateParams.page)?1:$stateParams.page;
+            }]
           }
         })
         .state('main.article',{
@@ -196,7 +213,7 @@ angular.module('theOneBlog')
 
         })
         .state('main.article.single',{
-          url:'/:id',
+          url:'/id/:id',
           views:{
             'bodyer@':{
               templateUrl: '/angular/views/home/article/article.html',
