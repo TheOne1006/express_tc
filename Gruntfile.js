@@ -60,8 +60,13 @@ module.exports = function (grunt) {
      */
     wiredep: {
       admin: {
-        src: ['<%= appCon.adminTemp %>/*.jade',
-        '<%= appCon.adminTemp %>/*.html'
+        src: ['<%= appCon.adminTemp %>/*.jade'],
+        exclude:[
+        'public/components/bootstrap-sass-official/assets/javascripts/bootstrap.js',
+        'public//components/headroom.js/dist/headroom.js',
+        'public/components/headroom.js/dist/jQuery.headroom.js',
+        'public/components/headroom.js/dist/angular.headroom.js',
+        'public/components/tinymce/tinymce.min.js'
         ],
         ignorePath:  /(\.\.\/){3}public/
       },
@@ -266,6 +271,15 @@ module.exports = function (grunt) {
           cwd: '.',
           src: 'public/components/bootstrap-sass-official/assets/fonts/bootstrap/*',
           dest: '<%= appCon.dist %>'
+        }]
+      },
+      tinymce: {
+        files:[
+        {
+          expand: true,
+          cwd: 'public/components/tinymce',
+          src: '{,*/**/}*.*',
+          dest: '<%= appCon.dist %>/public/tinymce'
         }]
       },
       mynodeModules: {

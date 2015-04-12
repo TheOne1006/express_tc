@@ -9,7 +9,7 @@
  * Main module of the application.
  */
  angular.module('theoneApp')
-   .config(function($stateProvider,$urlRouterProvider) {
+   .config(['$stateProvider', '$urlRouterProvider',function($stateProvider,$urlRouterProvider) {
      $urlRouterProvider.otherwise('/');
      $stateProvider
        .state('user',{
@@ -29,4 +29,4 @@
           }
        })
        ;
-   });
+   }]);
