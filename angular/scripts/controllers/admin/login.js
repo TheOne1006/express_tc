@@ -3,7 +3,7 @@
  * login router 
  */
  angular.module('theoneApp')
-   .config(function($stateProvider,$urlRouterProvider) {
+   .config(['$stateProvider', '$urlRouterProvider', function($stateProvider,$urlRouterProvider) {
      $urlRouterProvider.otherwise('/');
      $stateProvider
        .state('webcam',{
@@ -14,7 +14,7 @@
            }
          }
        });
-     });
+     }]);
 
 /**
  * 后台登录ng-controller

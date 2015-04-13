@@ -23,10 +23,11 @@ block content
               | 记住密码
           button.btn.btn-lg.btn-primary(type='submit',ng-disabled="!loginForm.$valid") 登录
           a.btn.btn-success.btn-lg.pull-right(href='#/webcam') 脸部识别
-block adminroutejs
-
 block footerjs
+  //-<!-- build:js(.) #{env}/angular/scripts/admin/adminLogin.js -->
+  script(src='/angular/scripts/app.js')
   script(src='/angular/scripts/controllers/admin/login.js')
+  //-<!--endbuild-->
   //- script(src='/js/admin/extend/webcam.js')
 
           

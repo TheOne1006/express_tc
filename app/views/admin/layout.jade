@@ -100,11 +100,10 @@ html(lang='en')
                     footer(role='conteninfo')
                         p.left theone博客后台
                         p.right &copy; 2015
-    //- angular 
-    //-<!-- build:js(.) #{env}/angular/scripts/admin/adminIndex.js -->
-    script(src='/angular/scripts/app.js')
-    script(src='/angular/scripts/route/adminRoute.js')
-    script(src='/angular/scripts/controllers/admin/adminCtrl.js')
-    //-<!--endbuild-->
-    block adminroutejs
     block footerjs
+        //- angular 
+        //-<!-- build:js(.) #{env}/angular/scripts/admin/adminIndex.js -->
+        script(src='/angular/scripts/app.js')
+        script(src='/angular/scripts/route/adminRoute.js')
+        script(src='/angular/scripts/controllers/admin/adminCtrl.js')
+        //-<!--endbuild-->

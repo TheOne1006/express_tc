@@ -332,6 +332,12 @@ module.exports = function (grunt) {
         files: [{
             dest: '<%= appCon.dist%>/<%= appCon.adminTemp %>/layout.jade',
             src: '<%= appCon.adminTemp %>/layout.jade',
+        },{
+          dest: '<%= appCon.dist%>/<%= appCon.adminTemp %>/login.jade',
+          src: '<%= appCon.adminTemp %>/login.jade',
+        },{
+          dest: '<%= appCon.dist%>/<%= appCon.adminTemp %>/user.jade',
+          src: '<%= appCon.adminTemp %>/user.jade',
         }]
       }
     },
