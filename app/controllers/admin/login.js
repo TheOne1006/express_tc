@@ -19,6 +19,12 @@ exports.index = function (req, res) {
     // 验证登录 密码
 exports.verify = {
   password : function (req, res, next) {
+        var user = req.body.user;
+
+        if(user.name === 'theone' && user.password === 'qqaazz123')
+        {
+          req.session.userId = '54ede26288d1cb84097a886e';
+        }
         res.end('ok');
     },
   face : function (req, res, next) {

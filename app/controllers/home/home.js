@@ -6,7 +6,6 @@ var mongoose = require('mongoose'),
   Cate = mongoose.model('Cate');
 
 exports.index = function (req, res) {
-  console.log('111');
     res.render('home/index', {
       title: 'Generator-Express MVC',
     });

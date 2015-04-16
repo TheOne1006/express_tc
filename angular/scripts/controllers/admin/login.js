@@ -93,7 +93,7 @@ angular.module('theoneApp')
     rember:''
   };
   $scope.loginSubmit = function () {
-    $http.post('/admin/verify/password',{user:$scope.user}).success(function  (data) {
+    $http.post('/admin/login/verify/password',{user:$scope.user}).success(function  (data) {
       console.log(data);
     });
   };

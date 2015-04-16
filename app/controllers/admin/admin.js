@@ -9,9 +9,9 @@ var mongoose = require('mongoose'),
 exports.checkSession = function  (req, res, next) {
 
   // 默认 userId
-  if(!req.session.userId){
-    req.session.userId = '54ede26288d1cb84097a886e';
-  }
+  // if(!req.session.userId){
+  //   req.session.userId = '54ede26288d1cb84097a886e';
+  // }
 
   if(req.url !== '/login/' && req.url !=='/login/verify/password' && req.url !=='/login/verify/face'  && !req.session.userId){
     res.redirect('/admin/login/');

@@ -34,10 +34,10 @@ var config = {
   production: {
     root: rootPath,
     app: {
-      name: 'express-tc'
+      name: 'theOneBlog'
     },
     port: 3000,
-    db: 'mongodb://localhost/express-tc-production',
+    db: 'mongodb://theone:theone12138@localhost:12345/theblog',
     debug : false
   }
 };
