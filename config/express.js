@@ -11,7 +11,7 @@ var compress = require('compression');
 var methodOverride = require('method-override');
 var mongoose = require('mongoose');
 
-// sessionMongodbUrl
+var MongoStore = require('connect-mongo')(session);
 
 var multer = require('multer');
 
@@ -53,6 +53,9 @@ module.exports = function(app, config) {
        cookie:{maxAge:1800000,secure: false},
        saveUninitialized:true,
        resave: true,
+        store: new MongoStore({  
+          url : config.db
+        }) 
   }));
 
   // 加载所有 controllers
