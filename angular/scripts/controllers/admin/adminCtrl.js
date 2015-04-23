@@ -603,8 +603,36 @@ angular.module('theoneApp')
     .success(function (data) {
       $scope.tags = data;
     });
-
-
-
  }])
+/**
+ * carousel Controller
+ */
+.controller('CarouselCtrl', ['$scope', 'adminModalService', function($scope, adminModalService){
+  $scope.h1Title = '首页Carsouel设置';
+  $scope.tableName = '首页幻灯片列表';
+
+  //modal
+  //打开
+  $scope.open = function(size){
+    //adminModalService 封装
+    adminModalService.modalOpen({
+        templateUrl:'/angular/views/modal/carousel.add.html',
+        size:size,
+        controller:'AddCarouselCtrl',
+        backdropClass:'heightfull'
+    });
+  };
+
+}])
+.controller('AddCarouselCtrl', ['$scope', '$modalInstance', function($scope, $modalInstance){
+  $scope.carousel = {};
+
+   $scope.upload = function () {
+    $modalInstance.close();
+  };
+
+  $scope.cancel = function () {
+    $modalInstance.dismiss();
+  };
+}])
   ;

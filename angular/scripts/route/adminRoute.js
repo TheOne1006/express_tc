@@ -63,5 +63,16 @@ angular.module('theoneApp')
           }
         }
       })
+
+      // Carousel
+      .state('carousel',{
+        url:'/carousel',
+        views:{
+          '@':{
+            templateUrl:'/angular/views/admin/carousel.list.html',
+            controller:'CarouselCtrl'
+          }
+        }
+      })
       ;
 }]);

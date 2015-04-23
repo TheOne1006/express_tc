@@ -107,3 +107,8 @@ body {
 .scroll-y {
   overflow-y:auto;
 }
+
+// scroll-y 滚动
+body,nav {
+  padding-left: calc(100vw - 100%);
+}
