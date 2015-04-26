@@ -4,8 +4,7 @@
 <div class="modal-body">
     <div class="row">
         <div class="col-md-6">
-            <div id='modalMovie'>
-                <img style="height: 180px; width: 100%; display: block;" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTcxIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDE3MSAxODAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxkZWZzLz48cmVjdCB3aWR0aD0iMTcxIiBoZWlnaHQ9IjE4MCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjYxIiB5PSI5MCIgc3R5bGU9ImZpbGw6I0FBQUFBQTtmb250LXdlaWdodDpib2xkO2ZvbnQtZmFtaWx5OkFyaWFsLCBIZWx2ZXRpY2EsIE9wZW4gU2Fucywgc2Fucy1zZXJpZiwgbW9ub3NwYWNlO2ZvbnQtc2l6ZToxMHB0O2RvbWluYW50LWJhc2VsaW5lOmNlbnRyYWwiPjE3MXgxODA8L3RleHQ+PC9nPjwvc3ZnPg==">
+            <div id='modalMovie' preview-img="{width: 350}" mypreview='mypreview'>
             </div>
         </div>
         <div class="col-md-6">
@@ -29,7 +28,7 @@
                 <div class="form-group">
                     <label for="upfile" class='col-md-3 control-label'>选择图片:</label>
                     <div class="col-md-9">
-                        <input type="file" id='upfile' name='upfile' />
+                        <input type="file" id='upfile' name='upfile' ng-model='carousel.upfile' file-change='showpreview($event, files)' accept="image/*" />
                     </div>
                 </div>
 

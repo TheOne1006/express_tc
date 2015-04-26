@@ -627,8 +627,14 @@ angular.module('theoneApp')
 .controller('AddCarouselCtrl', ['$scope', '$modalInstance', function($scope, $modalInstance){
   $scope.carousel = {};
 
+  $scope.showpreview = function ($event,files) {
+    $scope.mypreview = files[0];
+  };
+
+
    $scope.upload = function () {
-    $modalInstance.close();
+    
+    // $modalInstance.close();
   };
 
   $scope.cancel = function () {
