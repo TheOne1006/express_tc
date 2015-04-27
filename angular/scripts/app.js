@@ -23,5 +23,7 @@ ngApp = angular
     'ui.tinymce',
     'ngTagsInput',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    // 图片上传
+    'angularFileUpload'
   ]);

@@ -624,16 +624,47 @@ angular.module('theoneApp')
   };
 
 }])
-.controller('AddCarouselCtrl', ['$scope', '$modalInstance', function($scope, $modalInstance){
-  $scope.carousel = {};
-
-  $scope.showpreview = function ($event,files) {
-    $scope.mypreview = files[0];
+.controller('AddCarouselCtrl', ['$scope', '$modalInstance', 'FileUploader', function($scope, $modalInstance, FileUploader){
+  $scope.carousel = {
+    position:1
   };
 
+// 图片上传　&pre view
+  var uploader = $scope.uploader = new FileUploader({
+    url:'www.baidu.comlajldjfladjfladjl',
+    method:'put',
+    queueLimit:2
+  });
+
+  uploader.filters.push({
+      name: 'onlyOne',
+      fn: function() {
+        var len = uploader.queue.length;
+          if(len){
+            uploader.clearQueue();
+          }
+         return true;
+      }
+  });
+
+  // 图片完成添加之后
+  uploader.onAfterAddingFile = function (fileObj) {
+    $scope.mypreview = fileObj._file;
+  };
+
+  //图片上传之前
+  // arg1, item
+  // uploader.onBeforeUpload = function () {
+  //   console.log('beforeUpload');
+  // };
 
    $scope.upload = function () {
-    
+      uploader.formData.push({title:$scope.carousel.imgTitle});
+      uploader.formData.push({position:$scope.carousel.position});
+      uploader.formData.push({desc:$scope.carousel.desc});
+
+      uploader.uploadItem(0);
+
     // $modalInstance.close();
   };
 
