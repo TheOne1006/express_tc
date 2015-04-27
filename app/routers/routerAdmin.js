@@ -8,7 +8,9 @@ var express = require('express'),
   articleR = express.Router(),
   cateR = express.Router(),
   userR = express.Router(),
-  tagR = express.Router();
+  tagR = express.Router(),
+  carouselR = express.Router();
+
 
 // 加载 控制器
 var adminLoginCtrl = require('../controllers/admin/login');
@@ -17,6 +19,7 @@ var articleCtrl = require('../controllers/admin/article');
 var cateCtrl = require('../controllers/admin/cate');
 var userCtrl = require('../controllers/admin/user');
 var tagCtrl = require('../controllers/admin/tag');
+var CarouselCtrl = require('../controllers/admin/CarouselCtrl');
 
 
 
@@ -24,13 +27,14 @@ var tagCtrl = require('../controllers/admin/tag');
     // 后台
     app.use('/admin',adminR);
     adminR.use(adminCtrl.checkSession);
-    adminR.get('/', adminCtrl.index);    
+    adminR.get('/', adminCtrl.index);
 
     // 后台登录
     app.use('/admin/login', adminLoginR);
     adminLoginR.get('/', adminLoginCtrl.index);
     adminLoginR.post('/verify/password', adminLoginCtrl.verify.password);
     adminLoginR.post('/verify/face', adminLoginCtrl.verify.face);
+
 
     // 后台文章
     app.use('/admin/article', articleR);
@@ -54,6 +58,11 @@ var tagCtrl = require('../controllers/admin/tag');
     // 后台Tag
     app.use('/admin/tag', tagR);
     tagR.get('/list', tagCtrl.list);
+
+
+    // 后台Carousel
+    app.use('/admin/carousel', carouselR);
+    carouselR.put('/add', CarouselCtrl.add);
 
 
     // 后台管理员

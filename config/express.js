@@ -37,9 +37,10 @@ module.exports = function(app, config) {
   app.use(multer({
     onFileUploadStart: function (file, req) {
       // 特殊路径才能直接上传
-      if (req.url !=='/admin/login/verify/face'){
-        return false;
-      }
+      // if (req.url !=='/admin/login/verify/face'){
+      //   return false;
+      // }
+      return true;
     },
     dest: config.root+'/data/tmp/',
     inMemory: true //放入 buffer 中, 不存入文件
@@ -64,7 +65,7 @@ module.exports = function(app, config) {
 
   // 单独提出 router
   routers.forEach(function (router) {
-    require(router)(app);
+    require(router)(app, config);
   });
 
   app.use(function (req, res, next) {

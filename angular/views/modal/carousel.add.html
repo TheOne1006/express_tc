@@ -12,14 +12,14 @@
                 <div class="form-group">
                     <label for="img-title" class='col-md-3 control-label'>图片名称:</label>
                     <div class="col-md-9">
-                        <input type="text" class='form-control' name='img-title' id='img-title' placeholder='请输入图片名称' ng-model='carousel.imgTitle' />
+                        <input type="text" class='form-control' name='img-title' id='img-title' placeholder='请输入图片名称' ng-model='imgTitle' />
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="position-kind" class='col-md-3 control-label'>显示位置:</label>
                     <div class="col-md-9">
-                        <select name='position-kind' id='position-kind' class='form-control' ng-model='carousel.position'>
+                        <select name='position-kind' id='position-kind' class='form-control' ng-model='position'>
                             <option value="1">首页</option>
                         </select>
                     </div>
@@ -35,7 +35,7 @@
                 <div class="form-group">
                     <label for='img-desc' class='col-md-3 control-label'>图片描述:</label>
                     <div class="col-md-9">
-                        <textarea name='img-desc' id='img-desc' class="form-control" rows="3" ng-model='carousel.desc'></textarea>
+                        <textarea name='img-desc' id='img-desc' class="form-control" rows="3" ng-model='imgDesc'></textarea>
                     </div>
                 </div>
             </form>

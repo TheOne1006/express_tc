@@ -625,13 +625,13 @@ angular.module('theoneApp')
 
 }])
 .controller('AddCarouselCtrl', ['$scope', '$modalInstance', 'FileUploader', function($scope, $modalInstance, FileUploader){
-  $scope.carousel = {
-    position:1
-  };
+  $scope.position = 1;
+  $scope.imgTitle = '';
+  $scope.imgDesc = '';
 
 // 图片上传　&pre view
   var uploader = $scope.uploader = new FileUploader({
-    url:'www.baidu.comlajldjfladjfladjl',
+    url:'/admin/carousel/add',
     method:'put',
     queueLimit:2
   });
@@ -643,6 +643,7 @@ angular.module('theoneApp')
           if(len){
             uploader.clearQueue();
           }
+    // uploader.formData.push({position: $scope.carousel.position});
          return true;
       }
   });
@@ -652,19 +653,26 @@ angular.module('theoneApp')
     $scope.mypreview = fileObj._file;
   };
 
-  //图片上传之前
-  // arg1, item
-  // uploader.onBeforeUpload = function () {
-  //   console.log('beforeUpload');
-  // };
+  //上传之前
+  uploader.onBeforeUploadItem = function () {
+    console.log('123');
+  };
 
-   $scope.upload = function () {
-      uploader.formData.push({title:$scope.carousel.imgTitle});
-      uploader.formData.push({position:$scope.carousel.position});
-      uploader.formData.push({desc:$scope.carousel.desc});
+  $scope.$watch('position', function () {
+    uploader.formData[0]= {position:$scope.position};
+  });
 
-      uploader.uploadItem(0);
+  $scope.$watch('imgTitle', function () {
+    uploader.formData[1]= {imgTitle:$scope.imgTitle};
+  });
 
+  $scope.$watch('imgDesc', function () {
+    uploader.formData[2]= {imgDesc:$scope.imgDesc};
+  });
+
+
+  $scope.upload = function () {
+    uploader.uploadItem(0);
     // $modalInstance.close();
   };
 
