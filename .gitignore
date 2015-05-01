@@ -2,6 +2,8 @@ node_modules/
 public/components
 public/css/*/*.css
 public/css/*/*.css.map
+data/carousel/
+data/tmp/
 dist/
 !public/components/tinymce/plugins/prettify/*
 .sass-cache

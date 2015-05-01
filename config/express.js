@@ -14,6 +14,7 @@ var mongoose = require('mongoose');
 var MongoStore = require('connect-mongo')(session);
 
 var multer = require('multer');
+var fs = require('fs');
 
 module.exports = function(app, config) {
   app.set('views', config.root + '/app/views');
@@ -42,8 +43,34 @@ module.exports = function(app, config) {
       // }
       return true;
     },
-    dest: config.root+'/data/tmp/',
-    inMemory: true //放入 buffer 中, 不存入文件
+    // dest: config.root+'/data/tmp/',
+    // inMemory: true //放入 buffer 中, 不存入文件
+    rename: function () {
+      return Date.now()+ Math.floor(Math.random()*1000);
+    },
+    changeDest: function(dest, req) {
+      var stat = null,
+      reutrnDest = null,
+      initDest = config.root+'/data/tmp/';
+
+      if(req.url.indexOf('carousel') !== -1 ){
+        reutrnDest = config.root+'/data/carousel/';
+      }
+
+      if(reutrnDest){
+        try {
+            stat = fs.statSync(reutrnDest);
+        } catch(err) {
+            fs.mkdirSync(reutrnDest);
+        }
+      }
+
+      if (stat && !stat.isDirectory()) {
+          throw new Error('Directory cannot be created because an inode of a different type exists at "' + reutrnDest + '"');
+      }
+
+      return reutrnDest || initDest;
+    }
   }));
   
     // session

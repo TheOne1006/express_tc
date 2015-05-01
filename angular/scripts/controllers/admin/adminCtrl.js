@@ -633,6 +633,7 @@ angular.module('theoneApp')
   var uploader = $scope.uploader = new FileUploader({
     url:'/admin/carousel/add',
     method:'put',
+    alias:'carousel',
     queueLimit:2
   });
 
