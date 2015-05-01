@@ -20,11 +20,12 @@
                     添加幻灯片
                 </button>
                 <hr>
-                <div class="col-lg-12">
+
+                <div class="col-lg-12" ng-repeat='carousel in carouselList'>
                   <div class="col-lg-6">
-                    <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgdmlld0JveD0iMCAwIDE0MCAxNDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxkZWZzLz48cmVjdCB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjQ0LjA1NDY4NzUiIHk9IjcwIiBzdHlsZT0iZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQ7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MTQweDE0MDwvdGV4dD48L2c+PC9zdmc+" class="img-responsive" />
+                    <img ng-src="{{carousel.imgSrc}}" class="img-responsive" />
                   </div>
-                  <div class="col-lg-3">
+                  <div class="col-lg-6">
                     <button class='btn btn-warning'>
                       <span class='glyphicon glyphicon-pencil'></span>
                       修改
@@ -32,6 +33,23 @@
                     <button class="btn btn-danger">
                       <span class='glyphicon glyphicon-trash'></span>
                         删除
+                    </button>
+                    <button class="btn btn-default" ng-show='!carousel.imgInCloud' ng-click='uploadCloud(carousel._id)'>
+                      <span class="glyphicon glyphicon-cloud-upload">
+                      </span>
+                      Cloud
+                    </button>
+                    <button class="btn btn-primary" ng-show='carousel.imgInCloud' ng-click='delCloud(carousel._id)'>
+                      <span class="glyphicon glyphicon-cloud"></span>
+                      DelCloud
+                    </button>
+                    <button class="btn btn-default" ng-show='!carousel.status' ng-click='changeStatus(carousel._id)'>
+                      <span class="glyphicon glyphicon-eye-open"></span>
+                      激活
+                    </button>
+                    <button class="btn btn-success" ng-show='carousel.status' ng-click='changeStatus(carousel._id)'>
+                      <span class="glyphicon glyphicon-eye-close"></span>
+                      关闭
                     </button>
                   </div>
 

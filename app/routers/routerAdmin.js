@@ -63,6 +63,11 @@ var CarouselCtrl = require('../controllers/admin/CarouselCtrl');
     // 后台Carousel
     app.use('/admin/carousel', carouselR);
     carouselR.put('/add', CarouselCtrl.add);
+    carouselR.get('/list', CarouselCtrl.list);
+    carouselR.get('/changStatus/:id',CarouselCtrl.changStatusById);
+    carouselR.get('/delClould/:id',CarouselCtrl.cloud.deleteById);
+    carouselR.get('/upClould/:id',CarouselCtrl.cloud.uploadById);
+
 
 
     // 后台管理员

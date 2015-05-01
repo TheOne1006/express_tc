@@ -607,9 +607,11 @@ angular.module('theoneApp')
 /**
  * carousel Controller
  */
-.controller('CarouselCtrl', ['$scope', 'adminModalService', function($scope, adminModalService){
+.controller('CarouselCtrl', ['$scope','$http', 'adminModalService', function($scope, $http, adminModalService){
   $scope.h1Title = '首页Carsouel设置';
   $scope.tableName = '首页幻灯片列表';
+
+  $scope.carouselList = [];
 
   //modal
   //打开
@@ -623,6 +625,41 @@ angular.module('theoneApp')
     });
   };
 
+
+  // 上传到could
+  $scope.uploadCloud = function (id) {
+    $http.get('/admin/carousel/upClould/'+id)
+      .success(function (data) {
+        getCarouselList();
+      });
+  };
+
+  // 删除could
+  $scope.delCloud = function (id) {
+    $http.get('/admin/carousel/delClould/'+id)
+      .success(function (data) {
+        getCarouselList();
+      });
+  };
+
+  // 激活
+  $scope.changeStatus = function (id) {
+    $http.get('/admin/carousel/changStatus/'+id)
+      .success(function (data) {
+        getCarouselList();
+      });
+  };
+
+  
+  function getCarouselList() {
+    $http.get('/admin/carousel/list')
+      .success(function (data) {
+        $scope.carouselList = data;
+      });
+  }
+
+  getCarouselList();
+  
 }])
 .controller('AddCarouselCtrl', ['$scope', '$modalInstance', 'FileUploader', function($scope, $modalInstance, FileUploader){
   $scope.position = 1;
