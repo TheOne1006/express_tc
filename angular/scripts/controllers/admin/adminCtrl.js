@@ -650,6 +650,14 @@ angular.module('theoneApp')
       });
   };
 
+  // 删除数据
+  $scope.singleRemove = function (id) {
+    $http.delete('/admin/carousel/del/'+id)
+      .success(function (data) {
+        getCarouselList();
+      });
+  };
+
   
   function getCarouselList() {
     $http.get('/admin/carousel/list')
@@ -692,9 +700,6 @@ angular.module('theoneApp')
   };
 
   //上传之前
-  uploader.onBeforeUploadItem = function () {
-    console.log('123');
-  };
 
   $scope.$watch('position', function () {
     uploader.formData[0]= {position:$scope.position};
@@ -711,7 +716,7 @@ angular.module('theoneApp')
 
   $scope.upload = function () {
     uploader.uploadItem(0);
-    // $modalInstance.close();
+    $modalInstance.close();
   };
 
   $scope.cancel = function () {

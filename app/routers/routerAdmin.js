@@ -67,6 +67,9 @@ var CarouselCtrl = require('../controllers/admin/CarouselCtrl');
     carouselR.get('/changStatus/:id',CarouselCtrl.changStatusById);
     carouselR.get('/delClould/:id',CarouselCtrl.cloud.deleteById);
     carouselR.get('/upClould/:id',CarouselCtrl.cloud.uploadById);
+    carouselR.get('/single/:id', CarouselCtrl.singleById);
+    carouselR.delete('/del/:id', CarouselCtrl.removeById);
+    carouselR.post('/edit/:id', CarouselCtrl.updateById);
 
 
 

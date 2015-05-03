@@ -10,11 +10,13 @@
 angular.module('theOneBlog')
 
   // 数据存储
-  .factory('dataServer', ['$http', function($http){
+  .factory('dataServer', ['$http', '$q', function($http, $q){
     var mainArticles = {
       updatetime:'',
       data:[]
     };
+
+    var indexCarList = [];
 
     function getList (url, sucCall, errCall) {
       $http({
@@ -32,6 +34,20 @@ angular.module('theOneBlog')
        });
     }
 
+    function indexCarousel () {
+      var deferred = $q.defer();
+
+      $http.get('/carousel/index/list')
+        .success(function (data) {
+          deferred.resolve(data);
+        })
+        .error(function (data) {
+          deferred.reject(data);
+        });
+
+      return deferred.promise;
+    }
+
 
     return {
       getlistCall:function  (url, sucCall, errCall) {
@@ -40,6 +56,31 @@ angular.module('theOneBlog')
         }else{
           return getList(url, sucCall, errCall);
         }
+      },
+
+      /**
+       * 获取首页carousel   server缓存
+       * @return {arr}
+       */
+      getIndexCarousel:function () {
+        var def = $q.defer();
+        if(indexCarList.length){
+          def.resolve(indexCarList);
+
+        }else{
+          indexCarousel()
+            .then(function (data) {
+              angular.forEach(data, function (item) {
+                indexCarList.push({
+                  img:item.imgInCloud.secure_url,
+                  text:item.imgTitle
+                });
+              });
+              def.resolve(indexCarList);
+            });
+        }
+
+        return def.promise;
       }
 
     };
@@ -78,10 +119,30 @@ angular.module('theOneBlog')
     $scope.cates =  indexList;
   }])
   // 滚动图片
-  .controller('CarouselCtrl',['$scope',function ($scope) {
+  .controller('CarouselCtrl',['$scope', 'dataServer',function ($scope, dataServer) {
     $scope.myInterval = 5000;
     var slides = $scope.slides = [];
 
+    // 获取首页carousel
+    dataServer.getIndexCarousel()
+      .then(function (data) {
+        if(data.length){
+          console.log(data);
+          $scope.slides = data;
+        }
+        else{
+          testSlide();
+        }
+      });
+
+
+    //test start
+    function testSlide () {
+      for (var i=0; i<4; i++) {
+        $scope.addSlide();
+      }
+    }
+      
     $scope.addSlide = function() {
       var width = 1200;
       slides.push({
@@ -89,9 +150,8 @@ angular.module('theOneBlog')
         text: 'test'
       });
     };
-    for (var i=0; i<4; i++) {
-      $scope.addSlide();
-    }
+    //test end
+
   }])
 // 文章列表
 .controller('ArticleCtrl', ['$scope', '$http', '$stateParams','$timeout', '$filter', 'article', function($scope, $http, $stateParams, $timeout, $filter, article){

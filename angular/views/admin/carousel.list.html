@@ -23,14 +23,17 @@
 
                 <div class="col-lg-12" ng-repeat='carousel in carouselList'>
                   <div class="col-lg-6">
-                    <img ng-src="{{carousel.imgSrc}}" class="img-responsive" />
+                    <p>
+                      <img ng-src="{{carousel.imgSrc}}" class="img-responsive" />
+                    </p>
+                      
                   </div>
                   <div class="col-lg-6">
                     <button class='btn btn-warning'>
                       <span class='glyphicon glyphicon-pencil'></span>
                       修改
                     </button>
-                    <button class="btn btn-danger">
+                    <button class="btn btn-danger" ng-click='singleRemove(carousel._id)'>
                       <span class='glyphicon glyphicon-trash'></span>
                         删除
                     </button>
@@ -52,10 +55,8 @@
                       关闭
                     </button>
                   </div>
-
-
-
                 </div>
+
               </div>
           </div>
           

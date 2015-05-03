@@ -5,8 +5,7 @@ var mongoose = require('mongoose'),
   Carousel = mongoose.model('Carousel'),
   config = require('../../../config/config'),
   help = require(config.root+'/my_node_modules/theone-help'),
-  _ = require('underscore'),
-  publicCarousel = require('../carousel');
+  fs = require('fs');
 
 // findById
 function findById (id, cb) {
@@ -16,7 +15,6 @@ function findById (id, cb) {
 // const
 var ROOT_PATH = config.root+'/';
 
-_.extend(exports, publicCarousel);
 
 exports.add = function (req, res, next) {
     console.log(req.body);
@@ -80,7 +78,7 @@ exports.cloud = {
         help.deleteFormCloudinary(carousel.imgInCloud.public_id, cb);
         //更新数据库
       },function (result, cb) {
-        carouselMe.imgInCloud = null;
+        carouselMe.imgInCloud = undefined;
         carouselMe.save(cb);
       }
       ],
@@ -140,4 +138,76 @@ exports.changStatusById = function (req, res, next) {
         }
         res.end('ok');
       });
+};
+
+//列表
+exports.list = function (req, res, next) {
+  async.waterfall([
+    function (cb) {
+      Carousel.find(cb);
+    }
+    ],function (err,result) {
+      if(err){
+        return next(err);
+      }
+      res.json(result);
+  });
+};
+
+
+// single By Id
+exports.singleById = function (req, res, next) {
+  var id = req.params.id;
+  findById(id, function (err, carousel) {
+    if(err){
+      return next(err);
+    }
+
+    res.json(carousel);
+  });
+  
+};
+
+//removeById
+exports.removeById = function (req, res, next) {
+  var id = req.params.id,
+    carouselMe;
+
+    async.waterfall([
+      function (cb) {
+        findById(id, cb);
+      },
+      // 删除cloud
+      function (carousel, cb) {
+        carouselMe = carousel;
+
+        if(carousel.imgInCloud && carousel.imgInCloud.public_id){
+          help.deleteFormCloudinary(carousel.imgInCloud.public_id, cb);
+        }else{
+          cb();
+        }
+        //删除文件
+      },function  (cb) {
+        fs.unlink(ROOT_PATH+carouselMe.imgSrc,function () {
+          return cb();
+        });
+      },
+      // 数据删除
+      function (cb) {
+        carouselMe.remove(cb);
+      }
+      ],function (err) {
+        if(err){
+          return next(err);
+        }
+        res.end('ok');
+    });
+
+};
+
+//editById
+exports.updateById = function (req, res, next) {
+  var id = req.params.id,
+    carouselMe;
+    res.end('end');
 };

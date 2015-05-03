@@ -6,6 +6,7 @@
 var homeCtrl = require('../controllers/home/home');
 var articleCtrl = require('../controllers/article');
 var searchCtrl = require('../controllers/search');
+var carouselCtrl = require('../controllers/carousel.js');
 
 
 module.exports = function (app) {
@@ -24,5 +25,6 @@ module.exports = function (app) {
 
   app.get('/search/:searchWord', searchCtrl.goAngthing);
 
-
+  // 首页carouselCtrl
+  app.get('/carousel/index/list', carouselCtrl.Indexlist);
 };
