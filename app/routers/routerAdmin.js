@@ -19,7 +19,7 @@ var articleCtrl = require('../controllers/admin/article');
 var cateCtrl = require('../controllers/admin/cate');
 var userCtrl = require('../controllers/admin/user');
 var tagCtrl = require('../controllers/admin/tag');
-var CarouselCtrl = require('../controllers/admin/CarouselCtrl');
+var carouselCtrl = require('../controllers/admin/carouselCtrl');
 
 
 
@@ -62,14 +62,14 @@ var CarouselCtrl = require('../controllers/admin/CarouselCtrl');
 
     // 后台Carousel
     app.use('/admin/carousel', carouselR);
-    carouselR.put('/add', CarouselCtrl.add);
-    carouselR.get('/list', CarouselCtrl.list);
-    carouselR.get('/changStatus/:id',CarouselCtrl.changStatusById);
-    carouselR.get('/delClould/:id',CarouselCtrl.cloud.deleteById);
-    carouselR.get('/upClould/:id',CarouselCtrl.cloud.uploadById);
-    carouselR.get('/single/:id', CarouselCtrl.singleById);
-    carouselR.delete('/del/:id', CarouselCtrl.removeById);
-    carouselR.post('/edit/:id', CarouselCtrl.updateById);
+    carouselR.put('/add', carouselCtrl.add);
+    carouselR.get('/list', carouselCtrl.list);
+    carouselR.get('/changStatus/:id',carouselCtrl.changStatusById);
+    carouselR.get('/delClould/:id',carouselCtrl.cloud.deleteById);
+    carouselR.get('/upClould/:id',carouselCtrl.cloud.uploadById);
+    carouselR.get('/single/:id', carouselCtrl.singleById);
+    carouselR.delete('/del/:id', carouselCtrl.removeById);
+    carouselR.post('/edit/:id', carouselCtrl.updateById);
 
 
 
