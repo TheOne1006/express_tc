@@ -33,6 +33,11 @@ $search-input-long: 350px !default;
   height: 100%;
 }
 
+// scroll-y 滚动不晃动
+body, header, nav {
+  padding-left: calc(100vw - 100%);
+}
+
 /* KEYFRAMES
 -------------------------------------------------- */
 @import "./animate-keyframes.scss";

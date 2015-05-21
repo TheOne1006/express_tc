@@ -78,7 +78,9 @@ module.exports = function(app, config) {
        secret: 'theone12138',
        // secure 关闭安全 secure
        // HTTPS这货对于secure cookies是必须的
-       cookie:{maxAge:1800000,secure: false},
+       // 60*1000 1min
+       cookie:{maxAge:60 * 60 * 1000, secure: false},
+       rolling: true,
        saveUninitialized:true,
        resave: true,
         store: new MongoStore({  

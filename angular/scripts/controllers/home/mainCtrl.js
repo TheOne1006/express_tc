@@ -167,7 +167,7 @@ angular.module('theOneBlog')
     },0);
   });
 
-  $scope.pageClass ='page';
+  $scope.pageClass ='article';
   
 }])
 // 搜索

@@ -129,7 +129,6 @@ angular.module('theOneBlog')
         };
     }])
 .directive('fileChange', ['$parse', function($parse) {
-
     return {
       require: 'ngModel',
       restrict: 'A',
@@ -161,4 +160,18 @@ angular.module('theOneBlog')
       }
     };
   }])
+.directive('scrollAnimate', [function () {
+  return {
+    restrict: 'A',
+    link: function (scope, iElement, iAttrs) {
+      var targetId = iAttrs.target;
+      iElement.bind('click', function($event){
+        // 阻止冒泡
+        $event.stopPropagation();
+        var targetTop = angular.element(targetId).offset().top;
+        angular.element('body').animate({scrollTop: targetTop});
+      });
+    }
+  };
+}])
   ;

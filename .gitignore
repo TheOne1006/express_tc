@@ -4,5 +4,6 @@ public/css/*/*.css
 public/css/*/*.css.map
 data/tmp/
 dist/
+blog/
 !public/components/tinymce/plugins/prettify/*
 .sass-cache

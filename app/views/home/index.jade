@@ -6,7 +6,7 @@ block middelContext
   div(ui-view='banner')
   .middel-relative
     .container
-      .main(class='{{pageClass}}',ui-view='bodyer')
+      .main(class='{{pageClass}}',ng-class='{"useable-leave":useableLeave}',ui-view='bodyer')
   div(ng-class='{overlay:view.scrollLeft}',ng-swipe-right='view.scrollLeft = false')
 
 block rightSider

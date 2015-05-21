@@ -15,10 +15,10 @@
       </ul> 
 -->
     <ul class="nav bs-sidenav scrollspy">
-      <li data-target="#{{cate.alias}}" bs-scrollspy ng-repeat='cate in ::cates' data-offset='30'>
+      <li data-target="#{{cate.alias}}" bs-scrollspy ng-repeat='cate in ::cates' data-offset='30' scroll-animate>
         <a href="#/#{{cate.alias}}" ng-bind='::cate.name'></a>
         <ul class="nav">
-          <li data-target="#{{cate.alias}}-{{article.title}}" ng-repeat='article in ::cate.topArticles'>
+          <li data-target="#{{cate.alias}}-{{article.title}}" ng-repeat='article in ::cate.topArticles' bs-scrollspy scroll-animate>
               <a href="#/#{{cate.alias}}-{{article.title}}" ng-bind='article.title'></a>
             </li>
         </ul>

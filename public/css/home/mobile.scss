@@ -1,6 +1,8 @@
 /**
  * 移动设备 < 787
  */
+$mobile-right-width: 300px !default;
+
 
 /**
  *  hader 伸缩效果, 仅仅移动有效
@@ -32,13 +34,13 @@
     }
 
     @keyframes fadeInRightM {
-     from{transform : translate( 200px, 0px);}
+     from{transform : translate( $mobile-right-width, 0px);}
         to{transform: none;}
     }
 
     .mobile-right {
       top: 0px;
-      right:-200px;
+      right:-$mobile-right-width;
     }
 
     .mobile-right-scroll {
@@ -50,7 +52,7 @@
     }
 
     #rightSider {
-      width:200px;
+      width:$mobile-right-width;
       background-color: $gray-light;
     }
 

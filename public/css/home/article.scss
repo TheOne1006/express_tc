@@ -5,7 +5,7 @@
   position: relative;
  }
 
- .main.page.ng-leave {
+ .article.ng-leave {
    position: absolute;
    top:0;
    width: 100%;
@@ -13,7 +13,13 @@
   animation-duration: 1s;
   // animation-fill-mode: both;
  }
- .main.page.ng-enter {
+ // - 取消 article -> main 的动画
+//  .article.ng-leave {
+//   animation:none;
+//   animation-duration: 0s;
+// }
+
+ .article.ng-enter {
   animation-name: slideInRight;
   animation-duration: 1s;
   // animation-fill-mode: both;
