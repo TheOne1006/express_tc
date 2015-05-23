@@ -280,7 +280,13 @@ module.exports = function (grunt) {
           cwd: 'public/components/tinymce',
           src: '{,*/**/}*.*',
           dest: '<%= appCon.dist %>/public/tinymce'
-        }]
+        },{
+          expand: true,
+          cwd:'public/css/admin/',
+          src:'tinymceCommon.css',
+          dest:'<%= appCon.dist %>/public/css'
+        }
+        ]
       },
       mynodeModules: {
         files:[
