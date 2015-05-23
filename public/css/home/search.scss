@@ -2,6 +2,10 @@
  * search page
  */
 
+.panel-heading .badge {
+  margin-left:5px
+}
+
  // left 动画效果
    @media screen and (min-width: $screen-sm-max) {
      .animate-repeat.ng-enter {

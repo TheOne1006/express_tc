@@ -25,6 +25,10 @@ $search-input-long: 350px !default;
     height: 60px;
 }
 
+a:focus,nav .btn:focus,nav .btn:active:focus{
+  outline:none;
+}
+
 /**
  * body禁止滚动
  */
@@ -34,7 +38,12 @@ $search-input-long: 350px !default;
 }
 
 // scroll-y 滚动不晃动
-body, header, nav {
+
+// header > .navbar-inner, #article-banner.docs-header, .middel-relative {
+//   padding-left: calc(100vw - 100%);
+// }
+
+.padding-scroll-bar {
   padding-left: calc(100vw - 100%);
 }
 
@@ -123,6 +132,18 @@ body, header, nav {
 
 /* CATE LIST
 -------------------------------------------------- */
+@media screen and (min-width: $screen-md-max) {
+  .cate-list {
+    height:250px;
+  }
+}
+
+@media screen and (min-width: $screen-sm-max) {
+  .cate-list {
+    height:180px;
+  }
+}
+
 
 .center {
   width: auto;

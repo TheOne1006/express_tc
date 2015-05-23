@@ -1,10 +1,8 @@
 <div class="container">
     <div class="row">
-
-
-        <div class="col-lg-4 col-md-6" ng-repeat='article in ::articleList'>
+        <div class="col-lg-4 col-md-6 cate-list" ng-repeat='article in ::articleList'>
           <h2>{{article.title}}</h2>
-          <p>{{article.contentText}}</p>
+          <p class='text'>{{article.contentText}}</p>
           <p><a class="btn btn-primary" href="#/article/id/{{article._id}}" role="button">访问详情 »</a></p>
         </div>
 

@@ -154,12 +154,15 @@ angular.module('theOneBlog')
 
   }])
 // 文章列表
-.controller('ArticleCtrl', ['$scope', '$http', '$stateParams','$timeout', '$filter', 'article', function($scope, $http, $stateParams, $timeout, $filter, article){
+.controller('ArticleCtrl', ['$scope', '$http', '$stateParams','$timeout', '$filter', '$templateCache', 'article', function($scope, $http, $stateParams, $timeout, $filter, $templateCache, article){
 
   // filter
   article.data.updateTime = $filter('date')(article.data.updateTime,'yyyy-MM-dd');
 
+  $templateCache.put('article.content.html',article.data.content);
+  
   $scope.article = article.data;
+  
 
   $scope.$watch('article.content', function () {
     $timeout(function () {
