@@ -129,6 +129,29 @@ angular.module('theOneBlog')
     }
 
 
+    // 获取 分类带总数量
+    function getArticleTotalNum (cate) {
+
+      // 声明延后执行，表示要去监控后面的执行 
+      var deferred = $q.defer(); 
+
+       $http.get('/article/total/cate/'+cate)
+                 .success(function (data) {
+
+                   //声明执行成功，即http请求数据成功，可以返回数据了
+                   deferred.resolve(data);
+                 })
+                 .error(function (data) {
+
+                   //声明执行失败，即服务器返回错误 
+                   deferred.reject(data);   
+                 });
+
+       // 返回承诺，这里并不是最终数据，而是访问最终数据的API
+       return deferred.promise;
+    }
+
+
     return {
       search:function (searchWord) {
         return articleSearch(searchWord);
@@ -144,6 +167,9 @@ angular.module('theOneBlog')
       },
       getArticleByCateList: function (cate, page) {
         return getArticleByCateList(cate, page);
+      },
+      getArticleTotalNum: function(cate) {
+        return getArticleTotalNum(cate);
       }
     };
   }])
@@ -195,10 +221,16 @@ angular.module('theOneBlog')
           },
           resolve:{
             articlesByCate:['$stateParams', 'dataSave', function ($stateParams, dataSave) {
-              return dataSave.getArticleByCateList($stateParams.cate, $stateParams.page);
+              return dataSave
+                      .getArticleByCateList($stateParams.cate, $stateParams.page);
             }],
             curpage:['$stateParams', function ($stateParams) {
               return isNaN($stateParams.page)?1:$stateParams.page;
+            }],
+            totalNum:[ '$stateParams', 'dataSave', function( $stateParams, dataSave ){
+              return dataSave
+                      .getArticleTotalNum($stateParams.cate);
+
             }]
           }
         })

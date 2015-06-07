@@ -10,5 +10,5 @@
 </div>
 
 <nav class='center'>
-    <pagination total-items="pageNav.bigTotalItems" ng-model="pageNav.bigCurrentPage" max-size="pageNav.maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="第一页" last-text="末页"></pagination>
+    <pagination total-items="pageNav.bigTotalItems" ng-model="pageNav.bigCurrentPage" max-size="pageNav.maxSize" items-per-page="pageNav.itemsPerPage" ng-change="pageNav.pageChanged()" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="第一页" last-text="末页"></pagination>
 </nav>

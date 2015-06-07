@@ -30,6 +30,7 @@ module.exports = function(app, config) {
 
   app.use(compress());
   app.use(express.static(config.root + '/public'));
+  app.use('/public',express.static(config.root + '/public'));
   app.use('/data',express.static(config.root + '/data'));
   app.use('/angular',express.static(config.root+ '/angular'));
   app.use(methodOverride());

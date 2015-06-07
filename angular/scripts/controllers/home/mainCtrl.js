@@ -216,17 +216,22 @@ angular.module('theOneBlog')
   // });
 
 }])
-  .controller('CateListCtrl', ['$scope', '$filter', 'articlesByCate', 'curpage', function ($scope, $filter, articlesByCate, curpage) {
+  .controller('CateListCtrl', ['$scope', '$filter', '$location', '$stateParams', 'articlesByCate', 'curpage', 'totalNum', function ($scope, $filter, $location, $stateParams, articlesByCate, curpage, totalNum) {
 
     $scope.pageNav = {
-      maxSize:5,
-      bigTotalItems:articlesByCate.cate.articleNum,
-      bigCurrentPage:curpage
+      maxSize:5, // 展示几个pagenav button
+      itemsPerPage: 3, // 每页显示数量
+      bigTotalItems: totalNum.total, // cate的文章总数
+      bigCurrentPage:curpage, // 当前页面
+      pageChanged: function(){
+        $location.path('/cate/'+ $stateParams.cate +'/'+$scope.pageNav.bigCurrentPage, false);
+      }
+
     };
 
     $scope.articleList = $filter('ArticlesByCateWordLimit')(articlesByCate.articleList);
     
-    $scope.cate = articlesByCate.cate;
+    $scope.cate = articlesByCate.alias;
 
 
 

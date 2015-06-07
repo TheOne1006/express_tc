@@ -10,7 +10,7 @@
       </h2>
 
       <div class="row">
-          <div class="col-xs-12 article-header" id='{{list.alias}}-{{article.title}}' ng-repeat="article in ::list.topArticles">
+          <div class="col-xs-12 article-header" id='{{list.alias}}-{{article._id}}' ng-repeat="article in ::list.topArticles">
             <h3 ng-bind='article.title' ></h3>
             <p> {{::article.contentText}} </p>
              <p><a class="btn btn-default" ng-href="#/article/id/{{::article._id}}" role="button">访问详情 »</a></p>

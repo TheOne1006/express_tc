@@ -85,7 +85,8 @@ module.exports = function (grunt) {
         'public/components/angular-carousel/dist/angular-carousel.css',
         // 多余的 headroom
         'public/components/headroom.js/dist/jQuery.headroom.js',
-        'public/components/headroom.js/dist/angular.headroom.js'
+        'public/components/headroom.js/dist/angular.headroom.js',
+        'public/components/angular-file-upload/angular-file-upload.js'
         ],
         ignorePath:  /(\.\.\/){3}public/
       },
@@ -284,7 +285,7 @@ module.exports = function (grunt) {
           expand: true,
           cwd:'public/css/admin/',
           src:'tinymceCommon.css',
-          dest:'<%= appCon.dist %>/public/css'
+          dest:'<%= appCon.dist %>/public/css/admin'
         }
         ]
       },

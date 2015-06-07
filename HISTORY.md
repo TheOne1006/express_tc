@@ -53,3 +53,8 @@ mobile-siderBar
 # 2015-5-21 scrollspy 完美解决，滚动动画
 *残留问题 右侧滚动时，出现波动
 
+# 2015-6-08 admin/article/list 增加gotoanything
+# 2015-6-08 列表分野增加
+# 2015-6-08 首页优化 小标题
+
+

@@ -73,6 +73,9 @@ angular.module('theoneApp')
       getlist:function (url) {
         return httpGet(url);
       },
+      postlist: function(url ,options){
+        return httpPost(url, options);
+      },
       doEdit: function (url, data) {
         return httpPost(url, data);
       }
@@ -122,7 +125,7 @@ angular.module('theoneApp')
           //定义载入插件
           plugins : 'pagebreak,link,table,save,insertdatetime,preview,media,searchreplace,contextmenu,paste,directionality,noneditable,visualchars,nonbreaking,template,code,hr,prettify,tabset,image',
           toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | prettify | tabset | hr',
-          'content_css': '/css/admin/tinymceCommon.css',
+          'content_css': '/public/css/admin/tinymceCommon.css',
           // 扩张允许标签
            'extended_valid_elements' : 'tab[heading],tabset[justified]',
            'custom_elements': 'tab,tabset',
@@ -362,7 +365,6 @@ angular.module('theoneApp')
       };
     
     $scope.save = function () {
-      console.log($scope.cate);
       $http.post('/admin/cate/edit/id/'+_id,{cate:$scope.cate})
         .success(function(data) {
           $modalInstance.close();
@@ -377,10 +379,20 @@ angular.module('theoneApp')
 
 // 文章控制器
 // url: /admin#/article
-.controller('ArticleController', ['$scope', '$http', 'adminModalService', function ($scope, $http, adminModalService) {
+.controller('ArticleController', ['$scope', '$http', '$filter', '$timeout', 'adminModalService', function ($scope, $http, $filter, $timeout, adminModalService) {
+
+  var watchForGoany = '';
+
   $scope.tableName = '文章列表';
+
+  $scope.anywords = [];
+
+  adminModalService.getlist('/admin/tag/list')
+    .success(function( tagList){
+      $scope.anywords =$filter('getSingleFiled')(tagList, 'name');
+    });
   //预输入
-  $scope.anywords = ['PHP','angular','javascript','mysql'];
+  // $scope.anywords = ['PHP','angular','javascript','mysql'];
 
   // 定义 ngGrid
   // 过滤文本
@@ -388,30 +400,37 @@ angular.module('theoneApp')
     filterText:'',  // 过滤文字
     useExternalFilter:true
   };
-  $scope.totalServerItems = 0; // 总个数
+
+  // $scope.totalServerItems = 0; // 总个数
   //分页设置
   $scope.pagingOptions = { 
-      pageSizes: [5, 10, 20],
-      pageSize: 6,
-      currentPage: 1
+      pageSizes: [10, 15, 20],
+      currentPage: 1,
+      pageSize:10
   };
 
   //  －－固定写法
   $scope.setPagingData = function(data, page, pageSize){  
-      var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
+      // var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
+      var pagedData = data;
       $scope.myData = pagedData;
-      $scope.totalServerItems = data.length;
+      // $scope.totalServerItems = data.length;
       if (!$scope.$$phase) {
           $scope.$apply();
       }
   };
   // 根据路由传递过来的参数
   $scope.getPagedDataAsync = function (pageSize, page, searchText) {
-          setTimeout(function () {
-              var data;
+              var data,
+                options = {
+                  page: page,
+                  pageSize: pageSize,
+                  searchText: searchText
+                };
+
               if (searchText) {
                   var ft = searchText.toLowerCase();
-                  adminModalService.getlist('/admin/article/list')
+                  adminModalService.postlist('/admin/article/list',options)
                   .success(function (largeLoad) {    
                       data = largeLoad.filter(function(item) {
                           return JSON.stringify(item).toLowerCase().indexOf(ft) !== -1;
@@ -419,12 +438,11 @@ angular.module('theoneApp')
                       $scope.setPagingData(data,page,pageSize);
                   });            
               } else {
-                  adminModalService.getlist('/admin/article/list')
+                  adminModalService.postlist('/admin/article/list', options)
                     .success(function (largeLoad) {
                       $scope.setPagingData(largeLoad,page,pageSize);
                     });
               }
-          }, 100);
       };
 
   $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
@@ -434,6 +452,40 @@ angular.module('theoneApp')
         $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
       }
   }, true);
+
+
+  $scope.$watch('goany', function(newVal, oldVal){
+
+    if(typeof newVal === 'string'){
+      newVal = newVal.toLowerCase();
+    }
+
+    if(typeof oldVal === 'string'){
+      oldVal = oldVal.toLowerCase();
+    }
+
+    if(newVal === oldVal){
+      return;
+    }
+
+    if(watchForGoany) {
+       $timeout.cancel(watchForGoany);
+    }
+
+    watchForGoany = $timeout(function() {
+      $scope.filterOptions.filterText = newVal;
+      // 设置pagingOption  and 获取数据
+      $scope.pagingOptions.currentPage = 1;
+
+      $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+    }, 500);
+
+
+  }, false);
+
+  $scope.filterOptions ={
+    name:'123'
+  };
 
   $scope.gridOptions = {
     data:'myData',

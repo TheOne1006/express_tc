@@ -51,7 +51,7 @@ exports.getById = function (req, res, next) {
 exports.getListByCate = function (req, res, next) {
   var cateAlias = req.params.alias,
   curPage = req.params.page || 1,
-  pageCount = 12,
+  pageCount = 3,
   skipNum = (curPage - 1) * pageCount,
   result = {};
 
@@ -80,4 +80,28 @@ exports.getListByCate = function (req, res, next) {
     });
 };
 
-// 文章搜索
+// 获取分类的总文章数量
+exports.getCountByCate = function( req, res, next ){
+  var cateAlias = req.params.alias;
+
+  async.waterfall([
+    function ( cb ) {
+      Cate.findByAlias(cateAlias, cb);
+    }, function ( targetCate, cb ) {
+
+      Article
+        .where({cate:targetCate._id})
+        .count()
+        .exec(cb);
+
+    }], function( err, countNum ){
+    if( err ) {
+      return next( err );
+    }
+    res.json({total:countNum});
+    res.end(countNum);
+
+  } );
+
+
+};

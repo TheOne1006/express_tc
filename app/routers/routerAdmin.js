@@ -40,7 +40,11 @@ var carouselCtrl = require('../controllers/admin/carouselCtrl');
     app.use('/admin/article', articleR);
     articleR.put('/add', articleCtrl.add);
     articleR.post('/edit', articleCtrl.edit);
+    
+    // 兼容上版本
     articleR.get('/list', articleCtrl.list);
+    articleR.post('/list', articleCtrl.list);
+
     articleR.get('/id/:id', articleCtrl.getById);
     articleR.delete('/id/:id', articleCtrl.delById);
 

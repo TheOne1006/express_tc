@@ -91,8 +91,21 @@ body {
 /* ngGrid*/
 .gridStyle {
     border: 1px solid rgb(212,212,212);
-    height: 300px;
+    height: 400px;
 }
+
+// .gridStyle.row10 {
+//   max-height:400px;
+// }
+
+// .gridStyle.row15 {
+//   max-height: 600px;
+// }
+
+// .gridStyle.row20 {
+//   max-height: 800px;
+// }
+
 //取消focus
 .gridStyle :focus{
   outline:none;

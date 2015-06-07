@@ -14,7 +14,7 @@
                   <div class='text-muted bootstrap-admin-box-title' ng-bind='tableName'></div>
               </div>
               <div class="bootstrap-admin-no-table-panel-content bootstrap-admin-panel-content collapse in">
-                <form action="#" name='serach_article' class="form-horizontal">
+                <form onsubmit='return false;' name='serach_article' class="form-horizontal">
                   <fieldset>
                     <legend ng-bind='tableName'></legend>
                     <div class="form-group">
@@ -27,7 +27,7 @@
                 </form>
               </div>
               <div class="panel-body">
-                <div class='gridStyle' ng-grid='gridOptions'></div>
+                <div class='gridStyle' ng-class='{"row10":pagingOptions.pageSize == 10,"row15": pagingOptions.pageSize == 15,"row20": pagingOptions.pageSize == 20}' ng-grid='gridOptions'></div>
               </div>
           </div>
           

@@ -13,6 +13,54 @@ var mongoose = require('mongoose'),
 
   _.extend(exports, publicArticle);
 
+// 文章列表
+exports.list = function (req, res, next) {
+  var pageSize = (req.body && req.body.pageSize)? req.body.pageSize : 10,
+    page = (req.body && req.body.page)? req.body.page : 1,
+    searchText = (req.body && req.body.searchText)? req.body.searchText : '',
+    regParams = '';
+
+
+    // 带关键字
+    if(searchText && searchText !== ''){
+      regParams = new RegExp(searchText);
+
+      Article
+        .find()
+        .or([{title:{$regex:regParams,$options: 'i'}},
+          {contentText:{$regex:regParams,$options: 'i'}},
+          {keyWords:searchText},
+          ])
+        .skip(pageSize * (page - 1) )
+        .limit(pageSize)
+        .populate('cate','name')
+        .exec(function (err, results) {
+          if(err){
+            return next(err);
+          }
+          res.json(results);
+          res.end();
+        });
+
+    // 不带关键字
+    }else {
+
+      Article
+        .find()
+        .skip(pageSize * (page - 1) )
+        .limit(pageSize)
+        .populate('cate','name')
+        .exec(function (err, results) {
+          if(err){
+            return next(err);
+          }
+          res.json(results);
+          res.end();
+        });
+
+    }
+};
+
 exports.add = function (req, res ,next) {
     // 验证
     var newArticle = new Article(req.body.article);
