@@ -220,7 +220,7 @@ angular.module('theOneBlog')
 
     $scope.pageNav = {
       maxSize:5, // 展示几个pagenav button
-      itemsPerPage: 3, // 每页显示数量
+      itemsPerPage: 12, // 每页显示数量
       bigTotalItems: totalNum.total, // cate的文章总数
       bigCurrentPage:curpage, // 当前页面
       pageChanged: function(){

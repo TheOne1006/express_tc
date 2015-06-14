@@ -51,7 +51,7 @@ exports.getById = function (req, res, next) {
 exports.getListByCate = function (req, res, next) {
   var cateAlias = req.params.alias,
   curPage = req.params.page || 1,
-  pageCount = 3,
+  pageCount = 12,
   skipNum = (curPage - 1) * pageCount,
   result = {};
 
