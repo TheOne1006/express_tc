@@ -33,7 +33,7 @@ var carouselCtrl = require('../controllers/admin/carouselCtrl');
     app.use('/admin/login', adminLoginR);
     adminLoginR.get('/', adminLoginCtrl.index);
     adminLoginR.post('/verify/password', adminLoginCtrl.verify.password);
-    adminLoginR.post('/verify/face', adminLoginCtrl.verify.face);
+    adminLoginR.post('/verify/face', adminLoginCtrl.verify.face );
 
 
     // 后台文章

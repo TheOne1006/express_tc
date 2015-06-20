@@ -8,23 +8,24 @@ var mongoose = require('mongoose'),
 
 exports.checkSession = function  (req, res, next) {
 
-  // 默认 userId
-  // if(!req.session.userId){
-  //   req.session.userId = '54ede26288d1cb84097a886e';
-  // }
-
   if(req.url !== '/login/' && req.url !=='/login/verify/password' && req.url !=='/login/verify/face'  && !req.session.userId){
+
     res.redirect('/admin/login/');
     return;
   }
 
-  User.findById(req.session.userId,function  (err, user) {
-    if(err){
-      return next(err);
-    }
-    res.locals.user = user;
+  if(req.session && req.session.userId) {
+    User.findById(req.session.userId,function  (err, user) {
+      if(err){
+        return next(err);
+      }
+      res.locals.user = user;
+      next();
+    });
+  } else {
+    // 没有session.userId
     next();
-  });
+  }
 };
 
 exports.index = function (req, res) {
@@ -33,7 +34,7 @@ exports.index = function (req, res) {
         });
   };
   // .get('/add/user',function (req, res) {
-  //   var md5 = crypto.createHash('md5').update('qqaazz123');
+  //   var md5 = crypto.createHash('md5').update('xxxx');
   //   var newUser = new User({
   //     name:'theone12138',
   //     password:md5.digest('hex'),

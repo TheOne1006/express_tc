@@ -39,9 +39,9 @@ module.exports = function(app, config) {
   app.use(multer({
     onFileUploadStart: function (file, req) {
       // 特殊路径才能直接上传
-      // if (req.url !=='/admin/login/verify/face'){
-      //   return false;
-      // }
+      if (req.url !=='/admin/login/verify/face' && file.mimetype !== 'image/jpeg'){
+        return false;
+      }
       return true;
     },
     // dest: config.root+'/data/tmp/',

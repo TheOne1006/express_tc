@@ -58,7 +58,7 @@ angular.module('theoneApp')
         if(webcam.container){
           webcam.snap(function (data) {
             phsListArr.push(data);
-            webcam.upload(data,'/admin/login/verify/face',checkImage());
+            webcam.upload(data,'/admin/login/verify/face',checkImage);
           });
         }else{
           takePhotoInterval.cancel();
@@ -67,8 +67,14 @@ angular.module('theoneApp')
     };
 
     // 检测图片
-    var checkImage = function  (data) {
-      console.log(data);
+    var checkImage = function  (status, data) {
+      // 临时规划
+      if(status === 200 && data) {
+        data = JSON.parse(data);
+        if(data.is_login) {
+          $window.location = '/admin';
+        }
+      }
     };
 
     return {
