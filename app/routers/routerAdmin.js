@@ -86,13 +86,13 @@ var carouselCtrl = require('../controllers/admin/carouselCtrl');
     userR.get('/createFacePower', userCtrl.face.createPower);
     userR.get('/createfacePerson', userCtrl.face.createPerson);
     userR.get('/updatefacePerson', userCtrl.face.updatePerson);
-    userR.get('/up2facePP:/id', userCtrl.face.upload);
+    userR.get('/up2facePP/:_id', userCtrl.face.upload);
     userR.get('/faceSingle/:_id', userCtrl.face.removeById);
 
     userR.get('/myPhotoList', userCtrl.myPhotoList);
     userR.post('/addUserPhotos', userCtrl.addMyPhotos);
     // cloudinary
-    userR.post('/up2cloud/:id', userCtrl.cloudinary.upload);
+    userR.get('/up2cloud/:id', userCtrl.cloudinary.upload);
     userR.delete('/cloudSingle/:_id',userCtrl.cloudinary.removeById);
 
 
