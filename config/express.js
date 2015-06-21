@@ -59,10 +59,20 @@ module.exports = function(app, config) {
       }
 
       if(reutrnDest){
+        // 创建 carousel 目录
         try {
             stat = fs.statSync(reutrnDest);
         } catch(err) {
             fs.mkdirSync(reutrnDest);
+        }
+      }
+      else
+      {
+        // 创建 tmp目录
+        try {
+            stat = fs.statSync(initDest);
+        } catch(err) {
+            fs.mkdirSync(initDest);
         }
       }
 

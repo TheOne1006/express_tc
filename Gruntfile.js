@@ -15,6 +15,7 @@ module.exports = function (grunt) {
     adminCss:'public/css/admin',
     homeTemp:'app/views/home',
     homeCss:'public/css/home',
+    adminExtendJs:'public/js/admin/extend',
     pubImg:'public/img',
     pubSvg:'public/svg',
     expressApp:'app',
@@ -66,6 +67,11 @@ module.exports = function (grunt) {
         'public//components/headroom.js/dist/headroom.js',
         'public/components/headroom.js/dist/jQuery.headroom.js',
         'public/components/headroom.js/dist/angular.headroom.js',
+        'public/components/headroom.js/dist/headroom.js',
+        'public/components/angular-strap/dist/angular-strap.js',
+        'public/components/angular-strap/dist/angular-strap.tpl.js',
+        'public/components/google-code-prettify/bin/prettify.min.js',
+        'public/components/angular-carousel/dist/angular-carousel.js',
         'public/components/tinymce/tinymce.min.js'
         ],
         ignorePath:  /(\.\.\/){3}public/
@@ -297,6 +303,17 @@ module.exports = function (grunt) {
           src:'my_node_modules/**/*.*',
           dest:'<%= appCon.dist %>'
         }
+        ]
+      },
+      adminExtend: {
+        files:[
+          {
+            expand: true,
+            cwd:'<%= appCon.adminExtendJs %>',
+            src: '*.*',
+            dest: '<%= appCon.dist %>/<%= appCon.adminExtendJs %>'
+          }
+
         ]
       }
     },

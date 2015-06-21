@@ -79,6 +79,7 @@ angular.module('theoneApp')
 
     return {
       readyWebcam:function (options, domId) {
+        options = options || {};
         setWebcam(options);
         startWebcam(domId);
       },
