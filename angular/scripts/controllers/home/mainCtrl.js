@@ -237,4 +237,12 @@ angular.module('theOneBlog')
 
 
   }])
+  .controller('articleBannerCtrl', ['$scope', function ($scope) {
+  var vivusTheOne = new Vivus('vivusTheOne', {type: 'scenario-sync', duration: 20, start: 'autostart', dashGap: 20, forceRender: false});
+
+  $scope.vireset = function(){
+    vivusTheOne.reset().play();
+  };
+
+  }])
   ;

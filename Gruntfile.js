@@ -72,7 +72,8 @@ module.exports = function (grunt) {
         'public/components/angular-strap/dist/angular-strap.tpl.js',
         'public/components/google-code-prettify/bin/prettify.min.js',
         'public/components/angular-carousel/dist/angular-carousel.js',
-        'public/components/tinymce/tinymce.min.js'
+        'public/components/tinymce/tinymce.min.js',
+        'public/components/vivus/dist/vivus.js'
         ],
         ignorePath:  /(\.\.\/){3}public/
       },
