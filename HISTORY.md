@@ -73,3 +73,8 @@
 * 增加人脸识别登录（文件目录形式）
 
 
+##### 2015.8.15 取消URL的hash
+* express.js 中通过http.referer 判断是否进行跳转
+* app/controllers/admin/login.js 取消删除任务,改为shell 脚本
+
+

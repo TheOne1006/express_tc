@@ -16,6 +16,7 @@ var MongoStore = require('connect-mongo')(session);
 var multer = require('multer');
 var fs = require('fs');
 
+
 module.exports = function(app, config) {
   app.set('views', config.root + '/app/views');
   app.set('view engine', 'jade');
@@ -34,6 +35,31 @@ module.exports = function(app, config) {
   app.use('/data',express.static(config.root + '/data'));
   app.use('/angular',express.static(config.root+ '/angular'));
   app.use(methodOverride());
+
+  // 判断reffer,执行重定向 (是否可以移动到 /app/routes/routerHome.js ?)
+  app.use(function(req, res, next){
+    var urlArr = req.url.split('/'),
+    needRedirect = false,
+    refererUrl = req.headers.referer || req.headers.referrer;
+
+    if(refererUrl) {
+      // 未找到对应hostname
+      if ( refererUrl.indexOf(config.app.hostname || 'localhost') < 0 ) {
+        console.log('need redirect');
+        needRedirect = true;
+      }
+    }
+
+    if(!refererUrl || needRedirect) {
+
+      if(urlArr[1] === 'article' || urlArr[1] === 'search' || urlArr[1] === 'cate' ) {
+        console.log('log-- redierct');
+        res.redirect('/#'+req.url);
+        return;
+      }
+    }
+    next();
+  });
 
   // 文件上传 中间件
   app.use(multer({

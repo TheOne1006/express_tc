@@ -74,6 +74,7 @@ exports.verify = {
           },function (cb) {
             // 清空文件夹
             //********** 临时同步方法
+/*
             var tmpfiles,
             dirPath = config.root+'/data/tmp/';
             try { 
@@ -90,7 +91,7 @@ exports.verify = {
                 }
               }
             }
-
+*/
             cb();
           }
           ],function (err) {

@@ -34,7 +34,8 @@ var config = {
   production: {
     root: rootPath,
     app: {
-      name: 'theOneBlog'
+      name: 'theOneBlog',
+      hostname: 'theone.io'
     },
     port: 3000,
     db: 'mongodb://theone:theone12138@localhost:12345/theblog',
