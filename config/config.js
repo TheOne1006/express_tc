@@ -35,7 +35,7 @@ var config = {
     root: rootPath,
     app: {
       name: 'theOneBlog',
-      hostname: 'theone.io'
+      hostname: 'www.theone.io'
     },
     port: 3000,
     db: 'mongodb://theone:theone12138@localhost:12345/theblog',

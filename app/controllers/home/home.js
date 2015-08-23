@@ -7,7 +7,9 @@ var mongoose = require('mongoose'),
 
 exports.index = function (req, res) {
     res.render('home/index', {
-      title: 'Generator-Express MVC',
+      title: 'TheOne记事本|theone.io|吴斌杰|js工程师',
+      description : '个人笔记本或个人博客,总结个人工作的经验或学习经验的记录,同时实践ng,nodejs,bootstrap前后端一种语言javascript',
+      keywords: 'theone,theone.io,吴斌杰,js工程师,angular,nodejs,php,css3'
     });
     res.end();
 };

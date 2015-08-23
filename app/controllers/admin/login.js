@@ -7,6 +7,7 @@ var mongoose = require('mongoose'),
   help =require(config.root+'/my_node_modules/theone-help'),
   crypto = require('crypto'),
   async = require('async'),
+  env = process.env.NODE_ENV || 'development',
   moment = require('moment'),
   User = mongoose.model('User');
 
@@ -49,11 +50,13 @@ exports.verify = {
 
         async.waterfall([
           function (cb) {
-            //- 测试
-            help.facePlusPlusDetect('http://res.cloudinary.com/theone/image/upload/v1425302230/mavjc53omfyfnngyjebw.jpg', cb);
-
-            //- theone.io
-            // help.facePlusPlusDetect('http://www.theone.io/data/tmp/'+img.name , cb);
+            if(env === 'development') { 
+              //- 测试
+              help.facePlusPlusDetect('http://res.cloudinary.com/theone/image/upload/v1425302230/mavjc53omfyfnngyjebw.jpg', cb);
+            }else {
+              //- theone.io
+              help.facePlusPlusDetect('http://www.theone.io/data/tmp/'+img.name , cb);
+            }
           },
           function (detectInfo, cb) {
             if(!detectInfo || !detectInfo.face || !detectInfo.face[0] ||!detectInfo.face[0].face_id){
@@ -67,14 +70,15 @@ exports.verify = {
             // 返回对比差异
             if (result.confidence > 80 && result.is_same_person ) {
               req.session.userId = '54ede26288d1cb84097a886e';
-              cb();
+              cb(null, {is_login:true});
             } else { 
               cb(null, {is_login: false});
             }
-          },function (cb) {
+          }
+/*
+          ,function (cb) {
             // 清空文件夹
             //********** 临时同步方法
-/*
             var tmpfiles,
             dirPath = config.root+'/data/tmp/';
             try { 
@@ -91,9 +95,9 @@ exports.verify = {
                 }
               }
             }
-*/
             cb();
           }
+*/
           ],function (err) {
           if(err){
             console.log(err);

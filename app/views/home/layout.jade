@@ -3,6 +3,9 @@ html(lang='zh-CN',ng-app='theOneBlog')
     head
       meta(charset='UTF-8')
       meta(name='viewport', content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no')
+      title= title
+      meta(name='keywords',content= keywords)
+      meta(name='description',content= description)
       //- apple 全屏
       meta(name='apple-touch-fullscreen',content='yes')
       //- apple 去除工具栏
@@ -63,7 +66,7 @@ html(lang='zh-CN',ng-app='theOneBlog')
                   .row
                       .col-lg-12
                           footer(role='conteninfo')
-                              p.left theone.io
+                              p.left www.theone.io
                               p.right &copy; 2015
 
       div#rightSider.affix.mobile-right(ng-class='{"mobile-right-scroll":view.scrollLeft}')

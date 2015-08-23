@@ -21,9 +21,17 @@
 启动命令
 
 ```
+$ export NODE_ENV=production
 $ node app
 ```
 
 
 ### 配置
 计划任务清空 `/data/tmp/`
+
+`/express_tc/app/controllers/admin/login.js` 修改 `help.facePlusPlusDetect`
+
+
+## 未来计划
+1. sphinx 搜索
+2. article 图片增加
