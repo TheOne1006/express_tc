@@ -30,10 +30,15 @@ module.exports = function(app, config) {
   app.use(cookieParser());
 
   app.use(compress());
-  app.use(express.static(config.root + '/public'));
-  app.use('/public',express.static(config.root + '/public'));
-  app.use('/data',express.static(config.root + '/data'));
-  app.use('/angular',express.static(config.root+ '/angular'));
+
+  // 开发模式下使用，生产环境下ngnix 配置
+  if(app.get('env') === 'development'){
+    app.use(express.static(config.root + '/public'));
+    app.use('/public',express.static(config.root + '/public'));
+    app.use('/data',express.static(config.root + '/data'));
+    app.use('/angular',express.static(config.root+ '/angular'));
+  }
+
   app.use(methodOverride());
 
   // 判断reffer,执行重定向 (是否可以移动到 /app/routes/routerHome.js ?)

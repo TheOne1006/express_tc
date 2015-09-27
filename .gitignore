@@ -3,6 +3,7 @@ public/components
 public/css/*/*.css
 public/css/*/*.css.map
 data/tmp/
+data/carousel/
 dist/
 blog/
 !public/components/tinymce/plugins/prettify/*

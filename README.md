@@ -14,7 +14,7 @@
 
   * 前台框架
     1. Bootstrap
-    2. Angular.js
+    2. Angular.js 1.3
 
 ### 服务 Server 
 
@@ -35,3 +35,5 @@ $ node app
 ## 未来计划
 1. sphinx 搜索
 2. article 图片增加
+3. 后台使用markdown编辑器,使用图片库
+

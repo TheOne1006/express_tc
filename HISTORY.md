@@ -81,3 +81,8 @@
 ##### 2015.8.23 增加搜索支持
 * 通过<https://github.com/TheOne1006/phantom_build_html> 构建支持 angularJS 的搜索引起
 * 前台增加 title ,keyword, description的属性
+
+
+##### 2015.9.27 尝试解决搜索引起不抓取的问题
+* 取消base 标签,
+* 修改 svg theone.io 外部引入

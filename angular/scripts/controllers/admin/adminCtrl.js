@@ -567,7 +567,10 @@ angular.module('theoneApp')
         title:'',
         cate:'',
         keyWords:[],
-        content:''
+        contentHtml:'',
+        contentMd:'',
+        content:'',
+        type:'html'
       };
     }
 
@@ -586,6 +589,12 @@ angular.module('theoneApp')
       // 处理 cate
       if($scope.newArticle.cate){
         $scope.newArticle.cate = $scope.newArticle.cate._id;
+      }
+
+      if($scope.newArticle.type === 'html') {
+        $scope.newArticle.content = $scope.newArticle.contentHtml;
+      } else {
+        $scope.newArticle.content = $scope.newArticle.contentMd;
       }
 
       // 处理 keywords
@@ -619,6 +628,12 @@ angular.module('theoneApp')
 
     adminModalService.getId('/admin/article/id/'+$stateParams.id)
       .success(function (data) {
+        if(data.type === 'html') {
+          data.contentHtml = data.content;
+        } else {
+          data.contentMd = data.content;
+        }
+
         $scope.article = data;
         resetArticle = data;
       });
@@ -632,6 +647,13 @@ angular.module('theoneApp')
         // 处理 cate
         if($scope.article.cate){
           $scope.article.cate = $scope.article.cate._id;
+        }
+
+        // 处理 type
+        if($scope.article.type === 'html') {
+          $scope.article.content = $scope.article.contentHtml;
+        } else {
+          $scope.article.content = $scope.article.contentMd;
         }
 
         // 处理 keywords
@@ -770,6 +792,9 @@ angular.module('theoneApp')
 
 
   $scope.upload = function () {
+
+    console.log('before');
+
     uploader.uploadItem(0);
     $modalInstance.close();
   };

@@ -35,7 +35,6 @@ exports.add = function (req, res, next) {
       }
     }
 
-
     async.waterfall([
       function (cb) {
         // 文件存在
@@ -46,6 +45,8 @@ exports.add = function (req, res, next) {
             imgSrc:imgSrc,
             imgDesc:imgDesc
           });
+
+          
           newCarousel.save(cb);
         }else{
           return cb({err:'fail'});
@@ -189,7 +190,7 @@ exports.removeById = function (req, res, next) {
         //删除文件
       },function  (cb) {
         fs.unlink(ROOT_PATH+carouselMe.imgSrc,function () {
-          return cb();
+          cb();
         });
       },
       // 数据删除

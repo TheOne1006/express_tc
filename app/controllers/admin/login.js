@@ -68,11 +68,11 @@ exports.verify = {
           function  (result ,cb) {
             
             // 返回对比差异
-            if (result.confidence > 80 && result.is_same_person ) {
+            if (result.confidence > 60 && result.is_same_person ) {
               req.session.userId = '54ede26288d1cb84097a886e';
               cb(null, {is_login:true});
             } else { 
-              cb(null, {is_login: false});
+              cb(null, {is_login:false});
             }
           }
 /*
@@ -98,12 +98,12 @@ exports.verify = {
             cb();
           }
 */
-          ],function (err) {
+          ],function (err, result) {
           if(err){
             console.log(err);
             return next(err);
           }
-          res.json({is_login:true});
+          res.json(result);
           res.end();
         });
 

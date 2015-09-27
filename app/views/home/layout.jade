@@ -13,7 +13,7 @@ html(lang='zh-CN',ng-app='theOneBlog')
       meta(content='telephone=no',name='format-detection')
       meta(content='email=no',name='format-detection')
       meta(name='Author',content='theone')
-      base(href='/')
+      //- base(href='/')
       //-<!-- build:css(public) #{env}/public/css/home/theoneBlog.css -->
       link(rel='stylesheet',href='/css/home/bootstrap-theone-blog.css')
 
@@ -62,12 +62,14 @@ html(lang='zh-CN',ng-app='theOneBlog')
 
         block footer
           .navbar.navbar-footer
+              hr
               .container
                   .row
                       .col-lg-12
                           footer(role='conteninfo')
-                              p.left www.theone.io
-                              p.right &copy; 2015
+                              p.text-left TheOne个人笔记本 
+                                a(href='http://self.theone.io',title='个人简介') About me
+                              p.text-right &copy; 2015 TheOne.io 版权所有 ICP证：闽ICP备14001334号-2 
 
       div#rightSider.affix.mobile-right(ng-class='{"mobile-right-scroll":view.scrollLeft}')
         block rightSider

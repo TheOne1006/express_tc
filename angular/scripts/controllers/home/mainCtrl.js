@@ -238,7 +238,7 @@ angular.module('theOneBlog')
 
   }])
   .controller('articleBannerCtrl', ['$scope', function ($scope) {
-  var vivusTheOne = new Vivus('vivusTheOne', {type: 'scenario-sync', duration: 20, start: 'autostart', dashGap: 20, forceRender: false});
+  var vivusTheOne = new Vivus('vivusTheOne', {type: 'scenario-sync', duration: 20, start: 'autostart', dashGap: 20, forceRender: false,file: '/public/svg/theoneIo.svg'});
 
   $scope.vireset = function(){
     vivusTheOne.reset().play();

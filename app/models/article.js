@@ -1,5 +1,5 @@
 /**
- * 
+ * article
  */
 'use strict';
 
@@ -32,6 +32,7 @@ var ArticleSchema = new Schema({
   title: {type: String, required: true, unique: true},
   author:{type: ObjectId, required: true, ref: 'User'},
   cate:{type: ObjectId, required: true, ref: 'Cate'},
+  type:{type: String, default:'html'},
   keyWords:{type: Array, default:[]},
   contentText:{type:String},
   content:{type:String, required:true},
@@ -45,6 +46,10 @@ ArticleSchema.pre('save',function (next) {
 
   if(!this.updateTime){
     this.updateTime = moment().format('x');
+  }
+
+  if(!this.type) {
+    this.type = 'html';
   }
 
   this.contentText = removeHTMLTag(this.content);
