@@ -158,21 +158,38 @@ exports.edit = function (req, res, next) {
 // };
 
 
-// 单个文章
-// exports.getById = function (req, res, next) {
-//   var _id = req.params.id;
-//   Article
-//     .findById(_id)
-//     .populate('cate')
-//     .exec(function (err, article) {
-//     if(err){
-//       return next(err);
-//     }
-//     res.json(article);
-//     res.end();
-//   });
-// };
+// 单个文章 覆盖公共
+exports.getById = function (req, res, next) {
+  var _id = req.params.id,
+    singleArticle;
 
+    async.waterfall([
+      function (cb) {
+        Article
+          .findById(_id)
+          .populate({
+            path:'cate',
+            select:'name',
+            options:{limit:1}
+          })
+          .populate({
+            path:'author',
+            select:'name',
+            options:{limit:1}
+          })
+          .exec(cb);
+      },
+      function( article, cb) {
+        singleArticle = article;
+        cb();
+      }], function (err) {
+          if(err){
+            return next(err);
+          }
+          res.json(singleArticle);
+          res.end();
+      });
+};
 
 //- 删除单个文章
 exports.delById = function (req, res, next) {

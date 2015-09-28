@@ -7,6 +7,8 @@
 var mongoose = require('mongoose'),
   async = require('async'),
   Cate = mongoose.model('Cate'),
+  extensionTable = require('showdown-table'),
+  showdown = require('showdown'),
   Article = mongoose.model('Article');
   // _ = require('underscore'),
   // Tag = mongoose.model('Tag');
@@ -25,26 +27,63 @@ exports.list = function (req, res, next) {
 
 // 单个文章
 exports.getById = function (req, res, next) {
-  var _id = req.params.id;
-  Article
-    .findById(_id)
-    .populate({
-      path:'cate',
-      select:'name',
-      options:{limit:1}
-    })
-    .populate({
-      path:'author',
-      select:'name',
-      options:{limit:1}
-    })
-    .exec(function (err, article) {
-    if(err){
-      return next(err);
-    }
-    res.json(article);
-    res.end();
-  });
+  var _id = req.params.id,
+    singleArticle;
+  // Article
+  //   .findById(_id)
+  //   .populate({
+  //     path:'cate',
+  //     select:'name',
+  //     options:{limit:1}
+  //   })
+  //   .populate({
+  //     path:'author',
+  //     select:'name',
+  //     options:{limit:1}
+  //   })
+  //   .exec(function (err, article) {
+  //   if(err){
+  //     return next(err);
+  //   }
+  //   res.json(article);
+  //   res.end();
+  // });
+
+    async.waterfall([
+      function (cb) {
+        Article
+          .findById(_id)
+          .populate({
+            path:'cate',
+            select:'name',
+            options:{limit:1}
+          })
+          .populate({
+            path:'author',
+            select:'name',
+            options:{limit:1}
+          })
+          .exec(cb);
+      },
+      function( article, cb) {
+        var converter = new showdown.Converter({extensions: [extensionTable]});
+        singleArticle = article;
+        if(article.type === 'md') {
+           singleArticle.content = converter.makeHtml(article.content);
+        } else {
+          singleArticle.content = article.content;
+        }
+
+        cb();
+      }
+      ], function (err) {
+          if(err){
+            return next(err);
+          }
+          
+          res.json(singleArticle);
+          res.end();
+      });
 };
 
 // 分类文章
