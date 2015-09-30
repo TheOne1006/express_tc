@@ -583,6 +583,16 @@ angular.module('theoneApp')
         $scope.cates = data;
       });
 
+    // ui-codemiror
+    $scope.editorOptions = {
+      lineWrapping : true,
+      lineNumbers: true,
+      matchBrackets: true,
+      // mode: 'markdown',
+      mode: 'gfm',
+      theme:'base16-light'
+    };
+
     // 提交表单
     $scope.ok = function () {
 
@@ -640,6 +650,16 @@ angular.module('theoneApp')
 
       //编辑器
       $scope.tinymceOptions = tinymceService.options;
+
+      // ui-codemiror
+      $scope.editorOptions = {
+        lineWrapping : true,
+        lineNumbers: true,
+        matchBrackets: true,
+        // mode: 'markdown',
+        mode: 'gfm',
+        theme:'base16-light'
+      };
 
 
       // 提交表单

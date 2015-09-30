@@ -52,7 +52,7 @@
 
                      <!-- 临时格式 -->
                      <div class="form-group"  ng-show="newArticle.type == 'md'">
-                      <textarea ng-model="newArticle.contentMd" rows="20" cols='100' ></textarea>
+                      <textarea ng-model="newArticle.contentMd" ui-codemirror ui-codemirror-opts="editorOptions" ></textarea>
                      </div>
 
                      <button type="submit" class="btn btn-primary" ng-click='ok()' >保存</button>

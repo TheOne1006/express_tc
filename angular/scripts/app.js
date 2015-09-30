@@ -21,6 +21,7 @@ ngApp = angular
     'ngGrid', //加载 grid 需要加载ngGrid
     'ui.bootstrap',
     'ui.tinymce',
+    'ui.codemirror',
     'ngTagsInput',
     'ngSanitize',
     'ngTouch',
