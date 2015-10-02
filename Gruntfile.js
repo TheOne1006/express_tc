@@ -95,7 +95,8 @@ module.exports = function (grunt) {
         'public/components/headroom.js/dist/angular.headroom.js',
         'public/components/angular-file-upload/angular-file-upload.js',
         'public/components/codemirror/lib/codemirror.js',
-        'public/components/angular-ui-codemirror/ui-codemirror.js'
+        'public/components/angular-ui-codemirror/ui-codemirror.js',
+        'public/components/codemirror/lib/codemirror.css'
         ],
         ignorePath:  /(\.\.\/){3}public/
       },

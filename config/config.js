@@ -17,7 +17,12 @@ var config = {
      * 爱尔兰 db
      * 
      */
-    // db:'mongodb://root:root@ds039251.mongolab.com:39251/eu-lab-blog',
+    // db: 'mongodb://root:root@ds039251.mongolab.com:39251/eu-lab-blog',
+    /**
+     * dbest 2
+     */
+    // db: 'mongodb://root:root@ds055872.mongolab.com:55872/eu-west-theblog',
+    
     debug : true
   },
 

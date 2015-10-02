@@ -93,3 +93,9 @@ _配套版本_:
 "showdown": "1.0.x",
 "showdown-table": "^1.0.1"
 ```
+
+
+#### 2015.10.02 mongoose
+因`mongolab` 强制更新 `mongo` 版本至 3.0,
+导致 `mongoose~3.8.20`无法使用,
+因此更新 `mongoose~3.8.35`
