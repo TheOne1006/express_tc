@@ -100,7 +100,7 @@ exports.verify = {
 */
           ],function (err, result) {
           if(err){
-            console.log(err);
+            res.json({is_login:false});
             return next(err);
           }
           res.json(result);
