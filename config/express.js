@@ -44,25 +44,20 @@ module.exports = function(app, config) {
   // 判断reffer,执行重定向 (是否可以移动到 /app/routes/routerHome.js ?)
   app.use(function(req, res, next){
     var urlArr = req.url.split('/'),
-    needRedirect = false,
-    refererUrl = req.headers.referer || req.headers.referrer;
+    argUrlPart = urlArr[1] || '',
+    needRedirect = false;
 
-    if(refererUrl) {
-      // 未找到对应hostname
-      if ( refererUrl.indexOf(config.app.hostname || 'localhost') < 0 ) {
-        console.log('need redirect');
-        needRedirect = true;
-      }
+    if(argUrlPart === 'article' || argUrlPart === 'cate' || argUrlPart === 'search') {
+      needRedirect = true;
     }
 
-    if(!refererUrl || needRedirect) {
 
-      if(urlArr[1] === 'article' || urlArr[1] === 'search' || urlArr[1] === 'cate' ) {
+    if(needRedirect) {
         console.log('log-- redierct');
         res.redirect('/#'+req.url);
         return;
-      }
     }
+
     next();
   });
 

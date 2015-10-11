@@ -18,7 +18,7 @@ angular.module('theOneBlog')
       // 声明延后执行，表示要去监控后面的执行 
       var deferred = $q.defer(); 
 
-      $http.get('/search/'+searchWord)
+      $http.get('/h/search/'+searchWord)
                 .success(function (data) {
 
                   //声明执行成功，即http请求数据成功，可以返回数据了
@@ -72,7 +72,7 @@ angular.module('theOneBlog')
       // 声明延后执行，表示要去监控后面的执行 
       var deferred = $q.defer(); 
 
-       $http.get('/article/cate/'+cate+'/'+page)
+       $http.get('/h/article/cate/'+cate+'/'+page)
                  .success(function (data) {
 
                    //声明执行成功，即http请求数据成功，可以返回数据了
@@ -135,7 +135,7 @@ angular.module('theOneBlog')
       // 声明延后执行，表示要去监控后面的执行 
       var deferred = $q.defer(); 
 
-       $http.get('/article/total/cate/'+cate)
+       $http.get('/h/article/total/cate/'+cate)
                  .success(function (data) {
 
                    //声明执行成功，即http请求数据成功，可以返回数据了
@@ -260,7 +260,7 @@ angular.module('theOneBlog')
           // resolve: 解决器
           resolve:{
             article: ['$stateParams', '$http', function ($stateParams, $http) {
-              return $http.get('/article/id/'+$stateParams.id)
+              return $http.get('/h/article/id/'+$stateParams.id)
                 .success(function (data) {
                   return data;
                 });

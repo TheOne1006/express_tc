@@ -19,12 +19,12 @@ module.exports = function (app) {
   app.get('/home/cate/index', homeCtrl.cateList);
 
   // 文章列表
-  app.get('/article/list', articleCtrl.list);
-  app.get('/article/id/:id', articleCtrl.getById);
-  app.get('/article/cate/:alias/:page', articleCtrl.getListByCate );
-  app.get('/article/total/cate/:alias', articleCtrl.getCountByCate );
+  // app.get('/h/article/list', articleCtrl.list);
+  app.get('/h/article/id/:id', articleCtrl.getById);
+  app.get('/h/article/cate/:alias/:page', articleCtrl.getListByCate );
+  app.get('/h/article/total/cate/:alias', articleCtrl.getCountByCate );
 
-  app.get('/search/:searchWord', searchCtrl.goAngthing);
+  app.get('/h/search/:searchWord', searchCtrl.goAngthing);
 
   // 首页carouselCtrl
   app.get('/carousel/index/list', carouselCtrl.Indexlist);
