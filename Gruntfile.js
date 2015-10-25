@@ -335,6 +335,7 @@ module.exports = function (grunt) {
     uglify:{
       options: {
         sourceMap:false,
+        preserveComments:false
       }
     },
     // Performs rewrites based on filerev and the useminPrepare configuration
