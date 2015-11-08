@@ -13,10 +13,10 @@ angular.module('theOneBlog')
   .factory('dataSave', ['$http', '$q', function ($http, $q) {
 
     // angular 延迟对象
-    
+
     function articleSearch (searchWord) {
-      // 声明延后执行，表示要去监控后面的执行 
-      var deferred = $q.defer(); 
+      // 声明延后执行，表示要去监控后面的执行
+      var deferred = $q.defer();
 
       $http.get('/h/search/'+searchWord)
                 .success(function (data) {
@@ -26,8 +26,8 @@ angular.module('theOneBlog')
                 })
                 .error(function (data) {
 
-                  //声明执行失败，即服务器返回错误 
-                  deferred.reject(data);   
+                  //声明执行失败，即服务器返回错误
+                  deferred.reject(data);
                 });
 
       // 返回承诺，这里并不是最终数据，而是访问最终数据的API
@@ -42,7 +42,7 @@ angular.module('theOneBlog')
       if(!angular.isArray(resultArr)) {
         return CateArr;
       }
-      
+
       angular.forEach(resultArr, function (item) {
         if(item.cate && item.cate._id) {
 
@@ -59,7 +59,7 @@ angular.module('theOneBlog')
 
         }
       });
-      
+
       return CateArr;
     }
 
@@ -69,8 +69,8 @@ angular.module('theOneBlog')
       if(!page || isNaN(page)) {
         page = 1;
       }
-      // 声明延后执行，表示要去监控后面的执行 
-      var deferred = $q.defer(); 
+      // 声明延后执行，表示要去监控后面的执行
+      var deferred = $q.defer();
 
        $http.get('/h/article/cate/'+cate+'/'+page)
                  .success(function (data) {
@@ -80,8 +80,8 @@ angular.module('theOneBlog')
                  })
                  .error(function (data) {
 
-                   //声明执行失败，即服务器返回错误 
-                   deferred.reject(data);   
+                   //声明执行失败，即服务器返回错误
+                   deferred.reject(data);
                  });
 
        // 返回承诺，这里并不是最终数据，而是访问最终数据的API
@@ -89,8 +89,8 @@ angular.module('theOneBlog')
     }
 
     function getHomeList () {
-      // 声明延后执行，表示要去监控后面的执行 
-      var deferred = $q.defer(); 
+      // 声明延后执行，表示要去监控后面的执行
+      var deferred = $q.defer();
 
        $http.get('/home/index/list')
                  .success(function (data) {
@@ -100,8 +100,8 @@ angular.module('theOneBlog')
                  })
                  .error(function (data) {
 
-                   //声明执行失败，即服务器返回错误 
-                   deferred.reject(data);   
+                   //声明执行失败，即服务器返回错误
+                   deferred.reject(data);
                  });
 
        // 返回承诺，这里并不是最终数据，而是访问最终数据的API
@@ -111,7 +111,7 @@ angular.module('theOneBlog')
     //获取类别列表
     function getIndexCates () {
 
-      var deferred = $q.defer(); 
+      var deferred = $q.defer();
       $http.get('/home/cate/index')
                 .success(function (data) {
 
@@ -120,8 +120,8 @@ angular.module('theOneBlog')
                 })
                 .error(function (data) {
 
-                  //声明执行失败，即服务器返回错误 
-                  deferred.reject(data);   
+                  //声明执行失败，即服务器返回错误
+                  deferred.reject(data);
                 });
 
       // 返回承诺，这里并不是最终数据，而是访问最终数据的API
@@ -132,8 +132,8 @@ angular.module('theOneBlog')
     // 获取 分类带总数量
     function getArticleTotalNum (cate) {
 
-      // 声明延后执行，表示要去监控后面的执行 
-      var deferred = $q.defer(); 
+      // 声明延后执行，表示要去监控后面的执行
+      var deferred = $q.defer();
 
        $http.get('/h/article/total/cate/'+cate)
                  .success(function (data) {
@@ -143,8 +143,8 @@ angular.module('theOneBlog')
                  })
                  .error(function (data) {
 
-                   //声明执行失败，即服务器返回错误 
-                   deferred.reject(data);   
+                   //声明执行失败，即服务器返回错误
+                   deferred.reject(data);
                  });
 
        // 返回承诺，这里并不是最终数据，而是访问最终数据的API
@@ -171,6 +171,36 @@ angular.module('theOneBlog')
       getArticleTotalNum: function(cate) {
         return getArticleTotalNum(cate);
       }
+    };
+  }])
+  /**
+   * header 信息变更
+   * 处理 header 信息
+   */
+  .factory('headerMes', [function () {
+    var titleDomObj = angular.element('title'),
+    initTitleText = titleDomObj.text();
+
+    /**
+     * @param  {[string]} str ''&非字符串还原initTitleText
+     */
+    function changeTitlePrivate (str) {
+      var nowTitleText;
+
+      // 满足更改
+      if(str !== '' && angular.isString(str) && (str !== initTitleText)) {
+        titleDomObj.text(str);
+      }else{
+        nowTitleText = titleDomObj.text();
+        if(nowTitleText !== initTitleText) {
+          titleDomObj.text(initTitleText);
+        }
+      }
+      return true;
+    }
+
+    return {
+      changeTitle: changeTitlePrivate
     };
   }])
   .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlRouterProvider ,$locationProvider) {
@@ -236,6 +266,9 @@ angular.module('theOneBlog')
               return dataSave
                       .getArticleTotalNum($stateParams.cate);
 
+            }],
+            headmes: ['headerMes', function (headerMes) {
+              headerMes.changeTitle();
             }]
           }
         })
@@ -296,6 +329,9 @@ angular.module('theOneBlog')
             resultCase:['result', 'dataSave', function (result, dataSave) {
               var resultCateArr = dataSave.getCates(result);
               return resultCateArr;
+            }],
+            headmes: ['headerMes', function (headerMes) {
+              headerMes.changeTitle();
             }]
           }
         })

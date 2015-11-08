@@ -2,6 +2,8 @@ var path = require('path'),
     rootPath = path.normalize(__dirname + '/..'),
     env = process.env.NODE_ENV || 'development';
 
+require('dotenv').load();
+
 var config = {
   development: {
     root: rootPath,
@@ -12,17 +14,17 @@ var config = {
     /**
      * 监听12345端口  1 first
      */
-    db: 'mongodb://root:root@ds033601.mongolab.com:33601/theblog',
+    db: process.env.DEV_MONGO_DB_1,
     /**
      * 爱尔兰 db
-     * 
+     *
      */
-    // db: 'mongodb://root:root@ds039251.mongolab.com:39251/eu-lab-blog',
+    // db: process.env.DEV_MONGO_DB_2,
     /**
      * dbest 2
      */
-    // db: 'mongodb://root:root@ds055872.mongolab.com:55872/eu-west-theblog',
-    
+    // db: process.env.DEV_MONGO_DB_3,
+
     debug : true
   },
 
@@ -39,11 +41,11 @@ var config = {
   production: {
     root: rootPath,
     app: {
-      name: 'theOneBlog',
-      hostname: 'www.theone.io'
+      name: process.env.PRO_NAME,
+      hostname: process.env.PRO_HOSTNAME
     },
     port: 3000,
-    db: 'mongodb://theone:theone12138@localhost:12345/theblog',
+    db: process.env.PRO_MONGO_DB,
     debug : false
   }
 };

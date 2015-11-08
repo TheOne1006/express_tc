@@ -109,7 +109,6 @@ module.exports = function(app, config) {
       return reutrnDest || initDest;
     }
   }));
-  
     // session
   app.use(session({
        secret: 'theone12138',
@@ -120,9 +119,9 @@ module.exports = function(app, config) {
        rolling: true,
        saveUninitialized:true,
        resave: true,
-        store: new MongoStore({  
+        store: new MongoStore({
           url : config.db
-        }) 
+        })
   }));
 
   // 加载所有 controllers
@@ -139,7 +138,7 @@ module.exports = function(app, config) {
     err.status = 404;
     next(err);
   });
-  
+
   if(app.get('env') === 'development'){
     mongoose.set('debug', config.debug);
     app.use(function (err, req, res, next) {

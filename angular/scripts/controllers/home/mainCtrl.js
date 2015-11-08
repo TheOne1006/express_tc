@@ -95,6 +95,8 @@ angular.module('theOneBlog')
       keyWord:''
     };
 
+    var initTitle ='';
+
     //搜索 ,更换location.path
     $scope.goSearch = function () {
       if(!$scope.search.keyWord){
@@ -142,7 +144,7 @@ angular.module('theOneBlog')
         $scope.addSlide();
       }
     }
-      
+
     $scope.addSlide = function() {
       var width = 1200;
       slides.push({
@@ -154,15 +156,17 @@ angular.module('theOneBlog')
 
   }])
 // 文章列表
-.controller('ArticleCtrl', ['$scope', '$http', '$stateParams','$timeout', '$filter', '$templateCache', 'article', function($scope, $http, $stateParams, $timeout, $filter, $templateCache, article){
+.controller('ArticleCtrl', ['$scope', '$http', '$stateParams','$timeout', '$filter', '$templateCache', 'headerMes','article', function($scope, $http, $stateParams, $timeout, $filter, $templateCache, headerMes, article){
 
   // filter
   article.data.updateTime = $filter('date')(article.data.updateTime,'yyyy-MM-dd');
 
   $templateCache.put('article.content.html',article.data.content);
-  
+
   $scope.article = article.data;
-  
+
+  // 通知改变 title
+  headerMes.changeTitle(article.data.title);
 
   $scope.$watch('article.content', function () {
     $timeout(function () {
@@ -171,7 +175,7 @@ angular.module('theOneBlog')
   });
 
   $scope.pageClass ='article';
-  
+
 }])
 // 搜索
 .controller('SearchCtrl', ['$scope', '$timeout', '$filter', 'result', 'searchWord', 'resultCase', function($scope, $timeout, $filter, result, searchWord, resultCase){
@@ -180,7 +184,7 @@ angular.module('theOneBlog')
 
   // 搜索关键词
   $scope.search.keyWord = searchWord;
-  
+
   // 搜索结果列表
   $scope.search.resultList = result;
 
@@ -230,7 +234,7 @@ angular.module('theOneBlog')
     };
 
     $scope.articleList = $filter('ArticlesByCateWordLimit')(articlesByCate.articleList);
-    
+
     $scope.cate = articlesByCate.alias;
 
 
