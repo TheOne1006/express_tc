@@ -53,6 +53,12 @@
       animation-delay: 0.5s;
  }
 
+ // 文章详情的 pre
+ article pre {
+  background-color: #fff;
+  border: none;
+ }
+
 // 最小屏幕
  @media screen and (max-width: $screen-sm-max) {
   .svg-banner {

@@ -112,3 +112,9 @@ _配套版本_:
 1. 取消js注释
 
 #### 2015.11.08 title 替换,使用 docenv
+
+#### 2015.11.15 引入 mermaid 绘制简单流程图
+1. 引入 mermaid
+2. 引入 angular-mermaid
+3. 取消 article pre boerder bg-color
+

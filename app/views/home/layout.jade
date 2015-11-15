@@ -20,6 +20,8 @@ html(lang='zh-CN',ng-app='theOneBlog')
       //- bower:css
       link(rel='stylesheet', href='/components/google-code-prettify/bin/prettify.min.css')
       //- endbower
+      //- str2flow
+      link(rel='stylesheet', href='components/mermaid/dist/mermaid.forest.css')
       //--<!--endbuild-->
 
 
@@ -50,6 +52,7 @@ html(lang='zh-CN',ng-app='theOneBlog')
       script(src='/components/google-code-prettify/bin/prettify.min.js')
       script(src='/components/vivus/dist/vivus.js')
       //- endbower
+      script(src='/components/mermaid/dist/mermaid.min.js')
       //-<!--endbuild-->
 
     body(ng-controller='MainCtrl',ui-view='main',ng-class='{"no-scroll":view.scrollLeft}')

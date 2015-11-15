@@ -73,7 +73,9 @@ module.exports = function (grunt) {
         'public/components/google-code-prettify/bin/prettify.min.js',
         'public/components/angular-carousel/dist/angular-carousel.js',
         'public/components/tinymce/tinymce.min.js',
-        'public/components/vivus/dist/vivus.js'
+        'public/components/vivus/dist/vivus.js',
+        'public/components/mermaid/dist/mermaid.slim.js',
+        'public/components/angular-mermaid/dist/angular-mermaid.js'
         ],
         ignorePath:  /(\.\.\/){3}public/
       },
@@ -96,7 +98,9 @@ module.exports = function (grunt) {
         'public/components/angular-file-upload/angular-file-upload.js',
         'public/components/codemirror/lib/codemirror.js',
         'public/components/angular-ui-codemirror/ui-codemirror.js',
-        'public/components/codemirror/lib/codemirror.css'
+        'public/components/codemirror/lib/codemirror.css',
+        'public/components/mermaid/dist/mermaid.slim.js',
+        'public/components/angular-mermaid/dist/angular-mermaid.js'
         ],
         ignorePath:  /(\.\.\/){3}public/
       },
@@ -270,13 +274,13 @@ module.exports = function (grunt) {
         //   cwd: '<%= appCon.homeCss %>',
         //   dest: '<%= appCon.dist %>/<%= appCon.homeCss %>',
         //   src: '*.css'
-        // }, 
+        // },
         // {
         //   expand: true,
         //   cwd: '<%= appCon.adminCss %>',
         //   dest: '<%= appCon.dist %>/<%= appCon.adminCss %>',
         //   src: '*.css'
-        // }, 
+        // },
         {
           expand: true,
           cwd: '.',
@@ -321,7 +325,7 @@ module.exports = function (grunt) {
         ]
       }
     },
-    
+
     // concat:{
     //   options:{
     //     separator:';'

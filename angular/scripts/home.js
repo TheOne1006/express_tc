@@ -21,7 +21,8 @@ ngApp = angular
     'ngSanitize',
     'ngTouch',
     'mgcrea.ngStrap', // 类似ui.bootstrap
-    'angular-carousel'//拖拽banner
+    'angular-carousel',//拖拽banner
+    'angularMermaid' // str2flow
   ])
   // angular.theOneBlog 全局变量
   .factory('browserHelp', ['$window', function ($window) {
@@ -29,12 +30,12 @@ ngApp = angular
       mobileScreenMaxWidth = 768;
 
       var defultContentWidth = 180;
-  
+
       return {
         isMobile: initWidth < mobileScreenMaxWidth,
         defultContentWidth: defultContentWidth
       };
-      
+
   }])
 
   ;
