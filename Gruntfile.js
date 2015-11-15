@@ -99,8 +99,7 @@ module.exports = function (grunt) {
         'public/components/codemirror/lib/codemirror.js',
         'public/components/angular-ui-codemirror/ui-codemirror.js',
         'public/components/codemirror/lib/codemirror.css',
-        'public/components/mermaid/dist/mermaid.slim.js',
-        'public/components/angular-mermaid/dist/angular-mermaid.js'
+        'public/components/mermaid/dist/mermaid.slim.js'
         ],
         ignorePath:  /(\.\.\/){3}public/
       },
