@@ -211,6 +211,9 @@ module.exports = function (grunt) {
       }
     },
 
+    /**
+     * 暂不适用,与vivus 冲突去除了自定义属性设置
+     */
     svgmin: {
       dist: {
         files: [{
@@ -257,6 +260,14 @@ module.exports = function (grunt) {
             // 'scripts/{,*/**/}*.js',
             'views/{,*/**/}*.html'
           ]
+        }]
+      },
+      svgs: {
+        files: [{
+          expand: true,
+          cwd: 'public/svg',
+          src: '{,*/}*.svg',
+          dest: '<%= appCon.dist %>/public/svg'
         }]
       },
       styles: {
@@ -371,8 +382,8 @@ module.exports = function (grunt) {
     concurrent: {
       dist: [
         'sass',
-        'imagemin',
-        'svgmin'
+        'imagemin'
+        // 'svgmin'
       ]
     },
     // md5 文件

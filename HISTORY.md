@@ -126,6 +126,7 @@ _配套版本_:
 4. 取消侧滑,改为 bootstrap 下拉菜单
 5. header 不自动缩放
 6. "theOne.io" 文字
+  - grunt task svgmin 与 vivus 的自定属性冲突
 
 7. 'search input' 多余
 
