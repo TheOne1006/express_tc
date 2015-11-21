@@ -96,14 +96,14 @@ _配套版本_:
 
 
 #### 2015.10.02 mongoose
-因`mongolab` 强制更新 `mongo` 版本至 3.0,
-导致 `mongoose~3.8.20`无法使用,
-因此更新 `mongoose~3.8.35`
+因`mongolab` 强制更新 `mongo` 版本至 3.0,  
+导致 `mongoose~3.8.20`无法使用,  
+因此更新 `mongoose~3.8.35`  
 
 
 #### 2015.10.11 更新链接
 ``
-修改所有前台的ajax 真是请求地址，
+修改所有前台的ajax 真是请求地址,
 后台判断来自这些地址时全部跳转
 '/h/*'为 ajax请求
 ``
@@ -117,4 +117,19 @@ _配套版本_:
 1. 引入 mermaid
 2. 引入 angular-mermaid
 3. 取消 article pre boerder bg-color
+
+#### 2015.11.20 前台将js 移动到header中
+
+1. 不会造成js 加载两次的问题
+2. 准备简化手机端的显示效果,以后会打造专门的 mobile 站点(left)
+3. 加载 view 完成后 回到顶部
+4. 取消侧滑,改为 bootstrap 下拉菜单
+5. header 不自动缩放
+6. "theOne.io" 文字
+
+7. 'search input' 多余
+
+
+
+
 

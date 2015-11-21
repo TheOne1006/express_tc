@@ -16,38 +16,38 @@ angular.module('theOneBlog')
    * Copyright (c) 2014 Nick Williams - http://wicky.nillia.ms/headroom.js
    * License: MIT
    */
-  .directive('headroom',['$window', 'browserHelp', function($window, browserHelp) {
-      var Headroom = $window.Headroom;
-      
-      if(browserHelp.isMobile){
+  // .directive('headroom',['$window', 'browserHelp', function($window, browserHelp) {
+  //     var Headroom = $window.Headroom;
 
-      return {
-        restrict: 'EA',
-        scope: {
-          tolerance: '=',
-          offset: '=',
-          classes: '=',
-          scroller: '='
-        },
-        link: function(scope, element) {
-          var options = {};
-          angular.forEach(Headroom.options, function(value, key) {
-            options[key] = scope[key] || Headroom.options[key];
-          });
-          if (options.scroller) {
-            options.scroller = angular.element(options.scroller)[0];
-          }
-          var headroom = new Headroom(element[0], options);
-          headroom.init();
-          scope.$on('destroy', function() {
-            headroom.destroy();
-          });
-        }
-      };
+  //     if(browserHelp.isMobile){
 
-      }
-      return {};
-    }])
+  //     return {
+  //       restrict: 'EA',
+  //       scope: {
+  //         tolerance: '=',
+  //         offset: '=',
+  //         classes: '=',
+  //         scroller: '='
+  //       },
+  //       link: function(scope, element) {
+  //         var options = {};
+  //         angular.forEach(Headroom.options, function(value, key) {
+  //           options[key] = scope[key] || Headroom.options[key];
+  //         });
+  //         if (options.scroller) {
+  //           options.scroller = angular.element(options.scroller)[0];
+  //         }
+  //         var headroom = new Headroom(element[0], options);
+  //         headroom.init();
+  //         scope.$on('destroy', function() {
+  //           headroom.destroy();
+  //         });
+  //       }
+  //     };
+
+  //     }
+  //     return {};
+  //   }])
     //ng-repeat end callback
     .directive('onFinishRender', function ($timeout) {
         return {
@@ -119,7 +119,7 @@ angular.module('theOneBlog')
                     var width = params.width || this.width / this.height * params.height;
                     var height = params.height || this.height / this.width * params.width;
                     canvas.attr({ width: width, height: height });
-                    if(iscanvas){ 
+                    if(iscanvas){
                       canvas[0].getContext('2d').drawImage(this, 0, 0, width, height);
                     }else{
                       canvas.attr({src:angular.element(this).attr('src')});
@@ -136,8 +136,8 @@ angular.module('theOneBlog')
 
         // Get the function provided in the file-change attribute.
         // Note the attribute has become an angular expression,
-        // which is what we are parsing. The provided handler is 
-        // wrapped up in an outer function (attrHandler) - we'll 
+        // which is what we are parsing. The provided handler is
+        // wrapped up in an outer function (attrHandler) - we'll
         // call the provided event handler inside the handler()
         // function below.
         var attrHandler = $parse(attrs["fileChange"]);
@@ -155,7 +155,7 @@ angular.module('theOneBlog')
           });
         };
 
-        // Attach the handler to the HTML change event 
+        // Attach the handler to the HTML change event
         element[0].addEventListener('change', handler, false);
       }
     };

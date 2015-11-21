@@ -64,10 +64,6 @@ module.exports = function (grunt) {
         src: ['<%= appCon.adminTemp %>/*.jade'],
         exclude:[
         'public/components/bootstrap-sass-official/assets/javascripts/bootstrap.js',
-        'public//components/headroom.js/dist/headroom.js',
-        'public/components/headroom.js/dist/jQuery.headroom.js',
-        'public/components/headroom.js/dist/angular.headroom.js',
-        'public/components/headroom.js/dist/headroom.js',
         'public/components/angular-strap/dist/angular-strap.js',
         'public/components/angular-strap/dist/angular-strap.tpl.js',
         'public/components/google-code-prettify/bin/prettify.min.js',
@@ -92,9 +88,6 @@ module.exports = function (grunt) {
         'public/components/angular-route/angular-route.js',
         'public/components/ng-grid/ng-grid.css',
         'public/components/angular-carousel/dist/angular-carousel.css',
-        // 多余的 headroom
-        'public/components/headroom.js/dist/jQuery.headroom.js',
-        'public/components/headroom.js/dist/angular.headroom.js',
         'public/components/angular-file-upload/angular-file-upload.js',
         'public/components/codemirror/lib/codemirror.js',
         'public/components/angular-ui-codemirror/ui-codemirror.js',

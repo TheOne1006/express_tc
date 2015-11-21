@@ -89,28 +89,10 @@ a:focus,nav .btn:focus,nav .btn:active:focus{
   animation-name: searchInputLong;
 }
 
-/** 中间Context滑动 css3 **/
-@media screen and (max-width: $screen-xs-max) {
-  .translate-side {
-    transition: all .25s ease-out;
-  }
-  #middelContext.scroll-left {
-    transform : translate( -200px, 0px);
-  }
-
-  #middelContext.scroll-left > header.navbar-fixed-top {
-    transform: translate(0px, 0px);
-  }
-}
-
 
 /* INDEX
 -------------------------------------------------- */
 @import "./index.scss";
-
-/* Mobile
--------------------------------------------------- */
-@import "./mobile.scss";
 
 /* Scrollspy
 -------------------------------------------------- */
@@ -142,6 +124,10 @@ a:focus,nav .btn:focus,nav .btn:active:focus{
   .cate-list {
     height:280px;
   }
+}
+
+.cate-list .text {
+  word-break: break-all;
 }
 
 

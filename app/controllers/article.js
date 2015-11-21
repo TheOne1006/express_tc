@@ -80,7 +80,7 @@ exports.getById = function (req, res, next) {
           if(err){
             return next(err);
           }
-          
+
           res.json(singleArticle);
           res.end();
       });
@@ -123,10 +123,17 @@ exports.getListByCate = function (req, res, next) {
 exports.getCountByCate = function( req, res, next ){
   var cateAlias = req.params.alias;
 
+  // filter
+
+  // get data
   async.waterfall([
     function ( cb ) {
       Cate.findByAlias(cateAlias, cb);
     }, function ( targetCate, cb ) {
+
+      if(!targetCate ||  !targetCate._id) {
+        return next('err');
+      }
 
       Article
         .where({cate:targetCate._id})

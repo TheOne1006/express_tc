@@ -203,19 +203,35 @@ angular.module('theOneBlog')
       changeTitle: changeTitlePrivate
     };
   }])
+  .run(['$rootScope', 'headerMes', function ($rootScope, headerMes) {
+
+    //当模板解析完成后触发
+    $rootScope.$on('$stateChangeSuccess',function (event, toState,toParam) {
+      // 返回到首页 title 修改
+      var url = toParam && toState.url || '/';
+      if(url === '/'){
+        headerMes.changeTitle();
+      }
+
+      // 解析完成后触发 回到顶部
+      angular.element('body').animate({ scrollTop: 0});
+
+    });
+
+  } ])
   .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlRouterProvider ,$locationProvider) {
       $locationProvider.html5Mode({
         enabled: true,
         requireBase: false
       });
-      $urlRouterProvider.otherwise('/');
 
       $stateProvider
         .state('main',{
           url:'/',
           views:{
             'header':{
-              templateUrl: '/angular/views/home/header.html'
+              templateUrl: '/angular/views/home/header.html',
+              controller: 'headerCtrl'
             },
             'banner':{
               templateUrl: '/angular/views/home/banner.html'
@@ -227,9 +243,6 @@ angular.module('theOneBlog')
             'affix@main':{
               templateUrl: '/angular/views/home/affix.html',
               controller: 'MainAffixCtrl'
-            },
-            'mobileRight':{
-              templateUrl: '/angular/views/home/mobile/right.html'
             }
           },
           // resolve: index
@@ -334,6 +347,8 @@ angular.module('theOneBlog')
               headerMes.changeTitle();
             }]
           }
-        })
-        ;
+        });
+
+      // 不知道名连接跳转
+      $urlRouterProvider.otherwise('/');
   }]);

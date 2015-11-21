@@ -86,16 +86,19 @@ angular.module('theOneBlog')
     };
   }])
   .controller('MainCtrl',['$scope', '$location', function ($scope, $location) {
-    // VIEW 展现
-    $scope.view = {
-      scrollLeft : false
-    };
     // search 信息
     $scope.search = {
       keyWord:''
     };
 
-    var initTitle ='';
+    // headerView
+    $scope.headerView = {
+      isCollapsed:false
+    };
+
+    $scope.changeCollapsed = function () {
+      $scope.headerView.isCollapsed = !$scope.headerView.isCollapsed;
+    };
 
     //搜索 ,更换location.path
     $scope.goSearch = function () {
@@ -104,11 +107,6 @@ angular.module('theOneBlog')
       }
       $location.path('/search/'+$scope.search.keyWord);
     };
-
-    $scope.trunCollapsed = function () {
-      $scope.view.scrollLeft = !$scope.view.scrollLeft;
-    };
-
 
   }])
   // 首页文章Ctrl
@@ -129,7 +127,7 @@ angular.module('theOneBlog')
     dataServer.getIndexCarousel()
       .then(function (data) {
         if(data.length){
-          console.log(data);
+          // console.log(data);
           $scope.slides = data;
         }
         else{
@@ -155,6 +153,11 @@ angular.module('theOneBlog')
     //test end
 
   }])
+.controller('headerCtrl', ['$scope', 'indexList', 'cateList', function ($scope, indexList, cateList) {
+    $scope.cateList = cateList;
+    // console.log(cateList);
+
+}])
 // 文章列表
 .controller('ArticleCtrl', ['$scope', '$http', '$stateParams','$timeout', '$filter', '$templateCache', 'headerMes','article', function($scope, $http, $stateParams, $timeout, $filter, $templateCache, headerMes, article){
 
@@ -241,8 +244,9 @@ angular.module('theOneBlog')
 
 
   }])
-  .controller('articleBannerCtrl', ['$scope', function ($scope) {
-  var vivusTheOne = new Vivus('vivusTheOne', {type: 'scenario-sync', duration: 20, start: 'autostart', dashGap: 20, forceRender: false,file: '/public/svg/theoneIo.svg'});
+  .controller('articleBannerCtrl', ['$scope', '$window', function ($scope, $window) {
+  var Vivus = $window.Vivus;
+  var vivusTheOne = new Vivus('vivusTheOne', {type: 'scenario-sync', duration: '20', start: 'autostart', dashGap: '20', forceRender: false,file: '/public/svg/theoneIo.svg'});
 
   $scope.vireset = function(){
     vivusTheOne.reset().play();

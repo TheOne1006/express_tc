@@ -45,7 +45,6 @@ html(lang='zh-CN',ng-app='theOneBlog')
       script(src='/components/angular-touch/angular-touch.js')
       script(src='/components/angular-ui-router/release/angular-ui-router.js')
       script(src='/components/angular-bootstrap/ui-bootstrap-tpls.js')
-      script(src='/components/headroom.js/dist/headroom.js')
       script(src='/components/angular-strap/dist/angular-strap.js')
       script(src='/components/angular-strap/dist/angular-strap.tpl.js')
       script(src='/components/angular-carousel/dist/angular-carousel.js')
@@ -56,11 +55,18 @@ html(lang='zh-CN',ng-app='theOneBlog')
       script(src='/components/mermaid/dist/mermaid.min.js')
       //-<!--endbuild-->
 
-    body(ng-controller='MainCtrl',ui-view='main',ng-class='{"no-scroll":view.scrollLeft}')
-      header#header.navbar.navbar-default.navbar-fixed-top(ui-view='header',headroom,offset='201',classes="{pinned:'fadeInDownH',unpinned:'fadeOutUpH',initial:'animated'}",ng-class='{"header-activate":!view.scrollLeft,"fadeInDownH":view.scrollLeft}')
-      div#leftSider.translate-side
+      //- angular
+      //-<!-- build:js(.) #{env}/angular/scripts/home/ngTheone.js -->
+      script(src='/angular/scripts/home.js')
+      script(src='/angular/scripts/directive/myDirective.js')
+      script(src='/angular/scripts/filter/theoneBlogFilter.js')
+      script(src='/angular/scripts/route/homeRoute.js')
+      script(src='/angular/scripts/controllers/home/mainCtrl.js')
+      //-<!--endbuild-->
 
-      div#middelContext.translate-side(ng-class='{"scroll-left":view.scrollLeft}')
+    body(ng-controller='MainCtrl',ui-view='main')
+      header#header.navbar.navbar-default.navbar-fixed-top(ui-view='header')
+      div#middelContext
         block middelContext
 
 
@@ -75,15 +81,4 @@ html(lang='zh-CN',ng-app='theOneBlog')
                                 a(href='http://self.theone.io',title='个人简介') About me
                               p.text-right &copy; 2015 TheOne.io 版权所有 ICP证：闽ICP备14001334号-2
 
-      div#rightSider.affix.mobile-right(ng-class='{"mobile-right-scroll":view.scrollLeft}')
-        block rightSider
 
-    //- angular
-    block angular
-      //-<!-- build:js(.) #{env}/angular/scripts/home/ngTheone.js -->
-      script(src='/angular/scripts/home.js')
-      script(src='/angular/scripts/directive/myDirective.js')
-      script(src='/angular/scripts/filter/theoneBlogFilter.js')
-      script(src='/angular/scripts/route/homeRoute.js')
-      script(src='/angular/scripts/controllers/home/mainCtrl.js')
-      //-<!--endbuild-->

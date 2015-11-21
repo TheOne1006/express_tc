@@ -1,22 +1,19 @@
 <div class="navbar-inner padding-scroll-bar">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" ng-click="trunCollapsed()">
+            <button type="button" class="navbar-toggle" ng-click="changeCollapsed()">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand visible-xs" href="#/">TheOne Blog</a>
+            <a class="navbar-brand visible-xs"  ng-href="/">TheOne Blog</a>
         </div>
         <nav class="hidden-xs">
             <ul class="nav navbar-nav">
-                <a href="/" role="button" class="navbar-brand">
+                <a  ng-href="/" role="button" class="navbar-brand">
                     TheOne Blog
                 </a>
-                <li>
-                    <a href="#getting_started"><span class='glyphicon glyphicon-cog' aria-hidden="true"></span> 设置</a>
-                </li>
                 <li>
                     <form class="navbar-form navbar-left" role="search" ng-submit='goSearch()'>
                         <div class="form-group">
@@ -24,6 +21,17 @@
                         </div>
                         <button type="submit" class="btn btn-default">搜索</button>
                     </form>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- mobile show -->
+        <nav class="visible-xs" collapse="!headerView.isCollapsed" >
+            <ul class="nav navbar-nav">
+                <li><a href="http://self.theone.io" ng-click="headerView.isCollapsed = !headerView.isCollapsed" class="glyphicon glyphicon-user"> 个人简介</a></li>
+
+                <li ng-repeat="cate in ::cateList">
+                  <a href="/cate/{{cate.alias}}/" ng-click="changeCollapsed()" ng-bind="cate.name"></a>
                 </li>
             </ul>
         </nav>

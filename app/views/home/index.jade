@@ -7,7 +7,3 @@ block middelContext
   .middel-relative
     .container
       .main(class='{{pageClass}}',ng-class='{"useable-leave":useableLeave}',ui-view='bodyer')
-  div(ng-class='{overlay:view.scrollLeft}',ng-swipe-right='view.scrollLeft = false')
-
-block rightSider
-  div.visible-xs(ui-view='mobileRight')
