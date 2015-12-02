@@ -21,8 +21,6 @@ module.exports = function(app, config) {
   app.set('views', config.root + '/app/views');
   app.set('view engine', 'jade');
 
-  // app.use(favicon(config.root + '/public/img/favicon.ico'));
-  app.use(logger('dev'));
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({
     extended: true
@@ -33,6 +31,8 @@ module.exports = function(app, config) {
 
   // 开发模式下使用，生产环境下ngnix 配置
   if(app.get('env') === 'development'){
+    app.use(logger('dev'));
+    app.use(favicon(config.root + '/public/img/favicon.ico'));
     app.use(express.static(config.root + '/public'));
     app.use('/public',express.static(config.root + '/public'));
     app.use('/data',express.static(config.root + '/data'));

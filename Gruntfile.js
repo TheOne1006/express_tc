@@ -270,6 +270,15 @@ module.exports = function (grunt) {
           dest: '<%= appCon.dist %>/public/svg'
         }]
       },
+      // favicon.ico
+      imgs: {
+        files: [{
+          expand: true,
+          cwd: 'public/img',
+          src: '{,*/}*.*',
+          dest: '<%= appCon.dist %>/public/img'
+        }]
+      },
       styles: {
         files:[
         // {

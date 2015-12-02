@@ -24,6 +24,10 @@ ngApp = angular
     'angular-carousel',//拖拽banner
     'angularMermaid' // str2flow
   ])
+  .config(['$httpProvider',function ($httpProvider) {
+    // enable http caching
+    $httpProvider.defaults.cache = true;
+  }])
   // angular.theOneBlog 全局变量
   .factory('browserHelp', ['$window', function ($window) {
       var initWidth = $window.innerWidth,

@@ -128,7 +128,13 @@ _配套版本_:
 6. "theOne.io" 文字
   - grunt task svgmin 与 vivus 的自定属性冲突
 
-7. 'search input' 多余
+
+
+#### 2015.12.03 准备修改
+1. 取消无关紧要的双向数据绑定
+2. 'search input' 多余
+3. ico 图标
+4. http cache
 
 
 

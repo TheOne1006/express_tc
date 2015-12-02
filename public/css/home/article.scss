@@ -1,18 +1,18 @@
 /**
  * article 切入
  */
- .middel-relative {
+.middel-relative {
   position: relative;
- }
+}
 
- .article.ng-leave {
-   position: absolute;
-   top:0;
-   width: 100%;
+.article.ng-leave {
+  position: absolute!important;
+  top:0;
+  width: 100%;
   animation-name: slideOutLeft;
   animation-duration: 1s;
-  // animation-fill-mode: both;
- }
+  animation-fill-mode: both;
+}
  // - 取消 article -> main 的动画
 //  .article.ng-leave {
 //   animation:none;
@@ -22,7 +22,7 @@
  .article.ng-enter {
   animation-name: slideInRight;
   animation-duration: 1s;
-  // animation-fill-mode: both;
+  animation-fill-mode: both;
  }
 
  .article-banner {

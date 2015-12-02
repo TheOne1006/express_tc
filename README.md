@@ -32,6 +32,10 @@ $ node app
 计划任务清空 `/data/tmp/`
 
 
+### 优化配置
+
+开启$http cache
+
 
 ## 未来计划
 1. sphinx 搜索
