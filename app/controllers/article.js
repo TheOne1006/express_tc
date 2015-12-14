@@ -151,3 +151,78 @@ exports.getCountByCate = function( req, res, next ){
 
 
 };
+
+
+/**
+ * 获取分类文章根据cateId
+ */
+exports.getArticlesByCateId = function (req, res, next) {
+  var cateId = req.params.cateId,
+  curPage = req.query.page || 1,
+  limit = req.query.limit || 12,
+  skipNum = (curPage - 1) * limit,
+  result = [];
+
+  async.waterfall([
+    function (cb) {
+
+      Article
+        .find()
+        .where({cate:cateId})
+        .skip(skipNum)
+        .limit(limit)
+        .exec(cb);
+
+    }],function (err, articles) {
+      result = articles;
+
+      if(err) {
+        return next(err);
+      }
+      res.json(result);
+      res.end();
+
+    });
+};
+
+/**
+ * 根据文章id获取文章信息
+ */
+exports.getArticleById = function (req, res, next) {
+  var _id = req.params.articleId,
+    singleArticle;
+
+    async.waterfall([
+      function (cb) {
+        Article
+          .findById(_id)
+          .exec(cb);
+      },
+      function (article, cb) {
+        if(!article){
+          cb({err:'no result'});
+        } else {
+          cb(null, article);
+        }
+
+      },
+      function(article, cb) {
+
+        var converter = new showdown.Converter({extensions: [extensionTable]});
+        singleArticle = article;
+        if(article.type && article.type === 'md') {
+           singleArticle.content = converter.makeHtml(article.content);
+        } else {
+          singleArticle.content = article.content;
+        }
+
+        cb();
+      }], function (err) {
+          if(err){
+            return next(err);
+          }
+
+          res.json(singleArticle);
+          res.end();
+      });
+};

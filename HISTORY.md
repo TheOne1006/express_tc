@@ -136,6 +136,9 @@ _配套版本_:
 3. ico 图标
 4. http cache
 
+#### 2015.12.13 部分RESTful
+1. 提供`/api/*` 为api服务
+2. 部分RESTful化
 
 
 

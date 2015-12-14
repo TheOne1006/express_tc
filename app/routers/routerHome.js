@@ -28,4 +28,12 @@ module.exports = function (app) {
 
   // 首页carouselCtrl
   app.get('/carousel/index/list', carouselCtrl.Indexlist);
+
+  /**
+   * api restful
+   */
+  app.get('/api/articles/:cateId', articleCtrl.getArticlesByCateId);
+  app.get('/api/article/:articleId',articleCtrl.getArticleById);
+
+  app.get('/api/carousels', carouselCtrl.getList);
 };
