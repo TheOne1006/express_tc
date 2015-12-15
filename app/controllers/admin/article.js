@@ -76,7 +76,7 @@ exports.add = function (req, res ,next) {
             return next(err);
           }
           cb(null, article._id);
-        });    
+        });
       },
       function (articleId, cb) {
         Tag.articlePushTag(newArticle.keyWords, articleId, cb);
@@ -129,7 +129,7 @@ exports.edit = function (req, res, next) {
         // 清除多余tag doc
       },function (cb) {
         Tag.removeCountZero(cb);
-        
+
         // 更新自己
       },function (cb) {
         // save update  外 ref 只要 string 就可以
@@ -217,3 +217,8 @@ exports.getByCate = function (req, res, next) {
       res.end();
     });
 };
+
+
+/**
+ * 添加图片
+ */

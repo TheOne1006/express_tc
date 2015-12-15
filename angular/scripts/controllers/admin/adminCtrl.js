@@ -150,14 +150,14 @@ angular.module('theoneApp')
     };
     $scope.totalServerItems = 0; // 总个数
     //分页设置
-    $scope.pagingOptions = { 
+    $scope.pagingOptions = {
         pageSizes: [5, 10, 20],
         pageSize: 6,
         currentPage: 1
     };
 
     //  －－固定写法
-    $scope.setPagingData = function(data, page, pageSize){  
+    $scope.setPagingData = function(data, page, pageSize){
         var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
         $scope.myData = pagedData;
         $scope.totalServerItems = data.length;
@@ -172,12 +172,12 @@ angular.module('theoneApp')
                 if (searchText) {
                     var ft = searchText.toLowerCase();
                     $http.get('/angular/data/typeList.json')
-                    .success(function (largeLoad) {    
+                    .success(function (largeLoad) {
                         data = largeLoad.filter(function(item) {
                             return JSON.stringify(item).toLowerCase().indexOf(ft) !== -1;
                         });
                         $scope.setPagingData(data,page,pageSize);
-                    });            
+                    });
                 } else {
                   // 获取json 最后一行不应有 ,
                     $http.get('/admin/cate')
@@ -189,7 +189,7 @@ angular.module('theoneApp')
         };
 
     $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
-    
+
     $scope.$watch('pagingOptions', function (newVal, oldVal) {
         if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
           $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
@@ -302,7 +302,7 @@ angular.module('theoneApp')
       console.log('close');
       $modalInstance.dismiss();
     };
-  
+
 }])
 // 删除Cate控制器
 .controller('DelCateController', ['$scope', '$modalInstance', 'adminModalService',
@@ -320,7 +320,7 @@ angular.module('theoneApp')
     $scope.ok = function () {
       adminModalService.delId('/admin/cate/id/'+_id)
         .success(function (data) {
-          
+
           $modalInstance.close();
         });
     };
@@ -363,7 +363,7 @@ angular.module('theoneApp')
           $scope.cate.topArticles.push(articleId);
         }
       };
-    
+
     $scope.save = function () {
       $http.post('/admin/cate/edit/id/'+_id,{cate:$scope.cate})
         .success(function(data) {
@@ -403,14 +403,14 @@ angular.module('theoneApp')
 
   // $scope.totalServerItems = 0; // 总个数
   //分页设置
-  $scope.pagingOptions = { 
+  $scope.pagingOptions = {
       pageSizes: [10, 15, 20],
       currentPage: 1,
       pageSize:10
   };
 
   //  －－固定写法
-  $scope.setPagingData = function(data, page, pageSize){  
+  $scope.setPagingData = function(data, page, pageSize){
       // var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
       var pagedData = data;
       $scope.myData = pagedData;
@@ -431,12 +431,12 @@ angular.module('theoneApp')
               if (searchText) {
                   var ft = searchText.toLowerCase();
                   adminModalService.postlist('/admin/article/list',options)
-                  .success(function (largeLoad) {    
+                  .success(function (largeLoad) {
                       data = largeLoad.filter(function(item) {
                           return JSON.stringify(item).toLowerCase().indexOf(ft) !== -1;
                       });
                       $scope.setPagingData(data,page,pageSize);
-                  });            
+                  });
               } else {
                   adminModalService.postlist('/admin/article/list', options)
                     .success(function (largeLoad) {
@@ -446,7 +446,7 @@ angular.module('theoneApp')
       };
 
   $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
-  
+
   $scope.$watch('pagingOptions', function (newVal, oldVal) {
       if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
         $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
@@ -576,7 +576,7 @@ angular.module('theoneApp')
 
     // 初始化 Ariticle
     initArticle();
-    
+
     // 获取所有cate
     adminModalService.cateList('/admin/cate/all').
       success(function (data) {
@@ -612,7 +612,7 @@ angular.module('theoneApp')
 
       adminModalService.putNew('/admin/article/add',{article:$scope.newArticle})
         .success(function (data) {
-          
+
           console.log(data);
 
           initArticle();
@@ -629,7 +629,7 @@ angular.module('theoneApp')
     var resetArticle;
     $scope.tableName = '编辑文章';
     $scope.article = {};
-    
+
     // 获取所有cate
     adminModalService.cateList('/admin/cate/all')
       .success(function (data) {
@@ -646,6 +646,12 @@ angular.module('theoneApp')
 
         $scope.article = data;
         resetArticle = data;
+
+        // 刷新 md 编辑器
+        $scope.needRefresh = 1;
+
+
+        console.log('end');
       });
 
       //编辑器
@@ -694,7 +700,7 @@ angular.module('theoneApp')
    // init scope
    $scope.tableName = '标签列表';
    $scope.tags = [];
-   
+
    adminModalService
     .getlist('/admin/tag/list')
     .success(function (data) {
@@ -755,7 +761,7 @@ angular.module('theoneApp')
       });
   };
 
-  
+
   function getCarouselList() {
     $http.get('/admin/carousel/list')
       .success(function (data) {
@@ -764,7 +770,7 @@ angular.module('theoneApp')
   }
 
   getCarouselList();
-  
+
 }])
 .controller('AddCarouselCtrl', ['$scope', '$modalInstance', 'FileUploader', function($scope, $modalInstance, FileUploader){
   $scope.position = 1;
