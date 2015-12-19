@@ -27,7 +27,7 @@ html(lang='en')
     //-<!-- build:js(public) #{env}/public/tinymce/tinymce.min.js -->
     script(src='/components/tinymce/tinymce.min.js')
     //-<!--endbuild-->
-    
+
     //-<!-- build:js(public) #{env}/public/scripts/admin/base.js -->
     //- bower:js
     script(src='/components/jquery/dist/jquery.js')
@@ -102,6 +102,8 @@ html(lang='en')
                                 a(href='#/tag') 标签列表
                             li
                                 a(href='#/carousel') 首页幻灯片
+                            li
+                                a(href='#/pictures') 图片管理
                 block contentright
                     div(ui-view)
     //- footer
@@ -113,11 +115,12 @@ html(lang='en')
                         p.left theone博客后台
                         p.right &copy; 2015
     block footerjs
-        //- angular 
+        //- angular
         //-<!-- build:js(.) #{env}/angular/scripts/admin/adminIndex.js -->
         script(src='/angular/scripts/app.js')
         script(src='/angular/scripts/directive/adminExtDirective.js')
         script(src='/angular/scripts/route/adminRoute.js')
         script(src='/angular/scripts/controllers/admin/adminCtrl.js')
+        script(src='/angular/scripts/service/picture.js')
         script(src='/angular/scripts/filter/theoneAdminFilter.js')
         //-<!--endbuild-->

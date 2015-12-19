@@ -46,7 +46,7 @@ exports.add = function (req, res, next) {
             imgDesc:imgDesc
           });
 
-          
+
           newCarousel.save(cb);
         }else{
           return cb({err:'fail'});
@@ -67,7 +67,7 @@ exports.cloud = {
   deleteById:function (req, res, next) {
     var id = req.params.id,
     carouselMe;
-    
+
     async.waterfall([
       function (cb) {
         findById(id, cb);
@@ -166,7 +166,7 @@ exports.singleById = function (req, res, next) {
 
     res.json(carousel);
   });
-  
+
 };
 
 //removeById

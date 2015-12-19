@@ -62,53 +62,59 @@ module.exports = function(app, config) {
   });
 
   // 文件上传 中间件
-  app.use(multer({
-    onFileUploadStart: function (file, req) {
-      // 特殊路径才能直接上传
-      if (req.url !=='/admin/login/verify/face' && file.mimetype !== 'image/jpeg'){
-        return false;
-      }
-      return true;
-    },
-    // dest: config.root+'/data/tmp/',
-    // inMemory: true //放入 buffer 中, 不存入文件
-    rename: function () {
-      return Date.now()+ Math.floor(Math.random()*1000);
-    },
-    changeDest: function(dest, req) {
-      var stat = null,
-      reutrnDest = null,
-      initDest = config.root+'/data/tmp/';
+  //
+  // app.use(multer({
+  //   onFileUploadStart: function (file, req) {
+  //     // 特殊路径才能直接上传
+  //     if (req.url !=='/admin/login/verify/face' && file.mimetype !== 'image/jpeg'){
+  //       return false;
+  //     }
+  //     // if (file.mimetype !== 'image/jpeg') {
+  //     //   return false;
+  //     // }
+  //     return true;
+  //   },
+  //   // dest: config.root+'/data/tmp/',
+  //   // inMemory: true //放入 buffer 中, 不存入文件
+  //   rename: function () {
+  //     return Date.now()+ Math.floor(Math.random()*1000);
+  //   },
+  //   changeDest: function(dest, req) {
+  //     var stat = null,
+  //     reutrnDest = null,
+  //     initDest = config.root+'/data/tmp/';
 
-      if(req.url.indexOf('carousel') !== -1 ){
-        reutrnDest = config.root+'/data/carousel/';
-      }
+  //     if(req.url.indexOf('carousel') !== -1 ){
+  //       reutrnDest = config.root+'/data/carousel/';
+  //     }
 
-      if(reutrnDest){
-        // 创建 carousel 目录
-        try {
-            stat = fs.statSync(reutrnDest);
-        } catch(err) {
-            fs.mkdirSync(reutrnDest);
-        }
-      }
-      else
-      {
-        // 创建 tmp目录
-        try {
-            stat = fs.statSync(initDest);
-        } catch(err) {
-            fs.mkdirSync(initDest);
-        }
-      }
+  //     if(reutrnDest){
+  //       // 创建 carousel 目录
+  //       try {
+  //           stat = fs.statSync(reutrnDest);
+  //       } catch(err) {
+  //           fs.mkdirSync(reutrnDest);
+  //       }
+  //     }
+  //     else
+  //     {
+  //       // 创建 tmp目录
+  //       try {
+  //           stat = fs.statSync(initDest);
+  //       } catch(err) {
+  //           fs.mkdirSync(initDest);
+  //       }
+  //     }
 
-      if (stat && !stat.isDirectory()) {
-          throw new Error('Directory cannot be created because an inode of a different type exists at "' + reutrnDest + '"');
-      }
+  //     if (stat && !stat.isDirectory()) {
+  //         throw new Error('Directory cannot be created because an inode of a different type exists at "' + reutrnDest + '"');
+  //     }
 
-      return reutrnDest || initDest;
-    }
-  }));
+  //     return reutrnDest || initDest;
+  //   }
+  // }));
+
+
     // session
   app.use(session({
        secret: 'theone12138',

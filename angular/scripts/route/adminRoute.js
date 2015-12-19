@@ -74,5 +74,17 @@ angular.module('theoneApp')
           }
         }
       })
+      /**
+       * 图片管理
+       */
+      .state('pictures',{
+        url:'/pictures',
+        views: {
+          '@':{
+            templateUrl:'/angular/views/admin/pictures.list.html',
+            controller:'PicturesList'
+          }
+        }
+      })
       ;
 }]);

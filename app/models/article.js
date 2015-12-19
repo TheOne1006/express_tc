@@ -33,7 +33,7 @@ var ArticleSchema = new Schema({
   author:{type: ObjectId, required: true, ref: 'User'},
   cate:{type: ObjectId, required: true, ref: 'Cate'},
   type:{type: String, default:'html'},
-  thumbnail:{type: Object},
+  thumbnail:{type: String},
   keyWords:{type: Array, default:[]},
   descript:{type: String, default:''},
   contentText:{type:String},

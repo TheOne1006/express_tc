@@ -26,5 +26,8 @@ ngApp = angular
     'ngSanitize',
     'ngTouch',
     // 图片上传
-    'angularFileUpload'
+    'angularFileUpload',
+    'theOneBlog.service'
   ]);
+
+angular.module('theOneBlog.service', ['ngResource']);

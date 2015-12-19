@@ -55,6 +55,16 @@
                        </div>
                      </div>
 
+                     <div class="form-group">
+                       <label for="thumbnail" class="col-md-2 control-label">图片:</label>
+                       <div class="col-md-4" for="thumbnail">
+                         <input type="text" class='form-control' id='thumbnail' ng-model='article.thumbnail'/>
+                       </div>
+                       <div class="col-md-6">
+                        <img ng-src="{{article.thumbnail}}" class="img-responsive" >
+                       </div>
+                     </div>
+
                      <div class="form-group" ng-show="article.type == 'html'">
                       <textarea ui-tinymce='tinymceOptions' ng-model="article.contentHtml" rows="20"></textarea>
                      </div>

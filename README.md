@@ -39,9 +39,8 @@ $ node app
 
 ## 未来计划
 1. sphinx 搜索
-2. article 图片增加
-3. 使用图片库
-4. 后台计划
-5. search header mobile size
-6. mobile.theone.io
+2. 前台article图片
+3. 后台计划
+4. search header mobile size
+5. mobile.theone.io
 

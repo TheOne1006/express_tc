@@ -9,7 +9,11 @@ var express = require('express'),
   cateR = express.Router(),
   userR = express.Router(),
   tagR = express.Router(),
-  carouselR = express.Router();
+  carouselR = express.Router(),
+  pictureR = express.Router();
+
+// 上传图片中间件
+var uploadMiddle = require('../middleware/upload');
 
 
 // 加载 控制器
@@ -20,14 +24,18 @@ var cateCtrl = require('../controllers/admin/cate');
 var userCtrl = require('../controllers/admin/user');
 var tagCtrl = require('../controllers/admin/tag');
 var carouselCtrl = require('../controllers/admin/carouselCtrl');
+var pictureCtrl = require('../controllers/admin/picture');
 
 
 
-  module.exports = function (app) {
+  module.exports = function (app, config) {
     // 后台
     app.use('/admin',adminR);
     adminR.use(adminCtrl.checkSession);
     adminR.get('/', adminCtrl.index);
+
+    // 中间件
+    uploadMiddle.upload(app, config);
 
     // 后台登录
     app.use('/admin/login', adminLoginR);
@@ -40,7 +48,7 @@ var carouselCtrl = require('../controllers/admin/carouselCtrl');
     app.use('/admin/article', articleR);
     articleR.put('/add', articleCtrl.add);
     articleR.post('/edit', articleCtrl.edit);
-    
+
     // 兼容上版本
     articleR.get('/list', articleCtrl.list);
     articleR.post('/list', articleCtrl.list);
@@ -75,7 +83,12 @@ var carouselCtrl = require('../controllers/admin/carouselCtrl');
     carouselR.delete('/del/:id', carouselCtrl.removeById);
     carouselR.post('/edit/:id', carouselCtrl.updateById);
 
-
+    // 后台图片管理
+    app.use('/admin/picture', pictureR);
+    pictureR.put('/add',pictureCtrl.add);
+    app.get('/admin/pictures', pictureCtrl.list);
+    app.get('/admin/picture/upClould/:_id', pictureCtrl.cloud.uploadById);
+    app.delete('/admin/picture/upClould/:_id', pictureCtrl.cloud.deleteById);
 
     // 后台管理员
     app.use('/admin/user', userR);
@@ -94,6 +107,8 @@ var carouselCtrl = require('../controllers/admin/carouselCtrl');
     // cloudinary
     userR.get('/up2cloud/:id', userCtrl.cloudinary.upload);
     userR.delete('/cloudSingle/:_id',userCtrl.cloudinary.removeById);
+
+
 
 
   };
