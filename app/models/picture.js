@@ -17,6 +17,7 @@ var PictureSchema = new Schema({
   imgTitle: {type: String, required: true, unique: true},
   kind:{type: String, defult: 'article'},
   imgSrc:{type: String, require:true},
+  imgInCloudId: {type: String},
   imgInCloud:{type: Mixed},
   status:{type: Boolean},
   updateTime:{type: String}
@@ -29,6 +30,10 @@ PictureSchema.pre('save', function (next) {
 
     if(this.status !== false && !this.status) {
         this.status = true;
+    }
+
+    if(this.imgInCloud && this.imgInCloud.public_id) {
+      this.imgInCloudId = this.imgInCloud.public_id;
     }
 
     if(!this.kind) {

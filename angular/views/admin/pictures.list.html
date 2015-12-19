@@ -30,10 +30,8 @@
               </p>
               <h2 >{{item.imgTitle}}</h2>
               <p class='text-left input-group' ng-if="item.imgInCloud">
-                <label  class="input-group-addon">URL:</label>
-
-                <input class="form-control" type="text" ng-model="item.imgInCloud.url">
-
+                <label  class="input-group-addon">Cloud Name:</label>
+                <input class="form-control" type="text" ng-model="item.imgInCloud.public_id">
               </p>
               <p >
                 <button class="btn btn-default" ng-show='!item.imgInCloud' ng-click='uploadCloud(item._id)' >
