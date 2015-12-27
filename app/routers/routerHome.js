@@ -36,4 +36,5 @@ module.exports = function (app) {
   app.get('/api/article/:articleId',articleCtrl.getArticleById);
 
   app.get('/api/carousels', carouselCtrl.getList);
+  app.get('/api/cates/all', homeCtrl.cateList);
 };

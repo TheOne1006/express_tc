@@ -49,7 +49,7 @@ angular.module('theOneBlog')
   //     return {};
   //   }])
     //ng-repeat end callback
-    .directive('onFinishRender', function ($timeout) {
+    .directive('onFinishRender',['$timeout',function ($timeout) {
         return {
             restrict: 'A',
             link: function (scope) {
@@ -60,7 +60,7 @@ angular.module('theOneBlog')
                 }
             }
         };
-    })
+    }])
     /**
      * imgUploadPreview
      */
