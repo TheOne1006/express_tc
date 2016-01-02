@@ -14,7 +14,7 @@ angular
 
     headerHelp.resetAll();
 
-    $scope.indexList = indexList;
+    $scope.indexList =  $filter('IndexArticlesWordlimit')(indexList);
     // $scope.indexList = [];
 
     // indexArticlesService
