@@ -41,7 +41,7 @@ angular
     var ajaxGetArticlesByCateAlias = function (cateAlias, page) {
       return resource
               .queryByCateAlias({cateAlias:cateAlias, page:page}, function (data) {
-                console.log(data);
+                // console.log(data);
               });
     };
 
@@ -49,18 +49,9 @@ angular
     var ajaxGetCountByCateId = function (cateId) {
       return resource
                 .countByCateId({cateId:cateId}, function (data) {
-                  console.log(data);
+                  // console.log(data);
                 });
     };
-
-    var ajaxGetArticlesSearchByKeyword = function (keyWord) {
-      return resource
-              .sarchByKeyWord({keyWord:keyWord}, function (data) {
-                console.log('search key word '+keyWord+' result :');
-                console.log(data);
-              });
-    };
-
 
 
 

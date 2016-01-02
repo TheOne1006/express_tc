@@ -10,7 +10,9 @@
  */
 angular
   .module('theOneBlog.controllers')
-  .controller('indexArticlesCtrl', ['$scope', '$filter', 'indexArticlesService', 'indexList', function ($scope, $filter, indexArticlesService, indexList) {
+  .controller('indexArticlesCtrl', ['$scope', '$filter', 'indexArticlesService', 'headerHelp', 'indexList', function ($scope, $filter, indexArticlesService, headerHelp, indexList) {
+
+    headerHelp.resetAll();
 
     $scope.indexList = indexList;
     // $scope.indexList = [];

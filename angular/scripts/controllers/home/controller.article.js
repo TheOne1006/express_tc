@@ -10,11 +10,16 @@
  */
 angular
   .module('theOneBlog.controllers')
-  .controller('articleCtrl', ['$scope', '$filter', 'articleService', 'article', function ($scope, $filter, articleService, article) {
+  .controller('articleCtrl', ['$scope', '$filter', 'headerHelp', 'articleService', 'article' , function ($scope, $filter, headerHelp, articleService, article) {
+
+    headerHelp.changeTitle( article.title);
+    headerHelp.changeDescription( article.descript);
+    headerHelp.changekeyWord( article.keyWords.join(','));
 
     $scope.pageClass ='article';
 
-    console.log(article);
+    // console.log(article.descript);
+
 
     // filter
     article.updateTime = $filter('date')(article.updateTime, 'yyyy-MM-dd');

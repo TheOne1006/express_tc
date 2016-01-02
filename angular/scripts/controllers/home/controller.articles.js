@@ -10,27 +10,33 @@
  */
 angular
   .module('theOneBlog.controllers')
-  .controller('articlesCtrl', ['$scope', '$filter', '$location', 'articlesService', 'articlesByCateName', function ($scope, $filter, $location, articlesService, articlesByCateName) {
+  .controller('articlesCtrl', ['$scope', '$filter', '$location', 'headerHelp', 'articlesService', 'articlesByCateName', 'totalNum', function ($scope, $filter, $location, headerHelp, articlesService, articlesByCateName, totalNum) {
+
+    headerHelp.changeTitle( articlesByCateName.cate.name );
+    headerHelp.changeDescription();
+    headerHelp.changekeyWord();
 
     // console.log(articlesByCateName.articleList);
     $scope.articleList = $filter('ArticlesByCateWordLimit')(articlesByCateName.articleList);
 
     $scope.cate = articlesByCateName.cate;
     $scope.currentPage = articlesByCateName.curPage;
+    $scope.articlesTotal = totalNum.total;
+    // console.log(totalNum.total);
 
-    articlesService
-      .getArticlesByIdCount(articlesByCateName.cate._id)
-      .$promise
-      .then(function (data) {
-        $scope.articlesTotal = data.total;
-      });
+    // articlesService
+    //   .getArticlesByIdCount(articlesByCateName.cate._id)
+    //   .$promise
+    //   .then(function (data) {
+    //     $scope.articlesTotal = data.total;
+    //   });
 
     $scope.pageNav = {
-      maxSize:5, // 展示几个pagenav button
+      maxSize: 5, // 展示几个pagenav button
       itemsPerPage: 12, // 每页显示数量
       bigTotalItems: $scope.articlesTotal , // cate的文章总数
       curPage: $scope.currentPage, // 当前页面
-      pageChanged: function(){
+      pageChang: function(){
         $location.path('/cate/'+ $scope.cate.alias +'/'+ $scope.currentPage, false);
       }
 

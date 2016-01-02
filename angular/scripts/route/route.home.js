@@ -77,6 +77,12 @@ angular
 
               return articlesService.getArticlesByCateAliasList(cateAliasName, curpage)
                 .$promise;
+            }],
+            totalNum: ['articlesByCateName', 'articlesService' , function (articlesByCateName, articlesService) {
+              return articlesService
+                    .getArticlesByIdCount(articlesByCateName.cate._id)
+                    .$promise;
+
             }]
           }
         })

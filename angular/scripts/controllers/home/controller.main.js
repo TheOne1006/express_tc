@@ -8,7 +8,10 @@
  */
 angular
   .module('theOneBlog.controllers')
-  .controller('mainCtrl', ['$scope', function ($scope) {
+  .controller('mainCtrl', ['$scope', 'headerHelp', function ($scope ,headerHelp) {
+
+    headerHelp.init();
+
     $scope.useableLeave = true;
 
     $scope.pageClass ='main';
