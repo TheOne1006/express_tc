@@ -4,7 +4,7 @@
 
             <div class="hidden-print" data-offset-top="-80" bs-affix offsetUnpin='ccc'>
                 <ul class="nav nav-pills nav-stacked search-aside">
-                    <li ng-repeat="menu in search.menuKinds" class='animate-repeat' ng-class='{active:filterCate == menu._id}'>
+                    <li ng-repeat="menu in containCates" class='animate-repeat' ng-class='{active:filterCate == menu._id}'>
                         <a href="javascript:void(0);" ng-click='setFilter(menu._id)'>{{menu.name}} <span class="badge pull-right">{{menu.resultNum}}</span></a>
                     </li>
                 </ul>
@@ -59,14 +59,14 @@
                         <div class="panel-heading">
                             <div class="panel-title">
                                 <a ng-href="/article/id/{{result._id}}">
-                                    <span ng-bind-html='::result.title'></span>
+                                    <span ng-bind-html='result.title'></span>
                                 </a>
 
                                 <span class="badge pull-right bg-success" ng-repeat='tag in result.keyWords' ng-bind-html='::tag'></span>
                             </div>
                         </div>
                         <div class="panel-body">
-                            <p ng-bind-html='::result.contentText'>
+                            <p ng-bind-html='result.contentText'>
                             </p>
                         </div>
                     </div>

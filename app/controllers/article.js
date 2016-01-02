@@ -89,10 +89,12 @@ exports.getById = function (req, res, next) {
 // 分类文章
 exports.getListByCate = function (req, res, next) {
   var cateAlias = req.params.alias,
-  curPage = req.params.page || 1,
+  curPage = req.params.page || req.query.page || 1,
   pageCount = 12,
   skipNum = (curPage - 1) * pageCount,
-  result = {};
+  result = {
+    curPage: curPage
+  };
 
   async.waterfall([
     function (cb) {
@@ -120,9 +122,8 @@ exports.getListByCate = function (req, res, next) {
 };
 
 // 获取分类的总文章数量
-exports.getCountByCate = function( req, res, next ){
+exports.getCountByCate = function(req, res, next ){
   var cateAlias = req.params.alias;
-
   // filter
 
   // get data
@@ -147,6 +148,30 @@ exports.getCountByCate = function( req, res, next ){
     res.json({total:countNum});
     res.end(countNum);
 
+  } );
+
+
+};
+
+// 获取分类的总文章数量,根据cate_id
+exports.getCountByCateId = function(req, res, next ){
+  var cateId = req.params.cateId;
+  // filter
+
+  // get data
+  async.waterfall([
+    function (cb ) {
+      Article
+        .where({cate:cateId})
+        .count()
+        .exec(cb);
+
+    }], function( err, countNum ){
+    if( err ) {
+      return next( err );
+    }
+    res.json({total:countNum});
+    res.end(countNum);
   } );
 
 

@@ -20,13 +20,18 @@ ngApp = angular
     'ui.bootstrap',
     'ngSanitize',
     'ngTouch',
+    'theOneBlog.directives',
+    'theOneBlog.filters',
+    'theOneBlog.services',
+    'theOneBlog.route',
+    'theOneBlog.controllers',
     'mgcrea.ngStrap', // 类似ui.bootstrap
     'angular-carousel',//拖拽banner
     'angularMermaid' // str2flow
   ])
   .config(['$httpProvider',function ($httpProvider) {
     // enable http caching
-    $httpProvider.defaults.cache = true;
+    $httpProvider.defaults.cache = false;
   }])
   // angular.theOneBlog 全局变量
   .factory('browserHelp', ['$window', function ($window) {
@@ -41,5 +46,19 @@ ngApp = angular
       };
 
   }])
-
   ;
+
+// directives
+angular.module('theOneBlog.directives', []);
+
+// filters
+angular.module('theOneBlog.filters', []);
+
+// services
+angular.module('theOneBlog.services', ['ngResource']);
+
+// route
+angular.module('theOneBlog.route', ['ui.router']);
+
+// controller
+angular.module('theOneBlog.controllers', ['theOneBlog.services']);

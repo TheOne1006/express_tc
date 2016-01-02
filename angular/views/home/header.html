@@ -30,7 +30,7 @@
             <ul class="nav navbar-nav">
                 <li><a href="http://self.theone.io" ng-click="headerView.isCollapsed = !headerView.isCollapsed" class="glyphicon glyphicon-user"> 个人简介</a></li>
 
-                <li ng-repeat="cate in ::cateList">
+                <li ng-repeat="cate in cateList">
                   <a href="/cate/{{cate.alias}}/" ng-click="changeCollapsed()" ng-bind="cate.name"></a>
                 </li>
             </ul>

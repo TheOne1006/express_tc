@@ -1,9 +1,1 @@
 extends layout
-
-
-block middelContext
-  .header-placeholder
-  div(ui-view='banner')
-  .middel-relative
-    .container
-      .main(class='{{pageClass}}',ng-class='{"useable-leave":useableLeave}',ui-view='bodyer')

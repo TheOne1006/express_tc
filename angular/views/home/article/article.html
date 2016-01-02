@@ -12,7 +12,7 @@
             <!-- 文章 -->
            <!--  <article ng-bind-html="article.content">
             </article> -->
-            <article ng-include="'article.content.html'">
+            <article compile-html="::article.content">
             </article>
 
           </section>

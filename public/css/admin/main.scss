@@ -125,3 +125,11 @@ body {
 body,nav {
   padding-left: calc(100vw - 100%);
 }
+
+.picture-list .picture-img {
+  max-height: 125px;
+}
+
+.picture-list .picture-item-pic {
+  height: 130px;
+}

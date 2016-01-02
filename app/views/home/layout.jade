@@ -58,27 +58,39 @@ html(lang='zh-CN',ng-app='theOneBlog')
       //- angular
       //-<!-- build:js(.) #{env}/angular/scripts/home/ngTheone.js -->
       script(src='/angular/scripts/home.js')
-      script(src='/angular/scripts/directive/myDirective.js')
-      script(src='/angular/scripts/filter/theoneBlogFilter.js')
-      script(src='/angular/scripts/route/homeRoute.js')
-      script(src='/angular/scripts/controllers/home/mainCtrl.js')
+      //- Directive
+      script(src='/angular/scripts/directive/home/compile-html.js')
+      script(src='/angular/scripts/directive/home/prettyprint.js')
+
+      //- filters
+      script(src='/angular/scripts/filter/home/cateArticlesWordLimit.js')
+      script(src='/angular/scripts/filter/home/indexArticlesWordLimit.js')
+      script(src='/angular/scripts/filter/home/keyWordPoint.js')
+      script(src='/angular/scripts/filter/home/keyWordWrapEm.js')
+      script(src='/angular/scripts/filter/home/cateContain.js')
+
+      //- services
+      script(src='/angular/scripts/services/home/service.cates.js')
+      script(src='/angular/scripts/services/home/service.carousels.js')
+      script(src='/angular/scripts/services/home/service.index.articles.js')
+      script(src='/angular/scripts/services/home/service.articles.js')
+      script(src='/angular/scripts/services/home/service.article.js')
+      script(src='/angular/scripts/services/home/service.search.js')
+
+      //- route
+      script(src='/angular/scripts/route/route.home.js')
+
+      //- ctrl
+      script(src='/angular/scripts/controllers/home/controller.article.banner.js')
+      script(src='/angular/scripts/controllers/home/controller.article.js')
+      script(src='/angular/scripts/controllers/home/controller.articles.js')
+      script(src='/angular/scripts/controllers/home/controller.header.js')
+      script(src='/angular/scripts/controllers/home/controller.index.affix.js')
+      script(src='/angular/scripts/controllers/home/controller.index.articles.js')
+      script(src='/angular/scripts/controllers/home/controller.index.carousel.js')
+      script(src='/angular/scripts/controllers/home/controller.index.js')
+      script(src='/angular/scripts/controllers/home/controller.main.js')
+      script(src='/angular/scripts/controllers/home/controller.search.js')
       //-<!--endbuild-->
 
-    body(ng-controller='MainCtrl',ui-view='main')
-      header#header.navbar.navbar-default.navbar-fixed-top(ui-view='header')
-      div#middelContext
-        block middelContext
-
-
-        block footer
-          .navbar.navbar-footer
-              hr
-              .container
-                  .row
-                      .col-lg-12
-                          footer(role='conteninfo')
-                              p.text-left TheOne个人笔记本
-                                a(href='http://self.theone.io',title='个人简介') About me
-                              p.text-right &copy; 2015 TheOne.io 版权所有 ICP证：闽ICP备14001334号-2
-
-
+    body(ui-view)

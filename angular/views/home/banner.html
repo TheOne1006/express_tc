@@ -1,11 +1,9 @@
 <div id="myCarousel" class="carousel slide">
-  <div class='carousel-inner' ng-controller="CarouselCtrl">
+  <div class="carousel-inner">
       <div style="height: 305px">
-
         <ul rn-carousel class="image" rn-carousel-buffered rn-carousel-controls rn-carousel-auto-slide >
           <li ng-repeat="image in slides">
-            <div ng-style="{'background-image': 'url(' + image.img + ')'}" class="bgimage ng-binding" >
-            {{image.text}}
+            <div ng-style="{'background-image': 'url(' + image.imgInCloud.secure_url + ')'}" class="bgimage ng-binding" >
             </div>
           </li>
         </ul>

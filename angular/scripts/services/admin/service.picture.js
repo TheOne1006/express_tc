@@ -1,5 +1,6 @@
 'use strict';
 /**
+ * 后台 图片管理服务
  * @ngdoc function
  * @name theOne.services:PictureService
  * @description

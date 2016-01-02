@@ -7,7 +7,7 @@
           </div>
       </div>
   </div>
-  <div class="row">
+  <div class="row picture-list">
     <div class="col-lg-12">
       <div class='panel panel-default bootstrap-admin-no-table-panel'>
         <div class='panel-heading'>
@@ -23,15 +23,17 @@
 
           <hr>
 
-          <div class="row text-center">
-            <div class="col-lg-4" ng-repeat="item in pictures">
-              <p style="height:100px">
-                <img class="img-responsive" ng-src="{{item.imgSrc}}"  >
-              </p>
-              <h2 >{{item.imgTitle}}</h2>
-              <p class='text-left input-group' ng-if="item.imgInCloud">
+          <div class="row text-center ">
+            <div class="col-lg-4 picture-item" ng-repeat="item in pictures">
+              <div class="picture-item-pic ">
+                <p class="thumbnail">
+                  <img class="img-responsive picture-img"  ng-src="{{item.imgSrc}}" >
+                </p>
+              </div>
+              <h5 >{{item.imgTitle}}</h5>
+              <p class='text-left input-group' >
                 <label  class="input-group-addon">Cloud Name:</label>
-                <input class="form-control" type="text" ng-model="item.imgInCloud.public_id">
+                <input class="form-control" type="text" ng-if="item.imgInCloud" ng-model="item.imgInCloud.public_id">
               </p>
               <p >
                 <button class="btn btn-default" ng-show='!item.imgInCloud' ng-click='uploadCloud(item._id)' >

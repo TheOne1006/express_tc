@@ -1,0 +1,24 @@
+<div class="row" ng-class='{active:view.offCanvas}'>
+  <div class="col-sm-9 col-xs-12">
+    <section class='section-header'id='{{list.alias}}' ng-repeat='list in indexList'>
+      <h2 class='page-header'>
+        <a ng-href="/cate/{{list.alias}}/" class="list-link">
+          <span class="glyphicon glyphicon-link"></span>
+          {{list.name}}
+        </a>
+      </h2>
+
+      <div class="row">
+          <div class="col-xs-12 article-header" id='{{list.alias}}-{{article._id}}' ng-repeat="article in list.topArticles">
+            <h3 ng-bind='article.title' ></h3>
+            <p> {{::article.contentText}} </p>
+             <p><a class="btn btn-default" ng-href="/article/id/{{article._id}}" role="button" title='{{article.title}}'>访问详情 »</a></p>
+          </div>
+      </div>
+    </section>
+
+  </div>
+  <!-- main-right -->
+  <div class="col-sm-3 hidden-xs hidden-sm" ui-view='affix'>
+  </div>
+</div>

@@ -35,6 +35,11 @@ module.exports = function (app) {
   app.get('/api/articles/:cateId', articleCtrl.getArticlesByCateId);
   app.get('/api/article/:articleId',articleCtrl.getArticleById);
 
+  app.get('/api/articlesByCateAlias/:alias',articleCtrl.getListByCate);
+  app.get('/api/cate/articlesCount/:cateId', articleCtrl.getCountByCateId );
+
+  app.get('/api/search/articles/:searchWord', searchCtrl.goAngthing);
+
   app.get('/api/carousels', carouselCtrl.getList);
   app.get('/api/cates/all', homeCtrl.cateList);
 };

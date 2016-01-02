@@ -34,13 +34,14 @@ $ node app
 
 ### 优化配置
 
-开启$http cache
+开启$http cache false
+restful 化
 
 
 ## 未来计划
 1. sphinx 搜索
-2. 前台article图片
+2. 前台article图片(已增加,但为修改样式)
 3. 后台计划
 4. search header mobile size
-5. mobile.theone.io
+5. mobile.theone.io  ionic
 
