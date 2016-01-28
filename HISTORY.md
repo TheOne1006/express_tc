@@ -152,3 +152,5 @@ _配套版本_:
 
 1. angular 前台 module 化
 2. 服务器端 restful 化
+
+#### 2016.1.28 迁移至github
