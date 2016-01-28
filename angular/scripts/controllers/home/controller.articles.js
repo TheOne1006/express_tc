@@ -20,6 +20,7 @@ angular
     $scope.articleList = $filter('ArticlesByCateWordLimit')(articlesByCateName.articleList);
 
     $scope.cate = articlesByCateName.cate;
+    console.log($scope.cate);
     $scope.currentPage = articlesByCateName.curPage;
     $scope.articlesTotal = totalNum.total;
     // console.log(totalNum.total);
