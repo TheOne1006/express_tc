@@ -163,7 +163,7 @@ module.exports = function (grunt) {
           function myMiddleware(req, res) {
               res.writeHead(200);
               // 定时器 跳转
-              res.write('<script> setTimeout(function(){location="http://localhost:3000"},3000);</script>');
+              res.write('<script> setTimeout(function(){location="http://localhost:3003"},3000);</script>');
               res.end();
           }
         ],

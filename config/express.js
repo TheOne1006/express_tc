@@ -13,9 +13,8 @@ var mongoose = require('mongoose');
 
 var MongoStore = require('connect-mongo')(session);
 
-var multer = require('multer');
-var fs = require('fs');
-
+// var multer = require('multer');
+// var fs = require('fs');
 
 module.exports = function(app, config) {
   app.set('views', config.root + '/app/views');
@@ -26,6 +25,11 @@ module.exports = function(app, config) {
     extended: true
   }));
   app.use(cookieParser());
+
+  if(app.get('env') === 'production') {
+    // prerender
+    app.use(require('prerender-node').set('prerenderServiceUrl', config.prerenderUrl));
+  }
 
   app.use(compress());
 
@@ -42,77 +46,24 @@ module.exports = function(app, config) {
   app.use(methodOverride());
 
   // 判断reffer,执行重定向 (是否可以移动到 /app/routes/routerHome.js ?)
-  app.use(function(req, res, next){
-    var urlArr = req.url.split('/'),
-    argUrlPart = urlArr[1] || '',
-    needRedirect = false;
+  // app.use(function(req, res, next){
+  //   var urlArr = req.url.split('/'),
+  //   argUrlPart = urlArr[1] || '',
+  //   needRedirect = false;
 
-    if(argUrlPart === 'article' || argUrlPart === 'cate' || argUrlPart === 'search') {
-      needRedirect = true;
-    }
-
-
-    if(needRedirect) {
-        console.log('log-- redierct');
-        res.redirect('/#'+req.url);
-        return;
-    }
-
-    next();
-  });
-
-  // 文件上传 中间件
-  //
-  // app.use(multer({
-  //   onFileUploadStart: function (file, req) {
-  //     // 特殊路径才能直接上传
-  //     if (req.url !=='/admin/login/verify/face' && file.mimetype !== 'image/jpeg'){
-  //       return false;
-  //     }
-  //     // if (file.mimetype !== 'image/jpeg') {
-  //     //   return false;
-  //     // }
-  //     return true;
-  //   },
-  //   // dest: config.root+'/data/tmp/',
-  //   // inMemory: true //放入 buffer 中, 不存入文件
-  //   rename: function () {
-  //     return Date.now()+ Math.floor(Math.random()*1000);
-  //   },
-  //   changeDest: function(dest, req) {
-  //     var stat = null,
-  //     reutrnDest = null,
-  //     initDest = config.root+'/data/tmp/';
-
-  //     if(req.url.indexOf('carousel') !== -1 ){
-  //       reutrnDest = config.root+'/data/carousel/';
-  //     }
-
-  //     if(reutrnDest){
-  //       // 创建 carousel 目录
-  //       try {
-  //           stat = fs.statSync(reutrnDest);
-  //       } catch(err) {
-  //           fs.mkdirSync(reutrnDest);
-  //       }
-  //     }
-  //     else
-  //     {
-  //       // 创建 tmp目录
-  //       try {
-  //           stat = fs.statSync(initDest);
-  //       } catch(err) {
-  //           fs.mkdirSync(initDest);
-  //       }
-  //     }
-
-  //     if (stat && !stat.isDirectory()) {
-  //         throw new Error('Directory cannot be created because an inode of a different type exists at "' + reutrnDest + '"');
-  //     }
-
-  //     return reutrnDest || initDest;
+  //   if(argUrlPart === 'article' || argUrlPart === 'cate' || argUrlPart === 'search') {
+  //     needRedirect = true;
   //   }
-  // }));
+
+
+  //   if(needRedirect) {
+  //       console.log('log-- redierct');
+  //       res.redirect('/#'+req.url);
+  //       return;
+  //   }
+
+  //   next();
+  // });
 
 
     // session

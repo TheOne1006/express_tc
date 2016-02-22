@@ -15,7 +15,7 @@ var config = {
     app: {
       name: 'express-tc'
     },
-    port: 3000,
+    port: 3003,
     /**
      * 监听12345端口  1 first
      */
@@ -29,7 +29,7 @@ var config = {
      * dbest 2
      */
     // db: process.env.DEV_MONGO_DB_3,
-
+    prerenderUrl: 'http://localhost:3000/',
     debug : true
   },
 
@@ -51,6 +51,7 @@ var config = {
     },
     port: 3000,
     db: process.env.PRO_MONGO_DB,
+    prerenderUrl: 'http://seo.theon.io:3000/',
     debug : false
   }
 };
