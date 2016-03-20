@@ -15,6 +15,7 @@ module.exports = function (grunt) {
     adminCss:'public/css/admin',
     homeTemp:'app/views/home',
     homeCss:'public/css/home',
+    clientHomeTemp: 'angular/views/home',
     adminExtendJs:'public/js/admin/extend',
     pubImg:'public/img',
     pubSvg:'public/svg',
@@ -76,7 +77,7 @@ module.exports = function (grunt) {
         ignorePath:  /(\.\.\/){3}public/
       },
       home :{
-        src:['<%= appCon.homeTemp %>/*.jade'],
+        src:['<%= appCon.clientHomeTemp %>/index.html'],
         // 忽略 js 文件
         exclude:['public/components/json3/lib/json3.js',
         'public/components/bootstrap-sass-official/assets/javascripts/bootstrap.js',

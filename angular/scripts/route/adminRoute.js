@@ -16,7 +16,7 @@ angular.module('theoneApp')
         url:'/',
         views:{
           '':{
-            templateUrl: '/angular/views/admin/index.html'
+            templateUrl: '/angular/views/admin/main.html'
           }
         }
       })

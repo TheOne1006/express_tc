@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang='zh-CN' ng-app='theOneBlog'>
+<head>
+  <title>TheOne记事本|theone.io|吴斌杰|js工程师</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <meta name="keywords" content="theone,theone.io,吴斌杰,js工程师,angular,nodejs,php,css3">
+  <meta name="description" content="个人笔记本或个人博客,总结个人工作的经验或学习经验的记录,同时实践ng,nodejs,bootstrap前后端一种语言javascript">
+  <meta name="fragment" content= "!">
+  <meta name="apple-touch-fullscreen" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta content="telephone=no" name="format-detection">
+  <meta content="email=no" name="format-detection">
+  <meta name="Author" content="theone">
+  <!-- build:css(public) #{env}/public/css/home/theoneBlog.css -->
+  <link rel="stylesheet" href="/css/home/bootstrap-theone-blog.css">
+  <!-- bower:css -->
+  <link rel="stylesheet" href="/components/google-code-prettify/bin/prettify.min.css" />
+  <!-- endbower -->
+  <!-- str2flow lib -->
+  <link rel="stylesheet" href="components/mermaid/dist/mermaid.forest.css">
+  <!-- endbuild -->
+
+  <!-- css3 特效 -->
+  <!-- <link rel="stylesheet" href="/components/animate.css/animate.css"> -->
+
+  <!-- build:js -->
+  <link rel="stylesheet" href="http://localhost:35729/livereload.js">
+  <!-- endbuild -->
+
+  <!-- build:js(public) #{env}/public/scripts/home/base.js -->
+  <!-- bower:js -->
+  <script src='/components/jquery/dist/jquery.js'></script>
+  <script src='/components/es5-shim/es5-shim.js'></script>
+  <script src='/components/angular/angular.js'></script>
+  <script src='/components/angular-animate/angular-animate.js'></script>
+  <script src='/components/angular-aria/angular-aria.js'></script>
+  <script src='/components/angular-cookies/angular-cookies.js'></script>
+  <script src='/components/angular-messages/angular-messages.js'></script>
+  <script src='/components/angular-resource/angular-resource.js'></script>
+  <script src='/components/angular-sanitize/angular-sanitize.js'></script>
+  <script src='/components/angular-touch/angular-touch.js'></script>
+  <script src='/components/angular-ui-router/release/angular-ui-router.js'></script>
+  <script src='/components/angular-bootstrap/ui-bootstrap-tpls.js'></script>
+  <script src='/components/angular-strap/dist/angular-strap.js'></script>
+  <script src='/components/angular-strap/dist/angular-strap.tpl.js'></script>
+  <script src='/components/angular-carousel/dist/angular-carousel.js'></script>
+  <script src='/components/google-code-prettify/bin/prettify.min.js'></script>
+  <script src='/components/vivus/dist/vivus.js'></script>
+  <script src='/components/angular-mermaid/dist/angular-mermaid.js'></script>
+  <!-- endbower -->
+  <!-- endbuild -->
+
+  <!-- angular -->
+  <!-- build:js(.) #{env}/angular/scripts/home/ngTheone.js -->
+  <script src='/angular/scripts/home.js'></script>
+
+  <!-- directives -->
+  <script src='/angular/scripts/directive/home/compile-html.js'></script>
+  <script src='/angular/scripts/directive/home/prettyprint.js'></script>
+  <script src='/angular/scripts/directive/home/scroll-animate.js'></script>
+
+  <!-- filters -->
+  <script src='/angular/scripts/filter/home/cateArticlesWordLimit.js'></script>
+  <script src='/angular/scripts/filter/home/indexArticlesWordLimit.js'></script>
+  <script src='/angular/scripts/filter/home/keyWordPoint.js'></script>
+  <script src='/angular/scripts/filter/home/keyWordWrapEm.js'></script>
+  <script src='/angular/scripts/filter/home/cateContain.js'></script>
+
+  <!-- services -->
+  <script src='/angular/scripts/services/home/service.cates.js'></script>
+  <script src='/angular/scripts/services/home/service.carousels.js'></script>
+  <script src='/angular/scripts/services/home/service.index.articles.js'></script>
+  <script src='/angular/scripts/services/home/service.articles.js'></script>
+  <script src='/angular/scripts/services/home/service.article.js'></script>
+  <script src='/angular/scripts/services/home/service.search.js'></script>
+  <script src='/angular/scripts/services/home/service.headerHelp.js'></script>
+
+  <!-- route -->
+  <script src='/angular/scripts/route/route.home.js'></script>
+
+  <!-- controllers -->
+  <script src='/angular/scripts/controllers/home/controller.article.banner.js'></script>
+  <script src='/angular/scripts/controllers/home/controller.article.js'></script>
+  <script src='/angular/scripts/controllers/home/controller.articles.js'></script>
+  <script src='/angular/scripts/controllers/home/controller.header.js'></script>
+  <script src='/angular/scripts/controllers/home/controller.index.affix.js'></script>
+  <script src='/angular/scripts/controllers/home/controller.index.articles.js'></script>
+  <script src='/angular/scripts/controllers/home/controller.index.carousel.js'></script>
+  <script src='/angular/scripts/controllers/home/controller.index.js'></script>
+  <script src='/angular/scripts/controllers/home/controller.main.js'></script>
+  <script src='/angular/scripts/controllers/home/controller.search.js'></script>
+  <!-- endbuild -->
+
+</head>
+<body ui-view>
+
+</body>
+</html>

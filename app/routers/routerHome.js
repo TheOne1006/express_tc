@@ -3,15 +3,14 @@
  * 前台router
  */
 // 加载 控制器
-var homeCtrl = require('../controllers/home/home');
-var articleCtrl = require('../controllers/article');
-var searchCtrl = require('../controllers/search');
-var carouselCtrl = require('../controllers/carousel.js');
+var controller = require('../controllers/home');
+var homeCtrl = controller.home;
+var articleCtrl = controller.article;
+var searchCtrl = controller.search;
+var carouselCtrl = controller.carousel;
 
 
 module.exports = function (app) {
-  app.get('/',homeCtrl.index);
-
   app.get(['/home/list/:cate([a-zA-Z0-9]+)/:page([0-9]+)',
     '/home/list',
     ], homeCtrl.list);

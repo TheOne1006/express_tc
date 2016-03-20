@@ -157,3 +157,9 @@ _配套版本_:
 
 #### 2016.2.22 使用 prerender 实现静态化
 
+#### 重写 Route
+
+1. 移除 `redirect()` 方法跳转,使用 `app.use()` 定向到 `index.html`
+2. `jade` 改成 `html` ,移除 `jade`
+3. 后台url RESTful化
+4. 后台 ng 优化

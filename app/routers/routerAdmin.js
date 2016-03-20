@@ -2,113 +2,90 @@
 /**
  * 后台router
  */
-var express = require('express'),
-  adminLoginR = express.Router(),
-  adminR = express.Router(),
-  articleR = express.Router(),
-  cateR = express.Router(),
-  userR = express.Router(),
-  tagR = express.Router(),
-  carouselR = express.Router(),
-  pictureR = express.Router();
+var controllers = require('../controllers/admin');
 
 // 上传图片中间件
 var uploadMiddle = require('../middleware/upload');
 
 
 // 加载 控制器
-var adminLoginCtrl = require('../controllers/admin/login');
-var adminCtrl = require('../controllers/admin/admin');
-var articleCtrl = require('../controllers/admin/article');
-var cateCtrl = require('../controllers/admin/cate');
-var userCtrl = require('../controllers/admin/user');
-var tagCtrl = require('../controllers/admin/tag');
-var carouselCtrl = require('../controllers/admin/carouselCtrl');
-var pictureCtrl = require('../controllers/admin/picture');
+var adminLoginCtrl = controllers.login;
+var adminCtrl = controllers.admin;
+var articleCtrl = controllers.article;
+var cateCtrl = controllers.cate;
+var userCtrl = controllers.user;
+var tagCtrl = controllers.tag;
+var carouselCtrl = controllers.carousel;
+var pictureCtrl = controllers.picture;
 
 
 
   module.exports = function (app, config) {
-    // 后台
-    app.use('/admin',adminR);
-    adminR.use(adminCtrl.checkSession);
-    adminR.get('/', adminCtrl.index);
-
     // 中间件
     uploadMiddle.upload(app, config);
 
     // 后台登录
-    app.use('/admin/login', adminLoginR);
-    adminLoginR.get('/', adminLoginCtrl.index);
-    adminLoginR.post('/verify/password', adminLoginCtrl.verify.password);
-    adminLoginR.post('/verify/face', adminLoginCtrl.verify.face );
+    app.get('/admin/login', adminLoginCtrl.index);
+    app.post('/admin/login/verify/password', adminLoginCtrl.verify.password);
+    app.post('/admin/login/verify/face', adminLoginCtrl.verify.face);
 
+    // 后台
+    app.use('/admin',adminCtrl.checkSession);
+    app.get('/admin', adminCtrl.index);
 
     // 后台文章
-    app.use('/admin/article', articleR);
-    articleR.put('/add', articleCtrl.add);
-    articleR.post('/edit', articleCtrl.edit);
+    app.put('/admin/article/add', articleCtrl.add);
+    app.post('/admin/article/edit', articleCtrl.edit);
 
     // 兼容上版本
-    articleR.get('/list', articleCtrl.list);
-    articleR.post('/list', articleCtrl.list);
+    app.get('/admin/article/list', articleCtrl.list);
+    app.post('/admin/article/list', articleCtrl.list);
+    app.get('/admin/article/id/:id', articleCtrl.getById);
+    app.delete('/admin/article/id/:id', articleCtrl.delById);
+    app.get('/admin/article/cate/:cateId', articleCtrl.getByCate);
 
-    articleR.get('/id/:id', articleCtrl.getById);
-    articleR.delete('/id/:id', articleCtrl.delById);
-
-    articleR.get('/cate/:cateId', articleCtrl.getByCate);
-
-    // 后台文章类别
-    app.use('/admin/cate', cateR);
-    cateR.get('/', cateCtrl.list);
-    cateR.get('/all', cateCtrl.allList);
-    cateR.put('/add', cateCtrl.add);
-    cateR.post('/edit/id/:id', cateCtrl.editById);
-    cateR.get('/id/:id', cateCtrl.getById);
-    cateR.delete('/id/:id', cateCtrl.delById);
+    // // 后台文章类别
+    app.get('/admin/cate/', cateCtrl.list);
+    app.get('/admin/cate/all', cateCtrl.allList);
+    app.put('/admin/cate/add', cateCtrl.add);
+    app.post('/admin/cate/edit/id/:id', cateCtrl.editById);
+    app.get('/admin/cate/id/:id', cateCtrl.getById);
+    app.delete('/admin/cate/id/:id', cateCtrl.delById);
 
     // 后台Tag
-    app.use('/admin/tag', tagR);
-    tagR.get('/list', tagCtrl.list);
-
+    app.get('/admin/tag/list', tagCtrl.list);
 
     // 后台Carousel
-    app.use('/admin/carousel', carouselR);
-    carouselR.put('/add', carouselCtrl.add);
-    carouselR.get('/list', carouselCtrl.list);
-    carouselR.get('/changStatus/:id',carouselCtrl.changStatusById);
-    carouselR.get('/delClould/:id',carouselCtrl.cloud.deleteById);
-    carouselR.get('/upClould/:id',carouselCtrl.cloud.uploadById);
-    carouselR.get('/single/:id', carouselCtrl.singleById);
-    carouselR.delete('/del/:id', carouselCtrl.removeById);
-    carouselR.post('/edit/:id', carouselCtrl.updateById);
+    app.put('/admin/carousel/add', carouselCtrl.add);
+    app.get('/admin/carousel/list', carouselCtrl.list);
+    app.get('/admin/carousel/changStatus/:id',carouselCtrl.changStatusById);
+    app.get('/admin/carousel/delClould/:id',carouselCtrl.cloud.deleteById);
+    app.get('/admin/carousel/upClould/:id',carouselCtrl.cloud.uploadById);
+    app.get('/admin/carousel/single/:id', carouselCtrl.singleById);
+    app.delete('/admin/carousel/del/:id', carouselCtrl.removeById);
+    app.post('/admin/carousel/edit/:id', carouselCtrl.updateById);
 
     // 后台图片管理
-    app.use('/admin/picture', pictureR);
-    pictureR.put('/add',pictureCtrl.add);
+    app.put('/admin/picture/add',pictureCtrl.add);
     app.get('/admin/pictures', pictureCtrl.list);
     app.get('/admin/picture/upClould/:_id', pictureCtrl.cloud.uploadById);
     app.delete('/admin/picture/upClould/:_id', pictureCtrl.cloud.deleteById);
 
     // 后台管理员
-    app.use('/admin/user', userR);
-    userR.get('/', userCtrl.index);
-    userR.get('/myInfo', userCtrl.myInfo);
+    app.get('/admin/user/', userCtrl.index);
+    app.get('/admin/user/myInfo', userCtrl.myInfo);
 
     //face++
-    userR.get('/createFacePower', userCtrl.face.createPower);
-    userR.get('/createfacePerson', userCtrl.face.createPerson);
-    userR.get('/updatefacePerson', userCtrl.face.updatePerson);
-    userR.get('/up2facePP/:_id', userCtrl.face.upload);
-    userR.get('/faceSingle/:_id', userCtrl.face.removeById);
+    app.get('/admin/user/createFacePower', userCtrl.face.createPower);
+    app.get('/admin/user/createfacePerson', userCtrl.face.createPerson);
+    app.get('/admin/user/updatefacePerson', userCtrl.face.updatePerson);
+    app.get('/admin/user/up2facePP/:_id', userCtrl.face.upload);
+    app.get('/admin/user/faceSingle/:_id', userCtrl.face.removeById);
 
-    userR.get('/myPhotoList', userCtrl.myPhotoList);
-    userR.post('/addUserPhotos', userCtrl.addMyPhotos);
+    app.get('/admin/user/myPhotoList', userCtrl.myPhotoList);
+    app.post('/admin/user/addUserPhotos', userCtrl.addMyPhotos);
     // cloudinary
-    userR.get('/up2cloud/:id', userCtrl.cloudinary.upload);
-    userR.delete('/cloudSingle/:_id',userCtrl.cloudinary.removeById);
-
-
-
+    app.get('/admin/user/up2cloud/:id', userCtrl.cloudinary.upload);
+    app.delete('/admin/user/cloudSingle/:_id',userCtrl.cloudinary.removeById);
 
   };

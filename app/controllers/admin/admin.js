@@ -1,15 +1,14 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-  crypto = require('crypto'),
+  // crypto = require('crypto'),
   // async = require('async'),
-  moment = require('moment'),
+  // moment = require('moment'),
   User = mongoose.model('User');
 
 exports.checkSession = function  (req, res, next) {
 
-  if(req.url !== '/login/' && req.url !=='/login/verify/password' && req.url !=='/login/verify/face'  && !req.session.userId){
-
+  if(!req.session.userId) {
     res.redirect('/admin/login/');
     return;
   }
@@ -29,9 +28,9 @@ exports.checkSession = function  (req, res, next) {
 };
 
 exports.index = function (req, res) {
-        res.render('admin/index',{
-          title:'TheOne后台',
-        });
+    res.render('admin/index',{
+      title:'TheOne后台',
+    });
   };
   // .get('/add/user',function (req, res) {
   //   var md5 = crypto.createHash('md5').update('xxxx');
