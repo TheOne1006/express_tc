@@ -15,6 +15,8 @@ module.exports = function (grunt) {
     adminCss:'public/css/admin',
     homeTemp:'app/views/home',
     homeCss:'public/css/home',
+    clientAdminTemp: 'angular/views/admin',
+    clientAdminLoginTemp: 'angular/views/admin/login',
     clientHomeTemp: 'angular/views/home',
     adminExtendJs:'public/js/admin/extend',
     pubImg:'public/img',
@@ -62,7 +64,7 @@ module.exports = function (grunt) {
      */
     wiredep: {
       admin: {
-        src: ['<%= appCon.adminTemp %>/*.jade'],
+        src: ['<%= appCon.clientAdminTemp %>/*.html'],
         exclude:[
         'public/components/bootstrap-sass-official/assets/javascripts/bootstrap.js',
         'public/components/angular-strap/dist/angular-strap.js',
@@ -75,6 +77,27 @@ module.exports = function (grunt) {
         'public/components/angular-mermaid/dist/angular-mermaid.js'
         ],
         ignorePath:  /(\.\.\/){3}public/
+      },
+      adminlogin: {
+        src: ['<%= appCon.clientAdminLoginTemp %>/*.html'],
+        exclude:[
+        'public/components/bootstrap-sass-official/assets/javascripts/bootstrap.js',
+        'public/components/angular-strap/dist/angular-strap.js',
+        'public/components/angular-strap/dist/angular-strap.tpl.js',
+        'public/components/google-code-prettify/bin/prettify.min.js',
+        'public/components/angular-carousel/dist/angular-carousel.js',
+        'public/components/tinymce/tinymce.min.js',
+        'public/components/vivus/dist/vivus.js',
+        'public/components/mermaid/dist/mermaid.slim.js',
+        'public/components/angular-mermaid/dist/angular-mermaid.js',
+        'public/components/ng-tags-input/ng-tags-input.min.js',
+        'public/components/ng-grid/build/ng-grid.js',
+        'public/components/angular-bootstrap/ui-bootstrap-tpls.js',
+        'public/components/tinymce-dist/tinymce.js',
+        'public/components/angular-ui-tinymce/src/tinymce.js',
+        'public/components/ng-tags-input/ng-tags-input.min.js'
+        ],
+        ignorePath:  /(\.\.\/){4}public/
       },
       home :{
         src:['<%= appCon.clientHomeTemp %>/index.html'],

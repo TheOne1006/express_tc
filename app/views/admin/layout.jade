@@ -3,7 +3,6 @@ html(lang='en')
   head
     meta(charset='UTF-8')
     meta(name='viewport', content='width=device-width')
-    title= title
 
     //-<!-- build:css(public) #{env}/public/css/admin/theoneAdmin.css -->
     //- bower:css
@@ -45,9 +44,10 @@ html(lang='en')
     script(src='/components/angular-ui-router/release/angular-ui-router.js')
     script(src='/components/ng-grid/build/ng-grid.js')
     script(src='/components/angular-bootstrap/ui-bootstrap-tpls.js')
+    script(src='/components/tinymce-dist/tinymce.js')
     script(src='/components/angular-ui-tinymce/src/tinymce.js')
     script(src='/components/ng-tags-input/ng-tags-input.min.js')
-    script(src='/components/angular-file-upload/angular-file-upload.js')
+    script(src='/components/angular-file-upload/angular-file-upload.min.js')
     script(src='/components/angular-ui-codemirror/ui-codemirror.js')
     //- endbower
 
@@ -79,7 +79,7 @@ html(lang='en')
                                 li.active
                                     a(href="/admin") TheBlog
                                 li
-                                    a(href="/admin/user")=user.name
+                                    a(href="/admin/user") theone
                                 li
                                     a(href="") link
         //- 中心

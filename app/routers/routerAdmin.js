@@ -31,7 +31,7 @@ var pictureCtrl = controllers.picture;
 
     // 后台
     app.use('/admin',adminCtrl.checkSession);
-    app.get('/admin', adminCtrl.index);
+    // app.get('/admin', adminCtrl.index);
 
     // 后台文章
     app.put('/admin/article/add', articleCtrl.add);

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+
+    <!-- build:css(public) #{env}/public/css/admin/theoneAdmin.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="/components/ng-grid/ng-grid.css" />
+    <link rel="stylesheet" href="/components/ng-tags-input/ng-tags-input.min.css" />
+    <link rel="stylesheet" href="/components/angular-carousel/dist/angular-carousel.css" />
+    <link rel="stylesheet" href="/components/google-code-prettify/bin/prettify.min.css" />
+    <!-- endbower -->
+    <!-- codemirror 编辑器 start -->
+    <link rel="stylesheet" href="/components/codemirror/lib/codemirror.css">
+    <link rel="stylesheet" href="/components/codemirror/theme/base16-light.css">
+    <link rel="stylesheet" href="/css/admin/main.css">
+    <link rel="stylesheet" href="/css/admin/bootstrap-admin-theme.css">
+    <!--endbuild-->
+
+
+    <!-- build:js -->
+    <script src="http://localhost:35729/livereload.js"></script>
+    <!-- endbuild -->
+
+    <!-- build:js(public) #{env}/public/tinymce/tinymce.min.js -->
+    <script src="/components/tinymce/tinymce.min.js"></script>
+    <!-- endbuild -->
+
+    <!-- build:js(public) #{env}/public/scripts/admin/base.js -->
+    <!-- bower:js -->
+    <script src="/components/jquery/dist/jquery.js"></script>
+    <script src="/components/es5-shim/es5-shim.js"></script>
+    <script src="/components/angular/angular.js"></script>
+    <script src="/components/json3/lib/json3.js"></script>
+    <script src="/components/angular-animate/angular-animate.js"></script>
+    <script src="/components/angular-aria/angular-aria.js"></script>
+    <script src="/components/angular-cookies/angular-cookies.js"></script>
+    <script src="/components/angular-messages/angular-messages.js"></script>
+    <script src="/components/angular-resource/angular-resource.js"></script>
+    <script src="/components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="/components/angular-touch/angular-touch.js"></script>
+    <script src="/components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="/components/ng-grid/build/ng-grid.js"></script>
+    <script src="/components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="/components/tinymce-dist/tinymce.js"></script>
+    <script src="/components/angular-ui-tinymce/src/tinymce.js"></script>
+    <script src="/components/ng-tags-input/ng-tags-input.min.js"></script>
+    <script src="/components/angular-file-upload/angular-file-upload.min.js"></script>
+    <!-- endbower -->
+
+    <!-- codemirror 编辑器 start -->
+    <script src="/components/angular-ui-codemirror/ui-codemirror.js"></script>
+    <script src="/components/codemirror/lib/codemirror.js"></script>
+    <script src="/components/codemirror/addon/mode/overlay.js"></script>
+    <script src="/components/codemirror/mode/xml/xml.js"></script>
+    <script src="/components/codemirror/mode/javascript/javascript.js"></script>
+    <script src="/components/codemirror/mode/markdown/markdown.js"></script>
+    <script src="/components/codemirror/mode/gfm/gfm.js"></script>
+    <script src="/components/codemirror/mode/css/css.js"></script>
+    <script src="/components/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+    <!-- endbuild -->
+
+  </head>
+  <body ng-app="theoneAppAdmin">
+    <nav role="navigation" class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="navbar-header">
+              <a class="navbar-brand">theOne Blog</a>
+            </div>
+            <div class="collapse navbar-collapse main-navbar-collapse">
+              <ul class="nav navbar-nav">
+                <li class="active">
+                  <a href="/admin">TheBlog</a>
+                </li>
+                <li>
+                  <a href="/admin/user">theone</a>
+                </li>
+                <li>
+                  <a href="">link</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 bootstrap-admin-col-left">
+          <ul class="nav navbar-collapse bootstrap-admin-navbar-side">
+            <li class="active">
+              <a href="#/">
+                <i class="glyphicon glyphicon-dashboard">
+                </i>
+                仪表盘
+              </a>
+            </li>
+            <li>
+              <a href="#/cate">类别</a>
+            </li>
+            <li>
+              <a href="#/article">文章列表</a>
+            </li>
+            <li>
+              <a href="#/article/add">发布文章</a>
+            </li>
+            <li>
+              <a href="#/tag">标签列表</a>
+            </li>
+            <li>
+              <a href="#/carousel">首页幻灯片</a>
+            </li>
+            <li>
+              <a href="#/pictures">图片管理</a>
+            </li>
+          </ul>
+        </div>
+        <div ui-view>
+        </div>
+      </div>
+    </div>
+    <div class="navbar navbar-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <footer role="conteninfo">
+              <p class="left">theone博客后台</p>
+              <p class="right">&copy; 2015 - 2016 </p>
+            </footer>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <!-- angular -->
+  <!-- build:js(.) #{env}/angular/scripts/admin/adminIndex.js -->
+  <script src="/angular/scripts/app.js"></script>
+  <!-- directives -->
+  <script src="/angular/scripts/directive/admin/preview-img.js"></script>
+  <script src="/angular/scripts/directive/admin/file-change.js"></script>
+
+  <!-- route -->
+  <script src="/angular/scripts/route/route.admin.js"></script>
+
+  <!-- controllers -->
+  <script src="/angular/scripts/controllers/admin/controller.article.add.js"></script>
+  <script src="/angular/scripts/controllers/admin/controller.article.edit.js"></script>
+  <script src="/angular/scripts/controllers/admin/controller.article.del.js"></script>
+  <script src="/angular/scripts/controllers/admin/controller.articles.js"></script>
+
+  <script src="/angular/scripts/controllers/admin/controller.cate.add.js"></script>
+  <script src="/angular/scripts/controllers/admin/controller.cate.edit.js"></script>
+  <script src="/angular/scripts/controllers/admin/controller.cate.del.js"></script>
+  <script src="/angular/scripts/controllers/admin/controller.cates.js"></script>
+
+  <script src="/angular/scripts/controllers/admin/controller.carousels.js"></script>
+  <script src="/angular/scripts/controllers/admin/controller.carousel.add.js"></script>
+
+  <script src="/angular/scripts/controllers/admin/controller.picture.add.js"></script>
+  <script src="/angular/scripts/controllers/admin/controller.pictures.js"></script>
+
+
+  <script src="/angular/scripts/controllers/admin/controller.tags.js"></script>
+
+
+
+  <!-- services -->
+  <script src="/angular/scripts/services/admin/service.picture.js"></script>
+  <script src="/angular/scripts/services/admin/service.admin-modal.js"></script>
+  <script src="/angular/scripts/services/admin/service.ui-tool.js"></script>
+  <script src="/angular/scripts/services/admin/service.tinymce.js"></script>
+
+  <!-- filters -->
+  <script src="/angular/scripts/filter/admin/get-single-filed.js"></script>
+
+  <!-- endbuild -->
+</html>

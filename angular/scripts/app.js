@@ -2,15 +2,14 @@
 
 /**
  * @ngdoc overview
- * @name theoneApp
+ * @name theoneAppAdmin
  * @description
- * # theoneApp
+ * # theoneAppAdmin
  *
  * Main module of the application.
  */
- var ngApp;
-ngApp = angular
-  .module('theoneApp', [
+angular
+  .module('theoneAppAdmin', [
     'ngAnimate',
     'ngAria',
     'ngCookies',
@@ -27,7 +26,19 @@ ngApp = angular
     'ngTouch',
     // 图片上传
     'angularFileUpload',
-    'theOneBlog.service'
+    'theoneAppAdmin.services',
+    'theoneAppAdmin.filters',
+    'theoneAppAdmin.controllers',
+    'theoneAppAdmin.route'
   ]);
 
-angular.module('theOneBlog.service', ['ngResource']);
+angular.module('theoneAppAdmin.services', ['ngResource']);
+
+// route
+angular.module('theoneAppAdmin.route', []);
+
+// controllers
+angular.module('theoneAppAdmin.controllers', ['theoneAppAdmin.services']);
+
+// filter
+angular.module('theoneAppAdmin.filters', []);

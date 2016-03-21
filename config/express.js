@@ -90,9 +90,15 @@ module.exports = function(app, config) {
     require(router)(app, config);
   });
 
+  app.use('/admin',function (req, res) {
+    res.sendFile(config.root + '/angular/views/admin/index.html');
+  });
+
   app.use(function (req, res) {
     res.sendFile(config.root + '/angular/views/home/index.html');
   });
+
+
 
   app.use(function (req, res, next) {
     var err = new Error('Not Found');

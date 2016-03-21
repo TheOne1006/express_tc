@@ -14,10 +14,10 @@ var mongoose = require('mongoose'),
 var fs = require('fs');
 
 exports.index = function (req, res) {
-        res.render('admin/login', {
-          title: 'TheOne Blog 后台管理'
-        });
-    };
+  res.sendFile(config.root + '/angular/views/admin/login/index.html');
+};
+
+
 exports.test = function( req, res ) {
   console.log('test');
   res.end('end');
@@ -50,7 +50,7 @@ exports.verify = {
 
         async.waterfall([
           function (cb) {
-            if(env === 'development') { 
+            if(env === 'development') {
               //- 测试
               help.facePlusPlusDetect('http://res.cloudinary.com/theone/image/upload/v1425302230/mavjc53omfyfnngyjebw.jpg', cb);
             }else {
@@ -66,12 +66,12 @@ exports.verify = {
             help.faceRecongnitionVerify(detectInfo.face[0].face_id, 'ffc4dc1a7f5b117bb529a0f9509c75b7', cb);
           },
           function  (result ,cb) {
-            
+
             // 返回对比差异
             if (result.confidence > 60 && result.is_same_person ) {
               req.session.userId = '54ede26288d1cb84097a886e';
               cb(null, {is_login:true});
-            } else { 
+            } else {
               cb(null, {is_login:false});
             }
           }
@@ -81,13 +81,13 @@ exports.verify = {
             //********** 临时同步方法
             var tmpfiles,
             dirPath = config.root+'/data/tmp/';
-            try { 
-              tmpfiles = fs.readdirSync(dirPath); 
+            try {
+              tmpfiles = fs.readdirSync(dirPath);
               }catch(e) {
                  cb({'clear':'error'});
               }
 
-            if (tmpfiles.length > 0){  
+            if (tmpfiles.length > 0){
               for (var i = 0; i < tmpfiles.length; i++) {
                 var filePath = dirPath + '/' + tmpfiles[i];
                 if (fs.statSync(filePath).isFile()) {

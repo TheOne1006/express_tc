@@ -8,7 +8,7 @@
  * Picture Service of the theOne app
  */
 angular
-  .module('theOneBlog.service')
+  .module('theoneAppAdmin.services')
   .factory('PictureService', ['$resource',function ($resource) {
 
     var pictures,
@@ -64,4 +64,3 @@ angular
       }
     };
   }]);
-
