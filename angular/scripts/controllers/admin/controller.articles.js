@@ -36,12 +36,12 @@ angular
      useExternalFilter:true
    };
 
-   // $scope.totalServerItems = 0; // 总个数
+  //  $scope.totalServerItems = 110; // 总个数
    //分页设置
    $scope.pagingOptions = {
-       pageSizes: [10, 15, 20],
-       currentPage: 1,
-       pageSize:10
+      pageSizes: [10],
+      pageSize: 10,
+      currentPage: 1
    };
 
    //  －－固定写法
@@ -49,7 +49,8 @@ angular
        // var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
        var pagedData = data;
        $scope.myData = pagedData;
-       // $scope.totalServerItems = data.length;
+       $scope.totalServerItems = data.length + 10 ;
+
        if (!$scope.$$phase) {
            $scope.$apply();
        }
@@ -119,7 +120,7 @@ angular
    }, false);
 
    $scope.filterOptions ={
-     name:'123'
+     name:''
    };
 
    $scope.gridOptions = {
@@ -128,8 +129,6 @@ angular
        field:'_id',
        displayName:'ID',
        width: 60,
-       pinnable: false,
-       sortable: false,
        // cell 显示 id 顺序
        cellTemplate:'<div class="ngCellText" ng-class="col.colIndex()"><span>{{row.rowIndex+1}}</span></div>'
      }, {
@@ -146,8 +145,8 @@ angular
        displayName:'操作',
        cellTemplate:'<div class="ngCellText"><a ng-href="#/article/edit/{{row.entity._id}}">编辑</a> &nbsp; <a href="javascript:;" ng-click="delOpen(row.entity._id)">删除</a></div>'
      }],
-     showGroupPanel:false,
-     showFooter:true,
+     showFooter: true,
+     totalServerItems: 'totalServerItems',
      enablePaging: true,
      enableRowSelection: true,
      multiSelect:false,
