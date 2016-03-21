@@ -76,10 +76,7 @@
                   <a href="/admin">TheBlog</a>
                 </li>
                 <li>
-                  <a href="/admin/user">theone</a>
-                </li>
-                <li>
-                  <a href="">link</a>
+                  <a href="#/user">用户</a>
                 </li>
               </ul>
             </div>
@@ -89,35 +86,9 @@
     </nav>
     <div class="container">
       <div class="row">
-        <div class="col-md-3 bootstrap-admin-col-left">
-          <ul class="nav navbar-collapse bootstrap-admin-navbar-side">
-            <li class="active">
-              <a href="#/">
-                <i class="glyphicon glyphicon-dashboard">
-                </i>
-                仪表盘
-              </a>
-            </li>
-            <li>
-              <a href="#/cate">类别</a>
-            </li>
-            <li>
-              <a href="#/article">文章列表</a>
-            </li>
-            <li>
-              <a href="#/article/add">发布文章</a>
-            </li>
-            <li>
-              <a href="#/tag">标签列表</a>
-            </li>
-            <li>
-              <a href="#/carousel">首页幻灯片</a>
-            </li>
-            <li>
-              <a href="#/pictures">图片管理</a>
-            </li>
-          </ul>
+        <div ui-view="lefter">
         </div>
+
         <div ui-view>
         </div>
       </div>
@@ -138,7 +109,7 @@
 
   <!-- angular -->
   <!-- build:js(.) #{env}/angular/scripts/admin/adminIndex.js -->
-  <script src="/angular/scripts/app.js"></script>
+  <script src="/angular/scripts/admin.js"></script>
   <!-- directives -->
   <script src="/angular/scripts/directive/admin/preview-img.js"></script>
   <script src="/angular/scripts/directive/admin/file-change.js"></script>
@@ -163,16 +134,19 @@
   <script src="/angular/scripts/controllers/admin/controller.picture.add.js"></script>
   <script src="/angular/scripts/controllers/admin/controller.pictures.js"></script>
 
+  <script src="/angular/scripts/controllers/admin/controller.user.js"></script>
+  <script src="/angular/scripts/controllers/admin/controller.user.photo.js"></script>
+  <script src="/angular/scripts/controllers/admin/controller.user.photo.add.js"></script>
+
 
   <script src="/angular/scripts/controllers/admin/controller.tags.js"></script>
-
-
-
   <!-- services -->
   <script src="/angular/scripts/services/admin/service.picture.js"></script>
   <script src="/angular/scripts/services/admin/service.admin-modal.js"></script>
   <script src="/angular/scripts/services/admin/service.ui-tool.js"></script>
   <script src="/angular/scripts/services/admin/service.tinymce.js"></script>
+
+  <script src="/angular/scripts/services/admin/service.user-photo.js"></script>
 
   <!-- filters -->
   <script src="/angular/scripts/filter/admin/get-single-filed.js"></script>
