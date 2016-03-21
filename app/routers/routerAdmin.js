@@ -92,4 +92,8 @@ var pictureCtrl = controllers.picture;
     // URL RESRful
     // api 方便扩展
     app.get('/admin/api/tags', tagCtrl.list);
+
+    app.put('/admin/api/article', articleCtrl.add);
+    app.get('/admin/api/cates', cateCtrl.allList);
+    app.get('/admin/api/articles', articleCtrl.allList);
   };

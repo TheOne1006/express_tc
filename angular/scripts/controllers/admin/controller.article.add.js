@@ -1,13 +1,15 @@
+'use strict';
+
 angular
   .module('theoneAppAdmin.controllers')
-  .controller('ArticleAddController', ['$scope', 'adminModalService', 'tinymceService', 'UiTool', function ($scope, adminModalService, tinymceService, UiTool) {
-
+  .controller('ArticleAddController', ['$scope', 'tinymceService', 'articleService' , 'catesService', function ($scope, tinymceService, articleService, catesService) {
     // init scope
     $scope.tableName = '添加文章';
     $scope.keyWords = [];
 
     // init 函数
     function initArticle () {
+      $scope.keyWords = [];
       $scope.newArticle = {
         title:'',
         cate:'',
@@ -23,8 +25,11 @@ angular
     initArticle();
 
     // 获取所有cate
-    adminModalService.cateList('/admin/cate/all').
-      success(function (data) {
+    catesService
+      .allList()
+      .$promise
+      .then(function (data) {
+        console.log(data);
         $scope.cates = data;
       });
 
@@ -39,28 +44,19 @@ angular
     };
 
     // 提交表单
-    $scope.ok = function () {
+    $scope.save = function () {
 
-      // 处理 cate
-      if($scope.newArticle.cate){
-        $scope.newArticle.cate = $scope.newArticle.cate._id;
-      }
-
-      if($scope.newArticle.type === 'html') {
-        $scope.newArticle.content = $scope.newArticle.contentHtml;
-      } else {
-        $scope.newArticle.content = $scope.newArticle.contentMd;
-      }
-
-      // 处理 keywords
-      $scope.newArticle.keyWords = UiTool.tagInput2arr($scope.keyWords, []);
-
-      adminModalService.putNew('/admin/article/add',{article:$scope.newArticle})
-        .success(function (data) {
-
+      articleService
+        .save($scope.newArticle, $scope.keyWords)
+        .then(function (data) {
+          console.log('success');
           console.log(data);
 
           initArticle();
+
+        }, function (data) {
+          console.log('fail');
+          console.log(data);
         });
     };
 

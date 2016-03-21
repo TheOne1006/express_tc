@@ -13,6 +13,30 @@ var mongoose = require('mongoose'),
 
   _.extend(exports, publicArticle);
 
+
+exports.allList = function (req, res, next) {
+
+  var limit = req.param('limit') || 10,
+    page = req.param('page') || 1,
+    keyword = req.param('keyword') || '',
+    options = {
+      limit: limit,
+      page: page,
+      keyword: keyword
+    };
+
+  Article
+    .list( options , false, function (err, results) {
+      if(err) {
+        return next(err);
+      }
+      res.json(results);
+      res.end();
+    });
+
+};
+
+
 // 文章列表
 exports.list = function (req, res, next) {
   var pageSize = (req.body && req.body.pageSize)? req.body.pageSize : 10,
@@ -65,6 +89,8 @@ exports.add = function (req, res ,next) {
     // 验证
     var newArticle = new Article(req.body.article);
 
+    // console.log(req.body.article);
+
     // 获取 作者
     var authorId = req.session.userId;
     newArticle.author = authorId;
@@ -83,9 +109,10 @@ exports.add = function (req, res ,next) {
       }
       ],function (err) {
       if(err){
+        res.state(400);
         return next(err);
       }
-      res.end('is_add');
+      res.end({'result':false});
     });
 
   };

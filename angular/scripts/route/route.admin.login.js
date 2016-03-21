@@ -17,7 +17,8 @@
            url:'/webcam',
            views:{
              '@':{
-               templateUrl: '/angular/views/admin/login/webcam.html'
+               templateUrl: '/angular/views/admin/login/webcam.html',
+               controller: 'LoginWebcamController'
              }
            }
          });

@@ -6,6 +6,7 @@
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema,
   ObjectId = Schema.Types.ObjectId,
+  _ = require('underscore'),
   // Mixed = Schema.Types.Mixed,
   moment = require('moment');
 
@@ -58,6 +59,65 @@ ArticleSchema.pre('save',function (next) {
   this.contentText = removeHTMLTag(this.content);
   next();
 });
+
+var OriginOptions = {
+  limit : 10,
+  page : 1,
+  keyword : ''
+};
+
+ArticleSchema.static('list', function ( options, joinCate , next) {
+
+  // 前置内容处理
+  joinCate  = joinCate || false;
+  options = _.extend({}, OriginOptions, options);
+
+  // 变量声明
+  var regObj,
+    articleHanle;
+
+  if(options.keyword) {
+    regObj = new RegExp(options.keyword);
+  }
+
+  articleHanle = this.find();
+
+  if(options.keyword) {
+    articleHanle
+      .or([{title:{$regex:regObj,$options: 'i'}},
+          {contentText:{$regex:regObj,$options: 'i'}},
+          {keyWords: options.keyword},
+          ]
+        );
+  }
+
+  articleHanle
+    .skip(options.limit * (options.page - 1))
+    .limit(options.limit);
+
+  if(joinCate) {
+    articleHanle
+      .populate('cate','name');
+  }
+
+  articleHanle
+    .exec( next );
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 mongoose.model('Article', ArticleSchema);
 

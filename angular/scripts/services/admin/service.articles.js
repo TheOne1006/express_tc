@@ -8,14 +8,14 @@
  * service module of theOne Blog
  */
  angular
-   .module('theOneBlog.services')
+   .module('theoneAppAdmin.services')
    .factory('articlesService', ['$resource', function ($resource) {
-     var resource = $resource('/admin/api/articles',{page:1, limit:10, keyword:''});
+     var resource = $resource('/admin/api/articles',{page:1, limit:10, keyword:'@keyword'});
 
 
      return {
-       list: function ( keyword ) {
-         return resource.query({ keyword: keyword});
+       list: function ( options ) {
+         return resource.query(options);
        }
-     }
-   });
+     };
+   }]);

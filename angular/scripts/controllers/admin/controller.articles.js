@@ -11,7 +11,7 @@
  */
 angular
  .module('theoneAppAdmin.controllers')
- .controller('ArticleController', ['$scope', '$http', '$filter', '$timeout', 'adminModalService', 'tagsService', function ($scope, $http, $filter, $timeout, adminModalService, tagsService) {
+ .controller('ArticleController', ['$scope', '$http', '$filter', '$timeout', 'adminModalService', 'tagsService', 'articlesService', function ($scope, $http, $filter, $timeout, adminModalService, tagsService, articlesService) {
 
    var watchForGoany = '';
 
@@ -49,37 +49,31 @@ angular
        // var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
        var pagedData = data;
        $scope.myData = pagedData;
-       $scope.totalServerItems = data.length + 10 ;
+       $scope.totalServerItems = data.length;
 
        if (!$scope.$$phase) {
            $scope.$apply();
        }
    };
    // 根据路由传递过来的参数
-   $scope.getPagedDataAsync = function (pageSize, page, searchText) {
-               var data,
-                 options = {
-                   page: page,
-                   pageSize: pageSize,
-                   searchText: searchText
-                 };
+   $scope.getPagedDataAsync = function (limit, page, keyword) {
 
-               if (searchText) {
-                   var ft = searchText.toLowerCase();
-                   adminModalService.postlist('/admin/article/list',options)
-                   .success(function (largeLoad) {
-                       data = largeLoad.filter(function(item) {
-                           return JSON.stringify(item).toLowerCase().indexOf(ft) !== -1;
-                       });
-                       $scope.setPagingData(data,page,pageSize);
-                   });
-               } else {
-                   adminModalService.postlist('/admin/article/list', options)
-                     .success(function (largeLoad) {
-                       $scope.setPagingData(largeLoad,page,pageSize);
-                     });
-               }
-       };
+    if(keyword && angular.isString(keyword)) {
+      keyword = keyword.toLowerCase();
+    }
+    var options = {
+         page: page,
+         limit : limit,
+         keyword: keyword
+      };
+
+      articlesService
+        .list(options)
+        .$promise
+        .then(function (data) {
+          $scope.setPagingData(data, page, limit);
+        });
+    };
 
    $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
 
@@ -129,6 +123,8 @@ angular
        field:'_id',
        displayName:'ID',
        width: 60,
+       pinnable: false,
+       sortable: false,
        // cell 显示 id 顺序
        cellTemplate:'<div class="ngCellText" ng-class="col.colIndex()"><span>{{row.rowIndex+1}}</span></div>'
      }, {
@@ -145,8 +141,8 @@ angular
        displayName:'操作',
        cellTemplate:'<div class="ngCellText"><a ng-href="#/article/edit/{{row.entity._id}}">编辑</a> &nbsp; <a href="javascript:;" ng-click="delOpen(row.entity._id)">删除</a></div>'
      }],
-     showFooter: true,
-     totalServerItems: 'totalServerItems',
+     showGroupPanel:false,
+     showFooter:true,
      enablePaging: true,
      enableRowSelection: true,
      multiSelect:false,

@@ -34,7 +34,8 @@ angular
         url:'/cate',
         views:{
           '@':{
-            templateUrl:'/angular/views/admin/cate.html'
+            templateUrl:'/angular/views/admin/cate.html',
+            controller: 'CateController'
           }
         }
       })
@@ -42,7 +43,8 @@ angular
         url:'/article',
         views:{
           '@':{
-            templateUrl:'/angular/views/admin/article_list.html'
+            templateUrl:'/angular/views/admin/article.list.html',
+            controller: 'ArticleController'
           }
         }
       })
@@ -50,7 +52,8 @@ angular
         url:'/add',
         views:{
           '@':{
-            templateUrl:'/angular/views/admin/article.add.html'
+            templateUrl:'/angular/views/admin/article.add.html',
+            controller : 'ArticleAddController'
           }
         }
       })
@@ -120,7 +123,8 @@ angular
         url:'/photo',
         views:{
           '@':{
-            templateUrl:'/angular/views/admin/user/user.photo.html'
+            templateUrl:'/angular/views/admin/user/user.photo.html',
+            controller: 'UserPhotoController'
           }
         }
       })

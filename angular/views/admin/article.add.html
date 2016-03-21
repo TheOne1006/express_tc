@@ -1,4 +1,4 @@
-<div class='col-md-9' ng-controller="ArticleAddController">
+<div class='col-md-9'>
   <div class='row'>
       <div class='col-lg-12'>
           <div class='page-header'>
@@ -71,7 +71,7 @@
                       <textarea ng-model="newArticle.contentMd" ui-codemirror ui-codemirror-opts="editorOptions" ></textarea>
                      </div>
 
-                     <button type="submit" class="btn btn-primary" ng-click='ok()' >保存</button>
+                     <button type="submit" class="btn btn-primary" ng-click='save()' >保存</button>
                      <button type="reset" class="btn btn-default">清除</button>
                    </fieldset>
                  </form>

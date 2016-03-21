@@ -1,6 +1,6 @@
 /**
  * 博客类别信息
- * @author theone 
+ * @author theone
  */
 'use strict';
 
@@ -22,7 +22,7 @@ var CateSchema = new Schema({
   articleNum:Number,
   updateTime:String
 });
-  
+
 CateSchema.pre('save',function (next) {
   if(!this.articleNum){
     this.articleNum = 0;
@@ -79,13 +79,7 @@ CateSchema.static('findByIdAndParent',function (id, cb) {
 
    this
      .findOne({name:nameReg})
-     .exec(function (err, cate) {
-       if(err){
-         return cb(err);
-       }
-
-      return cb(null, cate);
-     });
+     .exec(cb);
  });
 
 
@@ -93,19 +87,41 @@ CateSchema.static('findByIdAndParent',function (id, cb) {
   * 搜索ByAlias
   */
   CateSchema.static('findByAlias',function (alias, cb) {
-
     this
       .findOne({alias:alias})
-      .exec(function (err, cate) {
-        if(err){
-          return cb(err);
-        }
-
-       return cb(null, cate);
-      });
+      .exec(cb);
   });
 
+/**
+ * 列表
+ */
+var OriginOptions = {
+  limit : 10,
+  page : 1
+};
 
+ CateSchema.static('list', function ( options, joinCate , joinTopArticles , next) {
+
+  // 前置内容处理
+  joinCate  = joinCate || false;
+  joinTopArticles  = joinTopArticles || false;
+  options = _.extend({}, OriginOptions, options);
+
+  // 变量声明
+  var cateHandle;
+
+  cateHandle = this.find();
+
+  if(joinTopArticles) {
+    cateHandle.populate('topArticles');
+  }
+
+  cateHandle
+    .skip(options.limit * (options.page - 1))
+    .limit(options.limit)
+    .exec(next);
+
+ });
 
 
 
