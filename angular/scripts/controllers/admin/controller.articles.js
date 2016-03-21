@@ -11,7 +11,7 @@
  */
 angular
  .module('theoneAppAdmin.controllers')
- .controller('ArticleController', ['$scope', '$http', '$filter', '$timeout', 'adminModalService', function ($scope, $http, $filter, $timeout, adminModalService) {
+ .controller('ArticleController', ['$scope', '$http', '$filter', '$timeout', 'adminModalService', 'tagsService', function ($scope, $http, $filter, $timeout, adminModalService, tagsService) {
 
    var watchForGoany = '';
 
@@ -19,10 +19,13 @@ angular
 
    $scope.anywords = [];
 
-   adminModalService.getlist('/admin/tag/list')
-     .success(function( tagList){
-       $scope.anywords =$filter('getSingleFiled')(tagList, 'name');
-     });
+   tagsService
+    .allList()
+    .$promise
+    .then(function ( tags ) {
+      $scope.anywords = $filter('getSingleFiled')( tags, 'name');
+    });
+
    //预输入
    // $scope.anywords = ['PHP','angular','javascript','mysql'];
 

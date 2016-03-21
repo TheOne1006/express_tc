@@ -15,6 +15,7 @@ angular
   .controller('CateController',['$scope','$http','$modal', 'adminModalService', function ($scope, $http, $modal, adminModalService) {
 
      $scope.tableName = '类别表';
+
      // 定义 ngGrid
      // 过滤文本
      $scope.filterOptions = {
@@ -38,6 +39,7 @@ angular
            $scope.$apply();
        }
      };
+
      // 根据路由传递过来的参数
      $scope.getPagedDataAsync = function (pageSize, page, searchText) {
        setTimeout(function () {

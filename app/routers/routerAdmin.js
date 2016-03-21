@@ -88,4 +88,8 @@ var pictureCtrl = controllers.picture;
     app.get('/admin/user/up2cloud/:id', userCtrl.cloudinary.upload);
     app.delete('/admin/user/cloudSingle/:_id',userCtrl.cloudinary.removeById);
 
+
+    // URL RESRful
+    // api 方便扩展
+    app.get('/admin/api/tags', tagCtrl.list);
   };
