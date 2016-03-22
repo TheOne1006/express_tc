@@ -16,11 +16,7 @@ angular
      * 首页 列表资源
      */
     var recommendArticlesByCate = [],
-      resource = $resource('/home/index/list', {
-      },{
-        timeout: 20000
-        }
-      );
+      resource = $resource('/home/index/list');
 
 
       /**
@@ -28,7 +24,7 @@ angular
        * @return defer Object
        */
     function getIndexArticlesList () {
-      return resource.query({}, function (data) {
+      return resource.query({},{},function (data) {
         if(data.length > 0) {
           recommendArticlesByCate = data;
         }
@@ -52,9 +48,3 @@ angular
       }
     };
   }]);
-
-
-
-
-
-

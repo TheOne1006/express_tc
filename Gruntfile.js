@@ -246,9 +246,9 @@ module.exports = function (grunt) {
           expand: true,
           dot: true,
           cwd: '<%= appCon.expressApp %>',
-          dest: '<%= appCon.dist %>/<%= appCon.expressApp %>',
+          dest: '<%= appCon.dist %>/<%= appCon.expressApp %>/',
           src: [
-            '{,*/**/}*.{js}'
+            '{,*/**/}*.*'
           ]
         }, {
           expand: true,
@@ -467,10 +467,14 @@ module.exports = function (grunt) {
   grunt.registerTask('build', '项目生成',[
     'clean',
     'wiredep',
-    'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
     'copy',
+    'useminPrepare',
+    'concat:generated',
+    'uglify:generated',
+    'cssmin:generated',
+    'filerev',
     'usemin',
     'htmlmin'
   ]);

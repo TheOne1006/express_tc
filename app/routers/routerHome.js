@@ -10,7 +10,13 @@ var searchCtrl = controller.search;
 var carouselCtrl = controller.carousel;
 
 
-module.exports = function (app) {
+module.exports = function (app, config) {
+
+  app.get('/', function (req, res){
+    res.sendFile(config.root + '/angular/views/home/index.html');
+    res.end();
+  });
+
   app.get(['/home/list/:cate([a-zA-Z0-9]+)/:page([0-9]+)',
     '/home/list',
     ], homeCtrl.list);

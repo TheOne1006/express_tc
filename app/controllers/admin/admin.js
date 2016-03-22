@@ -28,9 +28,8 @@ exports.checkSession = function  (req, res, next) {
 };
 
 exports.index = function (req, res) {
-    res.render('admin/index',{
-      title:'TheOne后台',
-    });
+    res.sendFile(config.root + '/angular/views/home/index.html');
+    res.end();
   };
   // .get('/add/user',function (req, res) {
   //   var md5 = crypto.createHash('md5').update('xxxx');

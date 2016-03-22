@@ -18,7 +18,6 @@ var carouselCtrl = controllers.carousel;
 var pictureCtrl = controllers.picture;
 
 
-
   module.exports = function (app, config) {
     // 中间件
     uploadMiddle.upload(app, config);
@@ -30,7 +29,10 @@ var pictureCtrl = controllers.picture;
 
     // 后台
     app.use('/admin',adminCtrl.checkSession);
-    // app.get('/admin', adminCtrl.index);
+    app.get('/admin', function (req, res) {
+      res.sendFile(config.root + '/angular/views/admin/index.html');
+      res.end();
+    });
 
     // 后台文章
     app.put('/admin/article/add', articleCtrl.add);
