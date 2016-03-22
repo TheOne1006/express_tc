@@ -371,33 +371,17 @@ module.exports = function (grunt) {
        scripts: {
          src: [
            '<%= appCon.dist %>/public/scripts/**/**.js',
-           '<%= appCon.dist %>/angular/scripts/**/**.js',
-         ]
-       },
-       css: {
-         src:[
-           '<%= appCon.dist %>/public/css/**/**.css'
-         ]
+           '<%= appCon.dist %>/angular/scripts/**/**.js']
        }
     },
     useminPrepare :{
-      // home: [
-      //     '<%= appCon.dist %>/<%= appCon.clientHomeTemp %>/index.html'
-      // ],
-      admin: [
-        '<%= appCon.dist %>/<%= appCon.clientAdminTemp %>/index.html'
-      ],
+      html: '<%= appCon.dist %>/<%= appCon.clientHomeTemp %>/index.html',
       options: {
         dest: '<%= appCon.dist %>'
       }
     },
     usemin: {
-      // home: [
-      //   '<%= appCon.dist %>/<%= appCon.clientHomeTemp %>/index.html'
-      // ],
-      admin: [
-        '<%= appCon.dist %>/<%= appCon.clientAdminTemp %>/index.html'
-      ],
+      html: ['<%= appCon.dist %>/<%= appCon.clientHomeTemp %>/index.html'],
       options: {
           assetsDirs: ['<%= appCon.dist %>']
       }
@@ -501,7 +485,6 @@ module.exports = function (grunt) {
     'useminPrepare',
     'concat:generated',
     'uglify:generated',
-    'cssmin:generated',
     'filerev',
     'usemin'
   ]);
