@@ -26,10 +26,10 @@ angular
 
     // 获取所有cate
     catesService
-      .allList()
+      .list()
       .$promise
       .then(function (data) {
-        console.log(data);
+        // console.log(data);
         $scope.cates = data;
       });
 
@@ -47,7 +47,7 @@ angular
     $scope.save = function () {
 
       articleService
-        .save($scope.newArticle, $scope.keyWords)
+        .create($scope.newArticle, $scope.keyWords)
         .then(function (data) {
           console.log('success');
           console.log(data);

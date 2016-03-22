@@ -12,7 +12,7 @@
 
 angular
   .module('theoneAppAdmin.controllers')
-  .controller('CateController',['$scope','$http','$modal', 'adminModalService', function ($scope, $http, $modal, adminModalService) {
+  .controller('CateController',['$scope','$http','$modal', 'adminModalService', 'catesService', function ($scope, $http, $modal, adminModalService, catesService) {
 
      $scope.tableName = '类别表';
 
@@ -26,14 +26,14 @@ angular
      //分页设置
      $scope.pagingOptions = {
          pageSizes: [5, 10, 20],
-         pageSize: 6,
+         pageSize: 10,
          currentPage: 1
      };
 
      //  －－固定写法
      $scope.setPagingData = function(data, page, pageSize) {
-       var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
-       $scope.myData = pagedData;
+      //  var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
+       $scope.myData = data;
        $scope.totalServerItems = data.length;
        if (!$scope.$$phase) {
            $scope.$apply();
@@ -41,26 +41,23 @@ angular
      };
 
      // 根据路由传递过来的参数
-     $scope.getPagedDataAsync = function (pageSize, page, searchText) {
-       setTimeout(function () {
-           var data;
-           if (searchText) {
-               var ft = searchText.toLowerCase();
-               $http.get('/angular/data/typeList.json')
-               .success(function (largeLoad) {
-                   data = largeLoad.filter(function(item) {
-                       return JSON.stringify(item).toLowerCase().indexOf(ft) !== -1;
-                   });
-                   $scope.setPagingData(data,page,pageSize);
-               });
-           } else {
-             // 获取json 最后一行不应有 ,
-               $http.get('/admin/cate')
-                 .success(function (largeLoad) {
-                   $scope.setPagingData(largeLoad,page,pageSize);
-                 });
+     $scope.getPagedDataAsync = function (limit, page, keyword) {
+
+           if(keyword && angular.isString(keyword)) {
+             keyword = keyword.toLowerCase();
            }
-       }, 100);
+           var options = {
+                page: page,
+                limit : limit,
+                keyword: keyword
+             };
+
+             catesService
+               .list(options)
+               .$promise
+               .then(function (data) {
+                 $scope.setPagingData(data, page, limit);
+               });
      };
 
      $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);

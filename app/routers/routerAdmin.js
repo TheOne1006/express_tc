@@ -14,7 +14,6 @@ var adminCtrl = controllers.admin;
 var articleCtrl = controllers.article;
 var cateCtrl = controllers.cate;
 var userCtrl = controllers.user;
-var tagCtrl = controllers.tag;
 var carouselCtrl = controllers.carousel;
 var pictureCtrl = controllers.picture;
 
@@ -52,8 +51,6 @@ var pictureCtrl = controllers.picture;
     app.get('/admin/cate/id/:id', cateCtrl.getById);
     app.delete('/admin/cate/id/:id', cateCtrl.delById);
 
-    // 后台Tag
-    app.get('/admin/tag/list', tagCtrl.list);
 
     // 后台Carousel
     app.put('/admin/carousel/add', carouselCtrl.add);
@@ -91,9 +88,18 @@ var pictureCtrl = controllers.picture;
 
     // URL RESRful
     // api 方便扩展
-    app.get('/admin/api/tags', tagCtrl.list);
-
     app.put('/admin/api/article', articleCtrl.add);
-    app.get('/admin/api/cates', cateCtrl.allList);
+    app.get('/admin/api/article/:id', articleCtrl.getById);
+    app.delete('/admin/api/article/:id', articleCtrl.delById);
+    app.post('/admin/api/article/:id', articleCtrl.edit);
+
     app.get('/admin/api/articles', articleCtrl.allList);
+    app.get('/admin/api/articles/:cateId', articleCtrl.getByCate);
+
+
+    app.get('/admin/api/cates', cateCtrl.allList);
+
+
+    app.get('/admin/api/pictures', pictureCtrl.list);
+
   };

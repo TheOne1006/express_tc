@@ -100,7 +100,7 @@ var OriginOptions = {
   page : 1
 };
 
- CateSchema.static('list', function ( options, joinCate , joinTopArticles , next) {
+ CateSchema.static('list', function ( options, joinCate , next) {
 
   // 前置内容处理
   joinCate  = joinCate || false;
@@ -111,10 +111,6 @@ var OriginOptions = {
   var cateHandle;
 
   cateHandle = this.find();
-
-  if(joinTopArticles) {
-    cateHandle.populate('topArticles');
-  }
 
   cateHandle
     .skip(options.limit * (options.page - 1))

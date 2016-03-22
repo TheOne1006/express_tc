@@ -19,15 +19,15 @@ angular
 
    $scope.anywords = [];
 
-   tagsService
-    .allList()
-    .$promise
-    .then(function ( tags ) {
-      $scope.anywords = $filter('getSingleFiled')( tags, 'name');
-    });
+  //  tagsService
+  //   .allList()
+  //   .$promise
+  //   .then(function ( tags ) {
+  //     $scope.anywords = $filter('getSingleFiled')( tags, 'name');
+  //   });
 
    //预输入
-   // $scope.anywords = ['PHP','angular','javascript','mysql'];
+   $scope.anywords = ['PHP','angular','javascript','mysql'];
 
    // 定义 ngGrid
    // 过滤文本

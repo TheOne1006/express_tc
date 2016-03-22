@@ -14,8 +14,8 @@
 
 
      return {
-       allList: function () {
-         return resource.query();
+       list: function ( options) {
+         return resource.query(options);
        }
      };
    }]);

@@ -1,22 +1,23 @@
 angular
   .module('theoneAppAdmin.controllers')
-  .controller('DelArticleController', ['$scope', '$modalInstance', 'adminModalService', function ($scope, $modalInstance, adminModalService) {
+  .controller('DelArticleController', ['$scope', '$modalInstance', 'adminModalService', 'articleService', function ($scope, $modalInstance, adminModalService, articleService) {
 
-    var _id;
-    _id = adminModalService.current();
+    var _id = adminModalService.current();
 
-
-    adminModalService.getId('/admin/article/id/'+_id)
-      .success(function (data) {
+    articleService
+      .get(_id)
+      .then( function (data) {
         $scope.article = data;
-      });
+      })
 
-    $scope.ok = function () {
-      adminModalService.delId('/admin/article/id/'+_id)
-        .success(function (data) {
+    $scope.confirm = function () {
+      articleService
+        .del(_id)
+        .then(function (data) {
           console.log(data);
+          $modalInstance.close();
         });
-      $modalInstance.close();
+
     };
 
     $scope.cancel = function () {

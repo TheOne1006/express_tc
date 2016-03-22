@@ -43,4 +43,33 @@ PictureSchema.pre('save', function (next) {
     next();
 });
 
+/**
+ * 列表
+ */
+var OriginOptions = {
+  limit : 10,
+  page : 1
+};
+
+PictureSchema.static('list', function ( options , next) {
+
+ // 前置内容处理
+ joinCate  = joinCate || false;
+ options = _.extend({}, OriginOptions, options);
+
+ // 变量声明
+ var handle;
+
+ handle = this.find();
+
+ handle
+   .skip(options.limit * (options.page - 1))
+   .limit(options.limit)
+   .exec(next);
+});
+
+
+
+
+
 mongoose.model('Picture', PictureSchema);
