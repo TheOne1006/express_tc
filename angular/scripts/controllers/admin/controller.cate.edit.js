@@ -11,8 +11,7 @@
  */
  angular
    .module('theoneAppAdmin.controllers')
-   .controller('EditCateController', ['$scope', '$modalInstance', 'adminModalService', 'cateService', 'articlesService',
-     function ($scope, , $modalInstance, adminModalService,  cateService, articlesService) {
+   .controller('EditCateController', ['$scope', '$modalInstance', 'adminModalService', 'cateService', 'articlesService', function ($scope, $modalInstance, adminModalService,  cateService, articlesService) {
        var _id = adminModalService.current();
 
        $scope.cate = {};

@@ -27,7 +27,6 @@ angular
     // 获取所有cate
     catesService
       .list()
-      .$promise
       .then(function (data) {
         // console.log(data);
         $scope.cates = data;

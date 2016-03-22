@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
 
-    <!-- build:css(public) #{env}/public/css/admin/theoneAdmin.css -->
+    <!-- build:css(public,.tmp) /public/css/admin/theoneAdmin.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="/components/ng-grid/ng-grid.css" />
     <link rel="stylesheet" href="/components/ng-tags-input/ng-tags-input.min.css" />
@@ -23,11 +23,9 @@
     <script src="http://localhost:35729/livereload.js"></script>
     <!-- endbuild -->
 
-    <!-- build:js(public) #{env}/public/tinymce/tinymce.min.js -->
-    <script src="/components/tinymce/tinymce.min.js"></script>
-    <!-- endbuild -->
+    <!-- <script src="/components/tinymce/tinymce.min.js"></script> -->
 
-    <!-- build:js(public) #{env}/public/scripts/admin/base.js -->
+    <!-- build:js(public) /public/scripts/admin/base.js -->
     <!-- bower:js -->
     <script src="/components/jquery/dist/jquery.js"></script>
     <script src="/components/es5-shim/es5-shim.js"></script>
@@ -108,7 +106,7 @@
   </body>
 
   <!-- angular -->
-  <!-- build:js(.) #{env}/angular/scripts/admin/adminIndex.js -->
+  <!-- build:js(.) /angular/scripts/admin/adminIndex.js -->
   <script src="/angular/scripts/admin.js"></script>
   <!-- directives -->
   <script src="/angular/scripts/directive/admin/preview-img.js"></script>
@@ -153,7 +151,6 @@
   <script src="/angular/scripts/services/admin/service.articles.js"></script>
   <script src="/angular/scripts/services/admin/service.cates.js"></script>
   <script src="/angular/scripts/services/admin/service.cate.js"></script>
-
 
   <!-- filters -->
   <script src="/angular/scripts/filter/admin/get-single-filed.js"></script>

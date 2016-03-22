@@ -367,21 +367,40 @@ module.exports = function (grunt) {
         preserveComments:false
       }
     },
-    rev: {
-      options: {
-        encoding: 'utf8',
-        algorithm: 'md5',
-        length: 8
-      }
+    filerev: {
+       scripts: {
+         src: [
+           '<%= appCon.dist %>/public/scripts/**/**.js',
+           '<%= appCon.dist %>/angular/scripts/**/**.js',
+         ]
+       },
+       css: {
+         src:[
+           '<%= appCon.dist %>/public/css/**/**.css'
+         ]
+       }
     },
     useminPrepare :{
-      html: '<%= appCon.dist %>/<%= appCon.clientHomeTemp %>/index.html',
+      // home: [
+      //     '<%= appCon.dist %>/<%= appCon.clientHomeTemp %>/index.html'
+      // ],
+      admin: [
+        '<%= appCon.dist %>/<%= appCon.clientAdminTemp %>/index.html'
+      ],
       options: {
         dest: '<%= appCon.dist %>'
       }
     },
     usemin: {
-      html: ['<%= appCon.dist %>/<%= appCon.clientHomeTemp %>/index.html']
+      // home: [
+      //   '<%= appCon.dist %>/<%= appCon.clientHomeTemp %>/index.html'
+      // ],
+      admin: [
+        '<%= appCon.dist %>/<%= appCon.clientAdminTemp %>/index.html'
+      ],
+      options: {
+          assetsDirs: ['<%= appCon.dist %>']
+      }
     },
 
     // 并行任务
@@ -393,16 +412,12 @@ module.exports = function (grunt) {
       ]
     },
     // md5 文件
-    filerev: {
-      dist: {
-        files: {
-          src: [
-            '<%= appCon.dist %>/public/css/{,*/}*.css',
-            '<%= appCon.dist %>/script/home/*.js'
-          ]
-        }
-      }
-    },
+    // filerev: {
+    //   basejs: {
+    //     src: ['<%= appCon.dist %>/{,*/**/}*.js'],
+    //     dest: '<%= appCon.dist %>'
+    //   }
+    // },
 
     htmlmin: {
       dist: {
