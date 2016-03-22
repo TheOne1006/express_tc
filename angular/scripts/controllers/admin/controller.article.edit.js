@@ -10,7 +10,6 @@ angular
     // 获取所有cate
     catesService
       .list()
-      .$promise
       .then(function (data) {
         $scope.cates = data;
       });

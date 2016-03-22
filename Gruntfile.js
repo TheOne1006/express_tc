@@ -476,6 +476,7 @@ module.exports = function (grunt) {
     'cssmin:generated',
     'filerev',
     'usemin',
+    'copy:tinymce',
     'htmlmin'
   ]);
 
