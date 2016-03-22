@@ -372,16 +372,19 @@ module.exports = function (grunt) {
          src: [
            '<%= appCon.dist %>/public/scripts/**/**.js',
            '<%= appCon.dist %>/angular/scripts/**/**.js']
+       },
+       css: {
+         src: ['<%= appCon.dist %>/public/css/**/**.css']
        }
     },
     useminPrepare :{
-      html: '<%= appCon.dist %>/<%= appCon.clientHomeTemp %>/index.html',
+      html: ['<%= appCon.dist %>/<%= appCon.clientHomeTemp %>/index.html','<%= appCon.dist %>/<%= appCon.clientAdminLoginTemp %>/index.html','<%= appCon.dist %>/<%= appCon.clientAdminTemp %>/index.html'],
       options: {
         dest: '<%= appCon.dist %>'
       }
     },
     usemin: {
-      html: ['<%= appCon.dist %>/<%= appCon.clientHomeTemp %>/index.html'],
+      html: ['<%= appCon.dist %>/<%= appCon.clientHomeTemp %>/index.html','<%= appCon.dist %>/<%= appCon.clientAdminLoginTemp %>/index.html','<%= appCon.dist %>/<%= appCon.clientAdminTemp %>/index.html'],
       options: {
           assetsDirs: ['<%= appCon.dist %>']
       }
@@ -395,13 +398,6 @@ module.exports = function (grunt) {
         // 'svgmin'
       ]
     },
-    // md5 文件
-    // filerev: {
-    //   basejs: {
-    //     src: ['<%= appCon.dist %>/{,*/**/}*.js'],
-    //     dest: '<%= appCon.dist %>'
-    //   }
-    // },
 
     htmlmin: {
       dist: {
@@ -485,6 +481,7 @@ module.exports = function (grunt) {
     'useminPrepare',
     'concat:generated',
     'uglify:generated',
+    'cssmin:generated',
     'filerev',
     'usemin'
   ]);
