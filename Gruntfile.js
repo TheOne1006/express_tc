@@ -58,10 +58,6 @@ module.exports = function (grunt) {
       }
     },
     // Automatically inject Bower components into the app
-    /**
-     * jade
-     * //- 注释
-     */
     wiredep: {
       admin: {
         src: ['<%= appCon.clientAdminTemp %>/*.html'],
@@ -156,13 +152,6 @@ module.exports = function (grunt) {
         options: {
           livereload: reloadPort
         }
-      },
-      views: {
-        files: [
-          'app/views/*.jade',
-          'app/views/**/*.jade'
-        ],
-        options: { livereload: reloadPort }
       },
       angular:{
         files:[
@@ -259,7 +248,7 @@ module.exports = function (grunt) {
           cwd: '<%= appCon.expressApp %>',
           dest: '<%= appCon.dist %>/<%= appCon.expressApp %>',
           src: [
-            '{,*/**/}*.{js,jade}'
+            '{,*/**/}*.{js}'
           ]
         }, {
           expand: true,
@@ -378,37 +367,21 @@ module.exports = function (grunt) {
         preserveComments:false
       }
     },
-    // Performs rewrites based on filerev and the useminPrepare configuration
-    jadeUsemin: {
+    rev: {
       options: {
-        dirTasks: 'filerev',
-        replacePath: {       //替换
-            '#{env}': ''
-        },
-        targetPrefix: '<%= appCon.dist %>',
-        tasks: {
-            js: ['concat', 'uglify', 'filerev'],
-            css: ['concat', 'cssmin', 'autoprefixer', 'filerev']
-        }
-      },
-      home: {
-          files: [{
-              dest: '<%= appCon.dist%>/<%= appCon.homeTemp %>/layout.jade',
-              src: '<%= appCon.homeTemp %>/layout.jade',
-          }]
-      },
-      admin: {
-        files: [{
-            dest: '<%= appCon.dist%>/<%= appCon.adminTemp %>/layout.jade',
-            src: '<%= appCon.adminTemp %>/layout.jade',
-        },{
-          dest: '<%= appCon.dist%>/<%= appCon.adminTemp %>/login.jade',
-          src: '<%= appCon.adminTemp %>/login.jade',
-        },{
-          dest: '<%= appCon.dist%>/<%= appCon.adminTemp %>/user.jade',
-          src: '<%= appCon.adminTemp %>/user.jade',
-        }]
+        encoding: 'utf8',
+        algorithm: 'md5',
+        length: 8
       }
+    },
+    useminPrepare :{
+      html: '<%= appCon.dist %>/<%= appCon.clientHomeTemp %>/index.html',
+      options: {
+        dest: '<%= appCon.dist %>'
+      }
+    },
+    usemin: {
+      html: ['<%= appCon.dist %>/<%= appCon.clientHomeTemp %>/index.html']
     },
 
     // 并行任务
@@ -495,15 +468,27 @@ module.exports = function (grunt) {
     ]);
   });
 
-// grunt-usemin (userminPrepare, usemin)
+// grunt-usemin (useminPrepare, usemin)
   grunt.registerTask('build', '项目生成',[
-    'clean:dist',
+    'clean',
     'wiredep',
+    'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
     'copy',
-    'jadeUsemin',
+    'usemin',
     'htmlmin'
+  ]);
+
+  grunt.registerTask('test_usemin', '测试usemin',[
+    'clean',
+    'copy:angulardist',
+    'useminPrepare',
+    'concat:generated',
+    'uglify:generated',
+    'cssmin:generated',
+    'filerev',
+    'usemin'
   ]);
 
 };

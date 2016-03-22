@@ -10,3 +10,4 @@ blog/
 !public/components/tinymce/plugins/prettify/*
 .sass-cache
 .env
+.tmp
