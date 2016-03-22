@@ -76,6 +76,7 @@ exports.delById = function (req, res, next) {
       if(err){
         return next(err);
       }
+      res.json({result:'ok'});
       res.end();
      });
   };
@@ -92,7 +93,7 @@ exports.editById = function (req, res, next) {
         .count({cate:cateId},cb);
     },
     function (countResult, cb) {
-      
+
       Cate.findByIdAndUpdate(cateId,
       {
         alias:editCate.alias,
@@ -105,6 +106,7 @@ exports.editById = function (req, res, next) {
     if(err) {
       return next(err);
     }
-    res.end('ok');
+    res.json({result:'ok'});
+    res.end();
   });
 };

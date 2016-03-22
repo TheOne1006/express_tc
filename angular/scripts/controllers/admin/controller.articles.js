@@ -11,7 +11,7 @@
  */
 angular
  .module('theoneAppAdmin.controllers')
- .controller('ArticleController', ['$scope', '$http', '$filter', '$timeout', 'adminModalService', 'tagsService', 'articlesService', function ($scope, $http, $filter, $timeout, adminModalService, tagsService, articlesService) {
+ .controller('ArticleController', ['$scope', '$http', '$filter', '$timeout', 'adminModalService', 'articlesService', function ($scope, $http, $filter, $timeout, adminModalService, articlesService) {
 
    var watchForGoany = '';
 

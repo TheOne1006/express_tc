@@ -15,7 +15,7 @@
 
      return {
        list: function ( options) {
-         return resource.query(options);
+         return resource.query(options).$promise;
        }
      };
    }]);

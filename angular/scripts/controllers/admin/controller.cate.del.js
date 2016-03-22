@@ -11,24 +11,25 @@
  */
 angular
   .module('theoneAppAdmin.controllers')
-  .controller('DelCateController', ['$scope', '$modalInstance', 'adminModalService',
-   function ($scope, $modalInstance, adminModalService) {
+  .controller('DelCateController', ['$scope', '$modalInstance', 'adminModalService', 'cateService',
+   function ($scope, $modalInstance, adminModalService, cateService) {
      var _id = adminModalService.current();
 
      $scope.cate = {};
 
-     //验证
-     adminModalService.getId('/admin/cate/id/'+_id)
-       .success(function (data) {
-         $scope.cate = data;
-       });
+     cateService
+      .get(_id)
+      .then(function (data) {
+        $scope.cate = data;
+      });
 
-     $scope.ok = function () {
-       adminModalService.delId('/admin/cate/id/'+_id)
-         .success(function (data) {
-
-           $modalInstance.close();
-         });
+     $scope.confirm = function () {
+       cateService
+        .del(_id)
+        .then(function (data) {
+          console.log(data);
+          $modalInstance.close();
+        });
      };
 
      $scope.cancel = function () {

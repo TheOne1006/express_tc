@@ -54,7 +54,6 @@ angular
 
              catesService
                .list(options)
-               .$promise
                .then(function (data) {
                  $scope.setPagingData(data, page, limit);
                });

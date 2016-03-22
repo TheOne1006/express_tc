@@ -16,13 +16,15 @@ var mongoose = require('mongoose'),
 
 exports.allList = function (req, res, next) {
 
-  var limit = req.param('limit') || 10,
-    page = req.param('page') || 1,
-    keyword = req.param('keyword') || '',
+  var limit = req.query.limit || req.body.limit || 10,
+    page = req.query.page || req.body.page || 1,
+    keyword = req.query.keyword || req.body.keyword || '',
+    cate = req.query.cate || req.body.cate || '',
     options = {
       limit: limit,
       page: page,
-      keyword: keyword
+      keyword: keyword,
+      cate: cate
     };
 
   Article

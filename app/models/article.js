@@ -74,13 +74,20 @@ ArticleSchema.static('list', function ( options, joinCate , next) {
 
   // 变量声明
   var regObj,
+    findObj = {},
+    skip = options.limit * (options.page - 1),
     articleHanle;
 
   if(options.keyword) {
     regObj = new RegExp(options.keyword);
   }
 
-  articleHanle = this.find();
+  if(options.cate) {
+    findObj.cate = options.cate;
+  }
+
+
+  articleHanle = this.find(findObj);
 
   if(options.keyword) {
     articleHanle
@@ -91,8 +98,12 @@ ArticleSchema.static('list', function ( options, joinCate , next) {
         );
   }
 
+  if(skip > 0 ) {
+    articleHanle
+      .skip(skip);
+  }
+
   articleHanle
-    .skip(options.limit * (options.page - 1))
     .limit(options.limit);
 
   if(joinCate) {
@@ -120,4 +131,3 @@ ArticleSchema.static('list', function ( options, joinCate , next) {
 
 
 mongoose.model('Article', ArticleSchema);
-

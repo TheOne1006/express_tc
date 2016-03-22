@@ -11,23 +11,24 @@
  */
  angular
    .module('theoneAppAdmin.controllers')
-   .controller('EditCateController', ['$scope', '$http', '$modalInstance', 'adminModalService',
-     function ($scope, $http, $modalInstance, adminModalService) {
+   .controller('EditCateController', ['$scope', '$modalInstance', 'adminModalService', 'cateService', 'articlesService',
+     function ($scope, , $modalInstance, adminModalService,  cateService, articlesService) {
        var _id = adminModalService.current();
 
        $scope.cate = {};
 
-       //验证
-       adminModalService.getId('/admin/cate/id/'+_id)
-         .success(function (data) {
-           $scope.cate = data;
-         });
+       cateService
+        .get(_id)
+        .then(function (data) {
+          $scope.cate = data;
+        });
 
-       // article list
-       $http.get('/admin/article/cate/'+_id)
-         .success(function (data) {
-           $scope.articles = data;
-         });
+      articlesService
+        .listByCate(_id)
+        .then(function (data) {
+          // console.log(data);
+          $scope.articles = data;
+        });
 
        // toggle selection for id
          $scope.toggleSelection = function toggleSelection(articleId) {
@@ -36,19 +37,18 @@
            // is currently selected
            if (idx > -1) {
              $scope.cate.topArticles.splice(idx, 1);
-           }
-
-           // is newly selected
-           else {
+           } else {
              $scope.cate.topArticles.push(articleId);
            }
+
          };
 
        $scope.save = function () {
-         $http.post('/admin/cate/edit/id/'+_id,{cate:$scope.cate})
-           .success(function(data) {
-             $modalInstance.close();
-           });
+         cateService
+          .save($scope.cate)
+          .then(function (data) {
+            $modalInstance.close();
+          });
        };
 
        $scope.cancel = function () {

@@ -10,38 +10,28 @@
  * controller module of theoneAppAdmin
  */
  angular.module('theoneAppAdmin.controllers')
- .controller('AddCateController', ['$scope', '$modalInstance', '$http', 'adminModalService', function ($scope, $modalInstance, $http, adminModalService) {
+ .controller('AddCateController', ['$scope', '$modalInstance', 'cateService', 'catesService', function ($scope, $modalInstance, cateService, catesService) {
      $scope.cate = {
        name:'',
        alias:'',
        pid:''
      };
 
-     adminModalService.cateList('/admin/cate/all')
-       .success(function (data) {
-         $scope.parentCates = data;
-       });
+     catesService
+      .list()
+      .then(function (data) {
+        $scope.parentCates = data;
+      });
 
-      $scope.ok = function () {
-       // 初始化 alias
-
-       if($scope.pid && $scope.pid._id){
-         $scope.pid = $scope.pid._id;
-       }
-
-       $http.put('/admin/cate/add',{
-         cate:$scope.cate
-       })
-         .success(function(data, status){
-           console.log(data);
-           console.log(status);
-           $modalInstance.close('is_ok');
-         })
-         .error(function(data, status){
-           console.log(data);
-           console.log(status);
-           $modalInstance.close();
-         });
+      $scope.save = function () {
+       cateService
+        .create( $scope.cate)
+        .then(function (data) {
+          console.log(data);
+          $modalInstance.close();
+        }, function ( error) {
+          $modalInstance.close();
+        });
      };
 
      $scope.cancel = function () {

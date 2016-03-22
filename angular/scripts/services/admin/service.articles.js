@@ -10,12 +10,15 @@
  angular
    .module('theoneAppAdmin.services')
    .factory('articlesService', ['$resource', function ($resource) {
-     var resource = $resource('/admin/api/articles',{page:1, limit:10, keyword:'@keyword'});
+     var resource = $resource('/admin/api/articles',{page:1, limit:10, keyword:'@keyword',cate: '@cateId'});
 
 
      return {
        list: function ( options ) {
          return resource.query(options);
+       },
+       listByCate: function (cateId) {
+        return resource.query({cate:cateId, limit: 100}).$promise;
        }
      };
    }]);

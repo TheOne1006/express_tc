@@ -90,8 +90,8 @@ var pictureCtrl = controllers.picture;
     // api 方便扩展
     app.put('/admin/api/article', articleCtrl.add);
     app.get('/admin/api/article/:id', articleCtrl.getById);
-    app.delete('/admin/api/article/:id', articleCtrl.delById);
     app.post('/admin/api/article/:id', articleCtrl.edit);
+    app.delete('/admin/api/article/:id', articleCtrl.delById);
 
     app.get('/admin/api/articles', articleCtrl.allList);
     app.get('/admin/api/articles/:cateId', articleCtrl.getByCate);
@@ -99,6 +99,10 @@ var pictureCtrl = controllers.picture;
 
     app.get('/admin/api/cates', cateCtrl.allList);
 
+    app.put('/admin/api/cate', cateCtrl.add);
+    app.get('/admin/api/cate/:id', cateCtrl.getById);
+    app.post('/admin/api/cate/:id', cateCtrl.editById);
+    app.delete('/admin/api/cate/:id', cateCtrl.delById);
 
     app.get('/admin/api/pictures', pictureCtrl.list);
 
