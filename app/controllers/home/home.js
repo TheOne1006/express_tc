@@ -55,7 +55,6 @@ exports.list = function (req, res, next) {
         return next(err);
       }
       res.json(results);
-      res.end();
     });
 };
 
@@ -70,7 +69,6 @@ exports.cateList = function (req, res, next) {
         return next(err);
       }
       res.json(results);
-      res.end();
     });
 };
 
@@ -87,6 +85,5 @@ exports.indexList = function  (req, res, next) {
         return next(err);
       }
       res.json(results);
-      res.end();
     });
 };

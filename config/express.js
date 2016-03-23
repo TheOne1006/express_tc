@@ -28,7 +28,7 @@ module.exports = function(app, config) {
 
   // if(app.get('env') === 'production') {
     // prerender
-    app.use(require('prerender-node').set('prerenderServiceUrl', config.prerenderUrl));
+   // app.use(require('prerender-node').set('prerenderServiceUrl', config.prerenderUrl));
   // }
 
   app.use(compress());
@@ -90,13 +90,13 @@ module.exports = function(app, config) {
     require(router)(app, config);
   });
 
-  if(app.get('env') !== 'development'){
-    app.use('/admin',function (req, res, next) {
+  if(app.get('env') === 'development'){
+    app.use('/admin',function (req, res) {
       res.sendFile(config.root + '/angular/views/admin/index.html');
       res.end();
     });
 
-    app.use(function (req, res) {
+    app.use('/', function (req, res) {
       res.sendFile(config.root + '/angular/views/home/index.html');
       res.end();
     });
@@ -110,13 +110,14 @@ module.exports = function(app, config) {
     next(err);
   });
 
-  if(app.get('env') === 'development') {
-    mongoose.set('debug', config.debug);
-  }
+  mongoose.set('debug', config.debug);
+
 
   app.use(function (err, req, res) {
-    res.status(err.status || 500);
-    res.json(err);
+    if(err) {
+      res.status(err.status || 500);
+      res.json(err);
+    }
     res.end();
   });
 

@@ -27,10 +27,8 @@ exports.checkSession = function  (req, res, next) {
   }
 };
 
-exports.index = function (req, res) {
-    res.sendFile(config.root + '/angular/views/home/index.html');
-    res.end();
-  };
+// exports.index = function (req, res) {
+//   };
   // .get('/add/user',function (req, res) {
   //   var md5 = crypto.createHash('md5').update('xxxx');
   //   var newUser = new User({

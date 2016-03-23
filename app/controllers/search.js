@@ -33,6 +33,5 @@ exports.goAngthing = function (req, res, next) {
         return next(err);
       }
       res.json(results);
-      res.end();
     });
 };

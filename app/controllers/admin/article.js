@@ -7,7 +7,6 @@ var mongoose = require('mongoose'),
   async = require('async'),
   Article = mongoose.model('Article'),
   _ = require('underscore'),
-  Tag = mongoose.model('Tag'),
   publicArticle = require('../article');
 
 

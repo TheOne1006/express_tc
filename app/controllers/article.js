@@ -20,7 +20,6 @@ exports.list = function (req, res, next) {
       return next(err);
     }
     res.json(articles);
-    res.end();
   });
 };
 
@@ -82,7 +81,6 @@ exports.getById = function (req, res, next) {
           }
 
           res.json(singleArticle);
-          res.end();
       });
 };
 
@@ -116,8 +114,6 @@ exports.getListByCate = function (req, res, next) {
         return next(err);
       }
       res.json(result);
-      res.end();
-
     });
 };
 
@@ -146,8 +142,6 @@ exports.getCountByCate = function(req, res, next ){
       return next( err );
     }
     res.json({total:countNum});
-    res.end(countNum);
-
   } );
 
 
@@ -171,7 +165,6 @@ exports.getCountByCateId = function(req, res, next ){
       return next( err );
     }
     res.json({total:countNum});
-    res.end(countNum);
   } );
 
 
@@ -205,8 +198,6 @@ exports.getArticlesByCateId = function (req, res, next) {
         return next(err);
       }
       res.json(result);
-      res.end();
-
     });
 };
 
@@ -246,8 +237,6 @@ exports.getArticleById = function (req, res, next) {
           if(err){
             return next(err);
           }
-
           res.json(singleArticle);
-          res.end();
       });
 };
