@@ -93,6 +93,7 @@ module.exports = function(app, config) {
   if(app.get('env') !== 'development'){
     app.use('/admin',function (req, res) {
       res.sendFile(config.root + '/angular/views/admin/index.html');
+      res.end();
     });
 
     app.use(function (req, res) {
@@ -111,11 +112,6 @@ module.exports = function(app, config) {
 
   if(app.get('env') === 'development'){
     mongoose.set('debug', config.debug);
-    app.use(function (err, req, res) {
-      res.status(err.status || 500);
-      res.json(err);
-      res.end();
-    });
   }
 
   app.use(function (err, req, res) {
