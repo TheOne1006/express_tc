@@ -97,6 +97,7 @@ module.exports = function(app, config) {
 
     app.use(function (req, res) {
       res.sendFile(config.root + '/angular/views/home/index.html');
+      res.end();
     });
   }
 
@@ -112,21 +113,15 @@ module.exports = function(app, config) {
     mongoose.set('debug', config.debug);
     app.use(function (err, req, res) {
       res.status(err.status || 500);
-      res.render('error', {
-        message: err.message,
-        error: err,
-        title: 'error'
-      });
+      res.json(err);
+      res.end();
     });
   }
 
   app.use(function (err, req, res) {
     res.status(err.status || 500);
-      res.render('error', {
-        message: err.message,
-        error: {},
-        title: 'error'
-      });
+    res.json(err);
+    res.end();
   });
 
 };
