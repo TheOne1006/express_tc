@@ -17,8 +17,8 @@ var MongoStore = require('connect-mongo')(session);
 // var fs = require('fs');
 
 module.exports = function(app, config) {
-  app.set('views', config.root + '/app/views');
-  app.set('view engine', 'jade');
+  // app.set('views', config.root + '/app/views');
+  // app.set('view engine', 'jade');
 
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({
@@ -91,7 +91,7 @@ module.exports = function(app, config) {
   });
 
   if(app.get('env') !== 'development'){
-    app.use('/admin',function (req, res) {
+    app.use('/admin',function (req, res, next) {
       res.sendFile(config.root + '/angular/views/admin/index.html');
       res.end();
     });
@@ -110,7 +110,7 @@ module.exports = function(app, config) {
     next(err);
   });
 
-  if(app.get('env') === 'development'){
+  if(app.get('env') === 'development') {
     mongoose.set('debug', config.debug);
   }
 

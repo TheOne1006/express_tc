@@ -16,9 +16,10 @@ var async = require('async'),
 
 
 exports.index = function (req, res) {
-    res.render('admin/user',{
-      title:'管理员信息'
-    });
+    // res.render('admin/user',{
+    //   title:'管理员信息'
+    // });
+    res.end();
   };
 
 exports.myInfo = function (req, res, next) {
@@ -149,7 +150,7 @@ exports.face = {
       function (ph, cb) {
         // 已经存在
         if(ph.facePlusPlus){
-          return cb({err:'is uploaded'}); 
+          return cb({err:'is uploaded'});
         }
         if(!ph.cloudinary || !ph.cloudinary.url){
           return cb({err:'undefined cloudinary url'});
@@ -189,7 +190,7 @@ exports.face = {
       res.end('delete ok');
     });
   }
-  
+
 };
 
   /**
@@ -233,7 +234,7 @@ exports.addMyPhotos = function (req, res, next) {
         if(err){
           return next(err);
         }
-        
+
         Adminph.arraySave(picPathArr,req.session.userId,function (err) {
           if(err){
             return next(err);
@@ -261,7 +262,7 @@ exports.cloudinary = {
       function (ph, cb) {
         // 已经存在
         if(ph.cloudinary){
-          return cb({err:'is uploaded'}); 
+          return cb({err:'is uploaded'});
         }
         photoPath = ROOT_PATH+'/'+ph.path;
         adminPhoto = ph;
@@ -328,6 +329,3 @@ exports.cloudinary = {
   //     res.end();
   //   });
   // });
-
-
-  
