@@ -92,13 +92,21 @@ module.exports = function(app, config) {
 
   if(app.get('env') === 'development'){
     app.use('/admin',function (req, res) {
-      res.sendFile(config.root + '/angular/views/admin/index.html');
-      res.end();
+      res.sendFile(config.root + '/angular/views/admin/index.html', {}, function (err) {
+        if(err) {
+          return next(err)
+        }
+        res.end();
+      });
     });
 
-    app.use('/', function (req, res) {
-      res.sendFile(config.root + '/angular/views/home/index.html');
-      res.end();
+    app.use('/', function (req, res, next) {
+      res.sendFile(config.root + '/angular/views/home/index.html',{}, function (err) {
+        if(err) {
+          return next(err)
+        }
+        res.end();
+      });
     });
   }
 

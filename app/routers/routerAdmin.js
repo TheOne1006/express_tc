@@ -30,8 +30,12 @@ var pictureCtrl = controllers.picture;
     // 后台
     app.use('/admin',adminCtrl.checkSession);
     app.get('/admin', function (req, res) {
-      res.sendFile(config.root + '/angular/views/admin/index.html');
-      res.end();
+      res.sendFile(config.root + '/angular/views/admin/index.html', {}, function (err) {
+        if(err) {
+          return next(err)
+        }
+        res.end();
+      });
     });
 
     // 后台文章
