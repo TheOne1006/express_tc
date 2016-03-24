@@ -67,7 +67,7 @@ module.exports = function(app, config) {
     require(router)(app, config);
   });
 
-  if(app.get('env') === 'development') {
+  if(app.get('env') !== 'development') {
 
     app.use('/admin',function (req, res, next) {
       res.sendFile(config.root + '/angular/views/admin/index.html', {}, function (err) {
