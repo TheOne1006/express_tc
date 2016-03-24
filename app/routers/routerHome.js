@@ -12,7 +12,7 @@ var carouselCtrl = controller.carousel;
 
 module.exports = function (app, config) {
 
-  app.get('/', function (req, res){
+  app.get('/', function (req, res, next){
     res.sendFile(config.root + '/angular/views/home/index.html', {}, function (err) {
       if(err) {
         return next(err)

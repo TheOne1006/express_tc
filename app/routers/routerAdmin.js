@@ -29,7 +29,7 @@ var pictureCtrl = controllers.picture;
 
     // 后台
     app.use('/admin',adminCtrl.checkSession);
-    app.get('/admin', function (req, res) {
+    app.get('/admin', function (req, res, next) {
       res.sendFile(config.root + '/angular/views/admin/index.html', {}, function (err) {
         if(err) {
           return next(err)

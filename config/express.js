@@ -17,8 +17,6 @@ var MongoStore = require('connect-mongo')(session);
 // var fs = require('fs');
 
 module.exports = function(app, config) {
-  // app.set('views', config.root + '/app/views');
-  // app.set('view engine', 'jade');
 
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({
@@ -34,7 +32,7 @@ module.exports = function(app, config) {
   app.use(compress());
 
   // 开发模式下使用，生产环境下ngnix 配置
-  if(app.get('env') === 'development'){
+  if(app.get('env') === 'development') {
     app.use(logger('dev'));
     app.use(favicon(config.root + '/public/img/favicon.ico'));
     app.use(express.static(config.root + '/public'));
@@ -45,28 +43,7 @@ module.exports = function(app, config) {
 
   app.use(methodOverride());
 
-  // 判断reffer,执行重定向 (是否可以移动到 /app/routes/routerHome.js ?)
-  // app.use(function(req, res, next){
-  //   var urlArr = req.url.split('/'),
-  //   argUrlPart = urlArr[1] || '',
-  //   needRedirect = false;
-
-  //   if(argUrlPart === 'article' || argUrlPart === 'cate' || argUrlPart === 'search') {
-  //     needRedirect = true;
-  //   }
-
-
-  //   if(needRedirect) {
-  //       console.log('log-- redierct');
-  //       res.redirect('/#'+req.url);
-  //       return;
-  //   }
-
-  //   next();
-  // });
-
-
-    // session
+  // session
   app.use(session({
        secret: 'theone12138',
        // secure 关闭安全 secure
@@ -90,8 +67,9 @@ module.exports = function(app, config) {
     require(router)(app, config);
   });
 
-  if(app.get('env') === 'development'){
-    app.use('/admin',function (req, res) {
+  if(app.get('env') === 'development') {
+
+    app.use('/admin',function (req, res, next) {
       res.sendFile(config.root + '/angular/views/admin/index.html', {}, function (err) {
         if(err) {
           return next(err)
@@ -101,13 +79,14 @@ module.exports = function(app, config) {
     });
 
     app.use('/', function (req, res, next) {
-      res.sendFile(config.root + '/angular/views/home/index.html',{}, function (err) {
+      res.sendFile(config.root + '/angular/views/home/index.html', {}, function (err) {
         if(err) {
           return next(err)
         }
         res.end();
       });
     });
+
   }
 
 
