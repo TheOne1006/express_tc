@@ -20,3 +20,8 @@ var app = express();
 require('./config/express')(app, config);
 
 app.listen(config.port);
+
+
+process.on('uncaughtexception',function (err) {
+  console.error(err);
+});
